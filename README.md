@@ -4,6 +4,8 @@ Esse repositório contém meus trabalhos acadêmicos, feitos como avaliação na
 
 **Período:** 2004 - 2011
 
+* 2004/02
+ - [Programação II](https://github.com/juniorz/ufes/tree/master/programacao_2)
 * 2011/01
  - [Cálculo Numérico](https://github.com/juniorz/ufes/tree/master/calculo_numerico) (Numerical Calculus)
 

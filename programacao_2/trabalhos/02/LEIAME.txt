@@ -1,0 +1,35 @@
+/***************************************
+ *	Segundo trabalho de Programacao II
+ ***************************************
+ * Alunos: Reinaldo de Souza Junior
+ *         Rafael Garcia Birro
+ ***************************************/
+
+
+-- Informações --
+
+Cada linha do arquivo de entrada deve estar no seguinte formato:
+
+<origem> <destino> <quilometragem> <pedagio>
+
+Onde cada linha do arquivo corresponde à uma estrada da malha.
+
+
+
+Cada linha do arquivo de saida estará no seguinte formato:
+<caminho> <quilometragem> <gasto>
+
+onde <caminho> é uma string no seguinte formato:
+origem[-escala1[-escala2[-escala3[...]]]]-destino
+
+Ou seja, uma linha como 1-2-5-7 25.00 13.00 significa que o caminho
+vai da cidade 1 para a cidade 7 passando pelas cidades 2 e 5 nessa ordem.
+Alem disso a distancia total foi de 25km tendo um custo de R$ 13,00.
+
+
+---
+Atenciosamente,
+
+Reinaldo de Souza Junior
+e
+Rafael Garcia Birro
