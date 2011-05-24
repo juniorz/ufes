@@ -1,0 +1,463 @@
+     1                                  ; -----------------------------------------------
+     2                                  ; Segundo Trabalho de Linguagem de Montagem
+     3                                  ; Ciência da Computação - 2005/01 - UFES
+     4                                  ; -----------------------------------------------
+     5                                  ; Autor: Reinaldo Junior < juniorz [at] gmail [dot] com >
+     6                                  ; 	 http://www.phpbb.com.br/portal/
+     7                                  ; -----------------------------------------------
+     8                                  ; Criado em: 15/06/2005
+     9                                  ; Versão 0.0.1
+    10                                  ; -----------------------------------------------
+    11                                  ; Descrição:
+    12                                  ; Esse arquivo contem funçoes de garbage collection
+    13                                  ; -----------------------------------------------
+    14                                  
+    15                                  
+    16                                  ; -----------------------------------------------
+    17                                  ;               .:] Changelog [:.
+    18                                  ; -----------------------------------------------
+    19                                  ; 20/06/2005 11:15
+    20                                  ; Criado o arquivo
+    21                                  ; -----------------------------------------------
+    22                                  
+    23                                  %include "includes/macros.inc"
+    24                              <1> ; -----------------------------------------------
+    25                              <1> ; Segundo Trabalho de Linguagem de Montagem
+    26                              <1> ; Ciência da Computação - 2005/01 - UFES
+    27                              <1> ; -----------------------------------------------
+    28                              <1> ; Autor: Reinaldo Junior < juniorz [at] gmail [dot] com >
+    29                              <1> ; 	 http://www.phpbb.com.br/portal/
+    30                              <1> ; -----------------------------------------------
+    31                              <1> ; Criado em: 15/06/2005
+    32                              <1> ; Versão 0.0.1
+    33                              <1> ; -----------------------------------------------
+    34                              <1> ; Descrição:
+    35                              <1> ; Esse arquivo contem as macros utilizadas no programa
+    36                              <1> ; -----------------------------------------------
+    37                              <1> 
+    38                              <1> ; Constantes
+    39                              <1> %define ST_MEM_LIVRE	0
+    40                              <1> %define ST_MEM_OCUPADA	1
+    41                              <1> 
+    42                              <1> ;Status do telefone (marcara)
+    43                              <1> ;				xxxx	 	telefone entrou? (possui linha)
+    44                              <1> ;				    yyyy 	telefone ocupado? (fora do gancho)
+    45                              <1> %define MSK_TEL_OCUPADO		00001111b	; Fora do gancho (nao importa se esta fazendo ou recebendo ligações)
+    46                              <1> %define MSK_TEL_LIVRE		00000000b	; No do gancho (automaticamente nao esta fazendo ou recebendo ligacoes)
+    47                              <1> %define MSK_TEL_COMUNICACAO	11111111b	; Em comunicação (automaticamente ele esta fora do gancho, pois ao colocar no gancho ele sai da comunicaçao)
+    48                              <1> 
+    49                              <1> 
+    50                              <1> 
+    51                              <1> %define ST_TEL_LINHA	11110000b	; Telefone possui linha
+    52                              <1> 
+    53                              <1> %define MAPA_CADASTRO 0
+    54                              <1> %define MAPA_CONVERSA 1
+    55                              <1> %define MAPA_MENSAGEM 2
+    56                              <1> 
+    57                              <1> 
+    58                              <1> ; -----------------------------------------------
+    59                              <1> ;                .:] Macros [:.
+    60                              <1> ; -----------------------------------------------
+    61                              <1> 
+    62                              <1> ; -----------------------------------------------
+    63                              <1> ; [macro] _newline
+    64                              <1> ; [descr] imprime um \n
+    65                              <1> ; [param] descritor de arquivos destino para o \n
+    66                              <1> ; -----------------------------------------------
+    67                              <1> %macro	_newline 0-1 1
+    68                              <1> 	print_char 0xA, %1
+    69                              <1> %endmacro
+    70                              <1> 
+    71                              <1> 
+    72                              <1> ; -----------------------------------------------
+    73                              <1> ; [macro] print_char
+    74                              <1> ; [descr] imprime um caractere
+    75                              <1> ; [param] (1) caractere
+    76                              <1> ; 	  (2) descritor de arquivos destino para o caractere
+    77                              <1> ; -----------------------------------------------
+    78                              <1> %macro	print_char 1-2 1
+    79                              <1> 	push 	eax		; eax recebe retorno de print_z
+    80                              <1> 	pushfd			; Armazena os flags
+    81                              <1> 
+    82                              <1> 	push 	dword %1	; buffer
+    83                              <1> 	push 	esp		; ptr para o buffer 		(2)
+    84                              <1> 	push 	dword %2	; desc de arquivo - stdout 	(1)
+    85                              <1> 	call 	print_z
+    86                              <1> 	descarta_pilha 3	; Descarta o parametro
+    87                              <1> 
+    88                              <1> 	popfd			; Restaura os flags
+    89                              <1> 	pop	eax		; Restaura eax
+    90                              <1> %endmacro
+    91                              <1> 
+    92                              <1> 
+    93                              <1> ; -----------------------------------------------
+    94                              <1> ; [macro] print_str
+    95                              <1> ; [descr] imprime uma string
+    96                              <1> ; [param] (1) ptr para a string (zero-terminated)
+    97                              <1> ; 	  (2) descritor de arquivos destino
+    98                              <1> ; -----------------------------------------------
+    99                              <1> %macro	print_str 1-2 1
+   100                              <1> 	push %1
+   101                              <1> 	push %2
+   102                              <1> 	call print_z
+   103                              <1> 	descarta_pilha 2
+   104                              <1> %endmacro
+   105                              <1> 
+   106                              <1> ; -----------------------------------------------
+   107                              <1> ; [macro] macro_syscall
+   108                              <1> ; [descr] executa uma syscall
+   109                              <1> ; [param] (1) numero da syscall
+   110                              <1> ; -----------------------------------------------
+   111                              <1> %macro	macro_syscall	1
+   112                              <1> 	mov eax, dword %1	; Numero da syscall
+   113                              <1> 	int 80h			; Chama o kernel
+   114                              <1> %endmacro
+   115                              <1> 
+   116                              <1> 
+   117                              <1> ; -----------------------------------------------
+   118                              <1> ; [macro] termina_programa
+   119                              <1> ; [descr] finaliza o processo
+   120                              <1> ; [param] (1) codigo de saida do processo
+   121                              <1> ; -----------------------------------------------
+   122                              <1> %macro termina_programa 1
+   123                              <1> 	mov 	ebx, %1		; codigo de saida
+   124                              <1> 	macro_syscall 1		; syscall: exit (kernel/exit.c)
+   125                              <1> %endmacro
+   126                              <1> 
+   127                              <1> 
+   128                              <1> ; -----------------------------------------------
+   129                              <1> ; [macro] descarta_pilha
+   130                              <1> ; [descr] descarta um numero de elementos do topo da pilha
+   131                              <1> ; [param] (1) numero de elemntos
+   132                              <1> ; -----------------------------------------------
+   133                              <1> %macro descarta_pilha 1
+   134                              <1> 	add esp, 4 * %1		; Descarta 4 * num_elementos bytes da pilha
+   135                              <1> %endmacro
+   136                              <1> 
+   137                              <1> 
+   138                              <1> ; -----------------------------------------------
+   139                              <1> ; [macro] ccc_begin
+   140                              <1> ; [descr] faz os preparativos iniciais para que um procedimento utilize a convenção de chamada do C
+   141                              <1> ; [param] (1) numero de variaveis locais que o proceidmento precisará
+   142                              <1> ; -----------------------------------------------
+   143                              <1> %macro ccc_begin 0-1 0
+   144                              <1> 	push	ebp		; Empilha ebp
+   145                              <1> 	mov	ebp, esp	; Prepara a pilha para poder ser utilizada no subprocedimento sem que se perca os parametros
+   146                              <1> 	sub	esp, 4 * %1	; Reserva espaço para variaveis locais
+   147                              <1> %endmacro
+   148                              <1> 
+   149                              <1> 
+   150                              <1> ; -----------------------------------------------
+   151                              <1> ; [macro] ccc_end
+   152                              <1> ; [descr] restaura a pilha para o estado inicial da chamada do procedimento
+   153                              <1> ; -----------------------------------------------
+   154                              <1> %macro ccc_end 0
+   155                              <1> 	mov	esp, ebp	; Restaura esp
+   156                              <1> 	pop	ebp		; Restaura ebp
+   157                              <1> %endmacro
+   158                              <1> 
+   159                              <1> 
+   160                              <1> ; -----------------------------------------------
+   161                              <1> ; [macro] parametro
+   162                              <1> ; [descr] expande para o endereço de um determinado parametro do procedimento
+   163                              <1> ; [param] (1) numero do parametro (contado da esquerda para a direita)
+   164                              <1> ; -----------------------------------------------
+   165                              <1> %define 	parametro(x)	ebp + 4 + 4 * x
+   166                              <1> 
+   167                              <1> 
+   168                              <1> ; -----------------------------------------------
+   169                              <1> ; [macro] varlocal
+   170                              <1> ; [descr] expande para o endereço de uma determinada variavel local do procedimento
+   171                              <1> ; [param] (1) numero do da variavel local
+   172                              <1> ; -----------------------------------------------
+   173                              <1> %define 	varlocal(x)	ebp - 4 * x
+   174                                  %define TAM_ST_MEMORIA 7
+   175                                  
+   176                                  global malloc_z
+   177                                  global free_z
+   178                                  
+   179                                  extern MapaMem
+   180                                  extern st_memoria.endereco_real
+   181                                  extern st_memoria.tamanho
+   182                                  extern st_memoria.status
+   183                                  
+   184                                  ; RETIRAR
+   185                                  %include "util/asm_io.inc"
+   186                              <1> 	extern  read_int, print_int, print_string
+   187                              <1> 	extern	read_char, print_char, print_nl
+   188                              <1> 	extern  sub_dump_regs, sub_dump_mem, sub_dump_math, sub_dump_stack
+   189                              <1> 
+   190                              <1> %macro 	dump_regs 1
+   191                              <1> 	push	  dword %1
+   192                              <1> 	call	  sub_dump_regs
+   193                              <1> %endmacro
+   194                              <1> 
+   195                              <1> 
+   196                              <1> ;
+   197                              <1> ; usage: dump_mem label, start-address, # paragraphs
+   198                              <1> %macro  dump_mem 3
+   199                              <1> 	push	 dword %1
+   200                              <1> 	push	 dword %2
+   201                              <1> 	push	 dword %3
+   202                              <1> 	call	 sub_dump_mem
+   203                              <1> %endmacro
+   204                              <1> 
+   205                              <1> %macro	dump_math 1
+   206                              <1> 	push	 dword %1
+   207                              <1> 	call	 sub_dump_math
+   208                              <1> %endmacro
+   209                              <1> 
+   210                              <1> %macro  dump_stack 3
+   211                              <1> 	push	 dword %3
+   212                              <1>         push     dword %2
+   213                              <1> 	push	 dword %1
+   214                              <1>         call     sub_dump_stack
+   215                              <1> %endmacro
+   216                                  
+   217                                  ; [std_io.o]
+   218                                  extern print_z
+   219                                  
+   220                                  
+   221                                  ; -----------------------------------------------
+   222                                  ; [nome]	malloc_z
+   223                                  ; [descr]	reserva uma determinada quantidade de memoria
+   224                                  ; [param]	(1) Espaço de memória a ser utilizado
+   225                                  ;		(2) Quantidade de memoria a ser reservada
+   226                                  ; [return]	(eax) endereco indireto para a memoria alocada ou -1 em caso de erro
+   227                                  ; -----------------------------------------------
+   228                                  ; CHANGELOG
+   229                                  ; -----------------------------------------------
+   230                                  ; [21/06/2005 - 00:32]
+   231                                  ; Versão 0.5
+   232                                  ; Falta implementar a parte que fará a mensagem funcionar, que é o redimensionamento das celulas de memoria (e o garbage collection em si)
+   233                                  ;
+   234                                  ; [24/06/2005 - 19:15]
+   235                                  ; Versão 0.7
+   236                                  ; Corrigidos problemas de verificação do tamanho da celula. (ao inves de comparar uma word eu comparava uma dword :-D )
+   237                                  ;
+   238                                  ; [28/06/2005 - 22:25]
+   239                                  ; Versão 0.7.1
+   240                                  ; Alterada a convenção de retorno e implementado u mdebug e uma pequena otimização
+   241                                  ; -----------------------------------------------
+   242                                  malloc_z:
+   243                                  	ccc_begin 1	; Prepara o ambiente - 1 variavel local
+   244 00000000 55                  <1>  push ebp
+   245 00000001 89E5                <1>  mov ebp, esp
+   246 00000003 81EC04000000        <1>  sub esp, 4 * %1
+   247                                  
+   248 00000009 53                      	push 	ebx
+   249 0000000A 9C                      	pushfd
+   250                                  
+   251                                  
+   252                                    .inicio
+   253                                  
+   254                                  	;
+   255                                  	; Inicia as variaveis
+   256                                  	;
+   257 0000000B 8B4508                  	mov	eax, dword [parametro(1)]	; parametro(1) possui o elemento da tabela de mapas que sera manipulado (0 - 2)
+   258                                  
+   259 0000000E 89C3                    	mov	ebx, eax			; copia para ebx
+   260 00000010 43                      	inc	ebx				; ebx possui o mapa seguinte ao mapa que será atualizado
+   261 00000011 8B1C9D[00000000]        	mov	ebx, dword [MapaMem + 4 * ebx]	; ebx := elemento da tabela de mapas seguinte ao que sera manipulado (1 - 3)
+   262 00000018 895DFC                  	mov	dword [varlocal(1)], ebx	; varlocal(1) possui o limite superior do mapa que está sendo manipulado
+   263                                  
+   264 0000001B 8B0485[00000000]        	mov	eax, dword [MapaMem + 4 * eax]	; eax := Registro mestre do Mapa de memoria a ser manipulado
+   265 00000022 8B5D0C                  	mov	ebx, dword [parametro(2)]	; ebx := bytes a alocar
+   266                                  
+   267                                  	;
+   268                                  	; Verifica se há espaço suficiente
+   269                                  	;
+   270 00000025 663998[00000000]        	cmp	word [eax + st_memoria.tamanho], bx	; Possui essa quantidade ?
+   271 0000002C 7D07                    	jge	.procura_espaco				; Procura o espaço
+   272                                  
+   273 0000002E 31C0                    	xor	eax, eax				; Erro
+   274 00000030 E997000000              	jmp	.fim
+   275                                  
+   276                                  
+   277                                    .procura_espaco
+   278                                  
+   279                                  	; Procura um pedaço livre e que tenha o tamanho necessário
+   280 00000035 0507000000              	add	eax, TAM_ST_MEMORIA			; Aponta para a proxima celula
+   281                                  
+   282                                  %ifdef DEBUG
+   283                                  	_newline
+   284                              <1>  print_char 0xA, %1
+   285 0000003A 50                  <2>  push eax
+   286 0000003B 9C                  <2>  pushfd
+   287                              <2> 
+   288 0000003C 680A000000          <2>  push dword %1
+   289 00000041 54                  <2>  push esp
+   290 00000042 6801000000          <2>  push dword %2
+   291 00000047 E8(00000000)        <2>  call print_z
+   292                              <2>  descarta_pilha 3
+   293 0000004C 81C40C000000        <3>  add esp, 4 * %1
+   294                              <2> 
+   295 00000052 9D                  <2>  popfd
+   296 00000053 58                  <2>  pop eax
+   297                                  	dump_mem 222001, eax, 1
+   298 00000054 6831630300          <1>  push dword %1
+   299 00000059 50                  <1>  push dword %2
+   300 0000005A 6801000000          <1>  push dword %3
+   301 0000005F E8(00000000)        <1>  call sub_dump_mem
+   302                                  	dump_mem 222002, [eax], 1
+   303 00000064 6832630300          <1>  push dword %1
+   304 00000069 FF30                <1>  push dword %2
+   305 0000006B 6801000000          <1>  push dword %3
+   306 00000070 E8(00000000)        <1>  call sub_dump_mem
+   307                                  %endif
+   308                                  
+   309 00000075 663B98[00000000]        	cmp	bx, word [eax + st_memoria.tamanho]		; Essa célula a possui o tamanho que preciso?
+   310 0000007C 7CB7                    	jl	.procura_espaco					; Continua procurando ate encontrar uma celula com tamanho maior ou igual ao que preciso
+   311                                  
+   312 0000007E 80B8[00000000]01        	cmp	byte [eax + st_memoria.status], ST_MEM_OCUPADA	; Verifica se o espaço está ocupado
+   313 00000085 7518                    	jne	.retorna					; Retorna o endereço
+   314                                  
+   315 00000087 3B45FC                  	cmp	eax, dword [varlocal(1)]			; Chegou ao fim ?
+   316 0000008A 7CA9                    	jl	.procura_espaco					; Continua procurando
+   317                                  
+   318                                  
+   319                                  	; Chegou ao fim e nao achou nada nenhuma celula que possua NO MINIMO a quantidade de bytes necessários
+   320                                  	; Então, desfragmenta
+   321 0000008C FF7508                  	push dword [parametro(1)]				; Mapa a efetuar o CG (na pratica só vai fazer o GC
+   322 0000008F E899000000              	call defrag_mem						; Implementa um garbage collection automatico,
+   323                                  								; caso nao tenha encontrado uma celula livre com o espaço de memoria necessário.
+   324                                  								; A idéia é varrer o mapa de memoria procurando por celulas que possuam a quantidade de bytes necessária,
+   325                                  								; e caso sobre algum byte na celula que sera utilizada , essa quantidade que sobrou será alocada em outra célula - caso exista -
+   326                                  								; (o que diminuiria a probabilidade de se efetuar esse garbage collection mais vezes do que o necessário).
+   327                                  								; Essa alocação ocorre no FINAL desse procedimento.
+   328                                  								; Ver "PABX User Guide" pg 1724 (hehehe)
+   329                                  	descarta_pilha 1
+   330 00000094 81C404000000        <1>  add esp, 4 * %1
+   331                                  
+   332                                  
+   333                                  	; Se possuia espaço, mas nao possuia nenhuma celula do tamanho,
+   334                                  	; após o GC haverá um celula do tamanho necessario (ou maior).
+   335                                  	; Entãio, roda a função de novo
+   336 0000009A E96CFFFFFF              	jmp	.inicio
+   337                                  
+   338                                  
+   339                                    .retorna
+   340                                  
+   341 0000009F C680[00000000]01        	mov	byte [eax + st_memoria.status], ST_MEM_OCUPADA	; Ocupa a celula que será utilizada
+   342                                  
+   343                                  	;
+   344                                  	; Atualiza o Registro mestre
+   345                                  	;
+   346 000000A6 50                      	push 	eax
+   347                                  
+   348 000000A7 8B4508                  	mov	eax, dword [parametro(1)]	; parametro(1) possui o elemento da tabela de mapas que sera manipulado (0 - 2)
+   349 000000AA 8B0485[00000000]        	mov	eax, dword [MapaMem + 4 * eax]	; eax := Registro mestre do Mapa de memoria a ser manipulado
+   350                                  
+   351 000000B1 662998[00000000]        	sub	word [eax + st_memoria.tamanho], bx		; Espaço livre
+   352 000000B8 7507                    	jnz	.salta01
+   353 000000BA C680[00000000]01        	mov	byte [eax + st_memoria.status], ST_MEM_OCUPADA	; Se acabou o espaço no espaço que o mapa gerencia, marca o espaço como ocupado no registro mestre
+   354                                  
+   355                                  
+   356                                      .salta01	
+   357                                  
+   358 000000C1 58                      	pop	eax
+   359                                  
+   360                                  	; Para aproveitar o espaço, verifica se será utilizado todo o espaço da celula recém-ocupada
+   361 000000C2 2B98[00000000]          	sub	ebx, dword [eax + st_memoria.tamanho]
+   362 000000C8 7402                    	jz	.fim
+   363                                  
+   364                                  
+   365                                  	; Faz a realocação dos bytes que eventualmente venha ma estar sobrando na celula que será utilizada agora
+   366                                  	; 1) Procura a menor primeira celula livres que aponte para uma posição APÓS a célula reservada anteriormente
+   367                                  	; 2) Redimensioná-la (alterar a posicao E o tamanho)
+   368                                  	; 3) Todas as celulas entre a célula reservada E a celula redimensionada devem ser movidas para cima, permitindo que a celula seja redimensionada (alterar a posicao)
+   369 000000CA F7DB                    	neg	ebx						; ebx := numero de bytes que sobraram
+   370                                  
+   371                                  
+   372                                  
+   373                                  ; AQUI ENTRA O REDIMENSIONAMENTO
+   374                                  ;dump_regs 666666
+   375                                  
+   376                                  
+   377                                  
+   378                                    .fim
+   379                                  
+   380                                  %ifdef DEBUG
+   381                                  	_newline
+   382                              <1>  print_char 0xA, %1
+   383 000000CC 50                  <2>  push eax
+   384 000000CD 9C                  <2>  pushfd
+   385                              <2> 
+   386 000000CE 680A000000          <2>  push dword %1
+   387 000000D3 54                  <2>  push esp
+   388 000000D4 6801000000          <2>  push dword %2
+   389 000000D9 E8(00000000)        <2>  call print_z
+   390                              <2>  descarta_pilha 3
+   391 000000DE 81C40C000000        <3>  add esp, 4 * %1
+   392                              <2> 
+   393 000000E4 9D                  <2>  popfd
+   394 000000E5 58                  <2>  pop eax
+   395                                  	dump_mem 222999, eax, 1
+   396 000000E6 6817670300          <1>  push dword %1
+   397 000000EB 50                  <1>  push dword %2
+   398 000000EC 6801000000          <1>  push dword %3
+   399 000000F1 E8(00000000)        <1>  call sub_dump_mem
+   400                                  %endif
+   401                                  
+   402 000000F6 9D                      	popfd
+   403 000000F7 5B                      	pop	ebx
+   404                                  	ccc_end		; Restaura o ambiente
+   405 000000F8 89EC                <1>  mov esp, ebp
+   406 000000FA 5D                  <1>  pop ebp
+   407 000000FB C3                      ret
+   408                                  
+   409                                  ; -----------------------------------------------
+   410                                  ; [nome]	free_z
+   411                                  ; [descr]	libera uma celula que esteja sendo utilizada
+   412                                  ; [param]	(1) ptr para a celula a ser liberada
+   413                                  ; [return]	(eax) bytes liberados
+   414                                  ; -----------------------------------------------
+   415                                  ; CHANGELOG
+   416                                  ; -----------------------------------------------
+   417                                  ; [29/06/2005 - 00:35]
+   418                                  ; Versão 1.0
+   419                                  ; -----------------------------------------------
+   420                                  free_z
+   421                                  	ccc_begin
+   422 000000FC 55                  <1>  push ebp
+   423 000000FD 89E5                <1>  mov ebp, esp
+   424 000000FF 81EC00000000        <1>  sub esp, 4 * %1
+   425                                  
+   426 00000105 8B4508                  	mov	eax, [parametro(1)]				; eax := ptr para a celula
+   427 00000108 80B8[00000000]01        	cmp	byte [eax + st_memoria.status], ST_MEM_OCUPADA	; Memoria esta ocupada?
+   428 0000010F 740A                    	je	.memoria_ocupada
+   429                                  
+   430                                  	; Tentando liberar uma memoria nao ocupada
+   431 00000111 B8FFFFFFFF              	mov	eax, -1						; ERRO
+   432 00000116 E90E000000              	jmp	.fim
+   433                                  
+   434                                  
+   435                                    .memoria_ocupada
+   436                                  	; Libera
+   437 0000011B C680[00000000]00        	mov	byte [eax + st_memoria.status], ST_MEM_LIVRE	; Memoria agora esta livre
+   438 00000122 0FB780[00000000]        	movzx	eax, word [eax + st_memoria.tamanho]		; Memoria liberada
+   439                                  
+   440                                  
+   441                                    .fim
+   442                                  	ccc_end
+   443 00000129 89EC                <1>  mov esp, ebp
+   444 0000012B 5D                  <1>  pop ebp
+   445 0000012C C3                      ret
+   446                                  
+   447                                  
+   448                                  ;
+   449                                  ; Coleta o lixo ??
+   450                                  ;
+   451                                  ; -----------------------------------------------
+   452                                  ; CHANGELOG
+   453                                  ; -----------------------------------------------
+   454                                  ; AINDA NADA FEITO
+   455                                  defrag_mem
+   456                                  	ccc_begin
+   457 0000012D 55                  <1>  push ebp
+   458 0000012E 89E5                <1>  mov ebp, esp
+   459 00000130 81EC00000000        <1>  sub esp, 4 * %1
+   460                                  	ccc_end
+   461 00000136 89EC                <1>  mov esp, ebp
+   462 00000138 5D                  <1>  pop ebp
+   463 00000139 C3                      ret

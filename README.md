@@ -6,6 +6,8 @@ Esse repositório contém meus trabalhos acadêmicos, feitos como avaliação na
 
 * 2004/02
  - [Programação II](https://github.com/juniorz/ufes/tree/master/programacao_2)
+* 2005/01
+ - [Linguagem de Montagem](https://github.com/juniorz/ufes/tree/master/linguagem_de_montagem) (Assembly Language)
 * 2011/01
  - [Cálculo Numérico](https://github.com/juniorz/ufes/tree/master/calculo_numerico) (Numerical Calculus)
 

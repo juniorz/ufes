@@ -1,0 +1,507 @@
+     1                                  ; -----------------------------------------------
+     2                                  ; Segundo Trabalho de Linguagem de Montagem
+     3                                  ; Ciência da Computação - 2005/01 - UFES
+     4                                  ;
+     5                                  ; Autor: Reinaldo Junior < juniorz [at] gmail [dot] com >
+     6                                  ; 	 http://www.phpbb.com.br/portal/
+     7                                  ; -----------------------------------------------
+     8                                  ; Criado em: 15/06/2005
+     9                                  ; Versão 1.0
+    10                                  ; -----------------------------------------------
+    11                                  ; Descrição:
+    12                                  ; Esse arquivo contém as funções que definem
+    13                                  ; o reconhecimento dos comandos e a entrega do
+    14                                  ; controle à função do comando.
+    15                                  ; -----------------------------------------------
+    16                                  
+    17                                  
+    18                                  ; -----------------------------------------------
+    19                                  ;               .:] Changelog [:.
+    20                                  ; -----------------------------------------------
+    21                                  ; 17/06/2005 21:01
+    22                                  ; Criação do arquivo
+    23                                  ; -----------------------------------------------
+    24                                  
+    25                                  %include "includes/macros.inc"
+    26                              <1> ; -----------------------------------------------
+    27                              <1> ; Segundo Trabalho de Linguagem de Montagem
+    28                              <1> ; Ciência da Computação - 2005/01 - UFES
+    29                              <1> ;
+    30                              <1> ; Autores:
+    31                              <1> ;	Reinaldo Junior < juniorz@gmail.com >
+    32                              <1> ;	http://www.phpbb.com.br/portal/
+    33                              <1> ;
+    34                              <1> ;	Rafael Garcia Birro < rgbirro@gmail.com >
+    35                              <1> ; -----------------------------------------------
+    36                              <1> ; Criado em: 15/06/2005
+    37                              <1> ; Versão 1.0
+    38                              <1> ; -----------------------------------------------
+    39                              <1> ; Descrição:
+    40                              <1> ; Esse arquivo contem as macros utilizadas no programa
+    41                              <1> ; -----------------------------------------------
+    42                              <1> 
+    43                              <1> 
+    44                              <1> ; Status do telefone (mascara)
+    45                              <1> ;				xxxx	 	telefone entrou? (possui linha)
+    46                              <1> ;				    yyyy 	telefone ocupado? (fora do gancho)
+    47                              <1> %define MSK_TEL_FORA_GANCHO	00001111b	; Fora do gancho (nao importa se esta fazendo ou recebendo ligações)
+    48                              <1> %define MSK_TEL_LIVRE		00000000b	; No gancho e sem comunicação
+    49                              <1> %define MSK_TEL_TEM_LINHA	11110000b	; Em comunicação (agora um telefone pode estar em comunicaão e estar no gancho - como na vida real :-P )
+    50                              <1> 
+    51                              <1> 
+    52                              <1> ; Constantes do sistema de alocacao
+    53                              <1> %define ST_CELULA_LIVRE		0x00
+    54                              <1> %define ST_CELULA_OCUPADA	0x01
+    55                              <1> %define ST_CELULA_DISPONIVEL	0xFF
+    56                              <1> 
+    57                              <1> ; Mapas para o sistema de alocação
+    58                              <1> %define MAPA_CADASTRO 0
+    59                              <1> %define MAPA_CONVERSA 1
+    60                              <1> %define MAPA_MENSAGEM 2
+    61                              <1> 
+    62                              <1> ; Numero de estruturas
+    63                              <1> %define NUM_CADASTROS 200
+    64                              <1> %define NUM_CONVERSAS 100
+    65                              <1> 
+    66                              <1> ; Estruturas
+    67                              <1> %define TAM_ST_MEMORIA 7
+    68                              <1> %define TAM_ST_CADASTRO 13
+    69                              <1> %define TAM_ST_CONVERSA 12
+    70                              <1> %define TAM_ST_MENSAGEM 12
+    71                              <1> 
+    72                              <1> 
+    73                              <1> ; -----------------------------------------------
+    74                              <1> ;                .:] Macros [:.
+    75                              <1> ; -----------------------------------------------
+    76                              <1> 
+    77                              <1> ; -----------------------------------------------
+    78                              <1> ; [macro] _newline
+    79                              <1> ; [descr] imprime um \n
+    80                              <1> ; [param] descritor de arquivos destino para o \n
+    81                              <1> ; -----------------------------------------------
+    82                              <1> %macro	_newline 0-1 1
+    83                              <1> 	push 	eax		; eax recebe retorno de print_z	
+    84                              <1> 	print_char 0xA, %1
+    85                              <1> 	pop	eax		; Restaura eax
+    86                              <1> %endmacro
+    87                              <1> 
+    88                              <1> 
+    89                              <1> ; -----------------------------------------------
+    90                              <1> ; [macro] print_char
+    91                              <1> ; [descr] imprime um caractere
+    92                              <1> ; [param] (1) caractere
+    93                              <1> ; 	  (2) descritor de arquivos destino para o caractere
+    94                              <1> ; -----------------------------------------------
+    95                              <1> %macro	print_char 1-2 1
+    96                              <1> 	mov al, %1
+    97                              <1> 	mov ah, %2
+    98                              <1> 	call printchar_z
+    99                              <1> %endmacro
+   100                              <1> 
+   101                              <1> 
+   102                              <1> ; -----------------------------------------------
+   103                              <1> ; [macro] print_str
+   104                              <1> ; [descr] imprime uma string
+   105                              <1> ; [param] (1) ptr para a string (zero-terminated)
+   106                              <1> ; 	  (2) descritor de arquivos destino
+   107                              <1> ; -----------------------------------------------
+   108                              <1> %macro	print_str 1-2 1
+   109                              <1> 	push %1
+   110                              <1> 	push %2
+   111                              <1> 	call print_z
+   112                              <1> 	descarta_pilha 2
+   113                              <1> %endmacro
+   114                              <1> 
+   115                              <1> 
+   116                              <1> ; -----------------------------------------------
+   117                              <1> ; [macro] printn_str
+   118                              <1> ; [descr] imprime 'n' caracteres de uma string
+   119                              <1> ; [param] (1) ptr para a string
+   120                              <1> ;	  (2) numero de caracteres a imprimir
+   121                              <1> ; 	  (3) descritor de arquivos destino
+   122                              <1> ; -----------------------------------------------
+   123                              <1> %macro	printn_str 2-3 1
+   124                              <1> 	push %2
+   125                              <1> 	push %1
+   126                              <1> 	push %3
+   127                              <1> 	call printn_z
+   128                              <1> 	descarta_pilha 3
+   129                              <1> %endmacro
+   130                              <1> 
+   131                              <1> 
+   132                              <1> ; -----------------------------------------------
+   133                              <1> ; [macro] macro_syscall
+   134                              <1> ; [descr] executa uma syscall
+   135                              <1> ; [param] (1) numero da syscall
+   136                              <1> ; -----------------------------------------------
+   137                              <1> %macro	macro_syscall	1
+   138                              <1> 	mov eax, dword %1	; Numero da syscall
+   139                              <1> 	int 80h			; Chama o kernel
+   140                              <1> %endmacro
+   141                              <1> 
+   142                              <1> 
+   143                              <1> ; -----------------------------------------------
+   144                              <1> ; [macro] termina_programa
+   145                              <1> ; [descr] finaliza o processo
+   146                              <1> ; [param] (1) codigo de saida do processo
+   147                              <1> ; -----------------------------------------------
+   148                              <1> %macro termina_programa 1
+   149                              <1> 	mov 	ebx, %1		; codigo de saida
+   150                              <1> 	macro_syscall 1		; syscall: exit (kernel/exit.c)
+   151                              <1> %endmacro
+   152                              <1> 
+   153                              <1> 
+   154                              <1> ; -----------------------------------------------
+   155                              <1> ; [macro] descarta_pilha
+   156                              <1> ; [descr] descarta um numero de elementos do topo da pilha
+   157                              <1> ; [param] (1) numero de elemntos
+   158                              <1> ; -----------------------------------------------
+   159                              <1> %macro descarta_pilha 1
+   160                              <1> 	add esp, 4 * %1		; Descarta 4 * num_elementos bytes da pilha
+   161                              <1> %endmacro
+   162                              <1> 
+   163                              <1> 
+   164                              <1> ; -----------------------------------------------
+   165                              <1> ; [macro] ccc_begin
+   166                              <1> ; [descr] faz os preparativos iniciais para que um procedimento utilize a convenção de chamada do C
+   167                              <1> ; [param] (1) numero de variaveis locais que o proceidmento precisará
+   168                              <1> ; -----------------------------------------------
+   169                              <1> %macro ccc_begin 0-1 0
+   170                              <1> 	push	ebp		; Empilha ebp
+   171                              <1> 	mov	ebp, esp	; Prepara a pilha para poder ser utilizada no subprocedimento sem que se perca os parametros
+   172                              <1> 	sub	esp, 4 * %1	; Reserva espaço para variaveis locais
+   173                              <1> %endmacro
+   174                              <1> 
+   175                              <1> 
+   176                              <1> ; -----------------------------------------------
+   177                              <1> ; [macro] ccc_end
+   178                              <1> ; [descr] restaura a pilha para o estado inicial da chamada do procedimento
+   179                              <1> ; -----------------------------------------------
+   180                              <1> %macro ccc_end 0
+   181                              <1> 	mov	esp, ebp	; Restaura esp
+   182                              <1> 	pop	ebp		; Restaura ebp
+   183                              <1> %endmacro
+   184                              <1> 
+   185                              <1> 
+   186                              <1> ; -----------------------------------------------
+   187                              <1> ; [macro] parametro
+   188                              <1> ; [descr] expande para o endereço de um determinado parametro do procedimento
+   189                              <1> ; [param] (1) numero do parametro (contado da esquerda para a direita)
+   190                              <1> ; -----------------------------------------------
+   191                              <1> %define 	parametro(x)	ebp + 4 + 4 * x
+   192                              <1> 
+   193                              <1> 
+   194                              <1> ; -----------------------------------------------
+   195                              <1> ; [macro] varlocal
+   196                              <1> ; [descr] expande para o endereço de uma determinada variavel local do procedimento
+   197                              <1> ; [param] (1) numero do da variavel local
+   198                              <1> ; -----------------------------------------------
+   199                              <1> %define 	varlocal(x)	ebp - 4 * x
+   200                                  
+   201                                  ; Torna disponivel aos outros modulos
+   202                                  global processa_arquivo
+   203                                  global processa_comando
+   204                                  
+   205                                  ; [trab2.o]
+   206                                  extern s_comando.ptComando
+   207                                  extern s_comando.ptFuncao
+   208                                  extern fimComandos
+   209                                  
+   210                                  
+   211                                  %ifdef DEBUG
+   212                                  
+   213                                  	%include "util/asm_io.inc"
+   214                                  	
+   215                                  	; [std_io.o]
+   216                                  	extern print_z	
+   217                                  
+   218                                  	section .data
+   219                                  		; Mensagem de erro
+   220                                  		str_erroComando db "Comando não reconhecido em: ", 0x00
+   221                                  %endif
+   222                                  
+   223                                  ; -----------------------------------------------
+   224                                  ; [nome]  	processa_arquivo
+   225                                  ; [descr] 	processa as linhas de um arquivo
+   226                                  ; [param] 	descritor do arquivo a processar		(1)
+   227                                  ; 		ptr para a funcao que processa cada linha	(2)
+   228                                  ;		ptr para os parametros passados a 2		(3)
+   229                                  ; -----------------------------------------------
+   230                                  ; CHANGELOG
+   231                                  ; -----------------------------------------------
+   232                                  ; [17/06/2005 - 02:15]
+   233                                  ; Finaliza a versão 1.0 da função
+   234                                  ;
+   235                                  ; [17/06/2005 - 03:21]
+   236                                  ; Versão 1.1
+   237                                  ; Foi adicionado os tratamentos para o caso do buffer estourar
+   238                                  ; (adotando o descarte de todo o restante do comando). Solucionado também o problema do ultimo 
+   239                                  ; comando nao estar sinalizado com um 0x00
+   240                                  ;
+   241                                  ; [30/06/2005 - 22:22]
+   242                                  ; versão 1.2
+   243                                  ; Corrigido problema com o ultimo comando do arquivo. Nao estava inserindo o 0x00 corretamente caso o buffer nao esivesse estourado.
+   244                                  ; -----------------------------------------------
+   245                                  processa_arquivo:
+   246                                  	ccc_begin 3				; Prepara o ambiente - 3 variaveis locais
+   247 00000000 55                  <1>  push ebp
+   248 00000001 89E5                <1>  mov ebp, esp
+   249 00000003 81EC0C000000        <1>  sub esp, 4 * %1
+   250                                  
+   251                                  	; Reserva espaço na pilha criando um buffer para a leitura das linhas do arquivo
+   252                                  	; Nesse ponto do trabalho eu descobri o poder da pilha (e comecei a me empolgar com a coisa, decidindo nao fazer NADA em C) ;-)
+   253 00000009 8965F8                  	mov	[varlocal(2)], dword esp	; Armazena os limites do buffer | varlocal(2) = fimBuffer
+   254 0000000C 81EC80000000            	sub	esp, 128			; 128 bytes
+   255                                  
+   256 00000012 51                      	push 	ecx				; Armazena ecx
+   257 00000013 89E1                    	mov	ecx, dword esp			; ptr para o buffer
+   258 00000015 81E904000000            	sub	ecx, 4				; Aponta para a posicao correta
+   259 0000001B 894DFC                  	mov	[varlocal(1)], ecx		; Aponta para o inicio do buffer também (fixo)
+   260                                  
+   261 0000001E 50                      	push	eax				; Amazena os registradores
+   262 0000001F 53                      	push	ebx
+   263 00000020 52                      	push	edx
+   264                                  
+   265                                  	;
+   266                                  	; Agora possuo um buffer para jogar as linhas do arquivo
+   267                                  	;
+   268                                  
+   269                                  	; Inicializa variaveis
+   270 00000021 8B5D08                  	mov	ebx, [parametro(1)]		; Descritor do arquivo
+   271 00000024 BA01000000              	mov	edx, 1				; ler 1 byte
+   272                                  
+   273                                  
+   274                                    .le_linha
+   275                                  
+   276 00000029 C745F400000000          	mov	[varlocal(3)], dword 0x00	; reseta o ptr para os parametros do comando
+   277                                  
+   278                                  	
+   279                                    .ler_byte
+   280                                  
+   281                                  	; Le byte a byte
+   282                                  	macro_syscall 3
+   283 00000030 B803000000          <1>  mov eax, dword %1
+   284 00000035 CD80                <1>  int 80h
+   285                                  
+   286                                  	; Leu algum byte (chegou ao fim do arquivo) ?
+   287 00000037 3D00000000              	cmp	eax, 0x00;
+   288 0000003C 7423                    	je	.fim_arquivo
+   289                                  
+   290 0000003E 41                      	inc	ecx				; Apota para a proxima posicao no buffer
+   291                                  
+   292                                  	; Verifica espaço
+   293 0000003F 8079FF20                	cmp	byte [ecx - 1], ' '		; Achou espaço (32), então já possui o comando
+   294 00000043 750C                    	jne	.nao_espaco
+   295                                  
+   296                                  	; Se encontrou um espaço, armazena a posição da string de parametros
+   297 00000045 817DF400000000          	cmp	[varlocal(3)], dword 0x00	; Ja havia armazenado ?
+   298 0000004C 7503                    	jne	.nao_espaco
+   299 0000004E 894DF4                  	mov 	[varlocal(3)], dword ecx	; Armazena o endereco atual
+   300                                  
+   301                                  
+   302                                    .nao_espaco
+   303                                  
+   304                                  	; Caracter que nao é espaço
+   305 00000051 8079FF0A                	cmp	byte [ecx - 1], 0xA		; Chegou ao final da linha ?
+   306 00000055 743C                    	je	.fim_linha			; Continua lendo se nao chegou ao fim da linha
+   307                                  
+   308                                  	; Verifica se o buffer esta cheio
+   309 00000057 394DF8                  	cmp	[varlocal(2)], ecx		; ecx chegou ao fim do buffer ?
+   310 0000005A 75D4                    	jne	.ler_byte			; Nao
+   311 0000005C E90D000000              	jmp	.buffer_cheio			; Sim
+   312                                  
+   313                                  
+   314                                    .fim_arquivo
+   315                                  
+   316                                  	; Chegou ao fim do arquivo, precisa verificar se o buffer esta cheio para poder saber onde gravar o 0x0
+   317 00000061 394DF8                  	cmp	[varlocal(2)], ecx		; ecx chegou ao fim do buffer ?
+   318 00000064 742D                    	je	.fim_linha			; Sim | Substitui o ultimo caractere lido por um 0x0h (fazer o que né, antes perder 1 caractere do que estragar meu trabalho)
+   319 00000066 C60100                  	mov	byte [ecx], 0x00		; Coloca o 0x0h no proximo caractere do buffer (já que tem espaço..)
+   320 00000069 E929000000              	jmp	.processa			; Processa o comando
+   321                                  
+   322                                  
+   323                                    .buffer_cheio
+   324                                  
+   325                                  	; Descarta o restante da linha
+   326 0000006E 50                      	push	eax
+   327 0000006F 51                      	push	ecx
+   328 00000070 4C                      	dec	esp				; Reserva mais espaço da pilha para um lixinho (1 byte)
+   329                                  
+   330                                  
+   331                                      .descarta
+   332                                  
+   333                                  	; Le byte a byte
+   334 00000071 89E1                    	mov	ecx,	esp
+   335                                  	macro_syscall 3
+   336 00000073 B803000000          <1>  mov eax, dword %1
+   337 00000078 CD80                <1>  int 80h
+   338                                  
+   339 0000007A 3D00000000              	cmp	eax, 0x00			; Se nao leu nada chegou ao final do arquivo (a ultima linah era grande demais)
+   340 0000007F 7509                    	jne	.verifica_newline		; Leu alguma coisa, verifica se eh um newline
+   341 00000081 89442405                	mov	[esp + 5], eax			; sobreescreve o velho eax
+   342 00000085 E906000000              	jmp	.termina_cerificacao		; ira substituir a ultima letra por 0x00, mas está certo pois o buffer jah tinah acabado mesmo
+   343                                  
+   344                                      .verifica_newline
+   345 0000008A 803C240A                	cmp	byte [esp], 0xA			; Verifica se o caractere é um newline
+   346 0000008E 75E1                    	jne	.descarta			; Continua descartando enquanto nao for \n ou fim do arquivo
+   347                                  
+   348                                  
+   349                                      .termina_cerificacao
+   350                                  
+   351                                  	; Terminou a verificacao
+   352 00000090 44                      	inc 	esp				; Restaura a pilha
+   353 00000091 59                      	pop	ecx
+   354 00000092 58                      	pop	eax
+   355                                  
+   356                                  
+   357                                    .fim_linha
+   358                                  
+   359                                  	; Encontrou um \n
+   360 00000093 C641FF00                	mov	[ecx - 1], byte 0x0		; Substitui o \n por um Zero (torna o parametro imprimivel pelas funcoes padrao)
+   361                                  
+   362                                  
+   363                                    .processa
+   364                                  
+   365                                  	; Trata o caso de o comando nao possuir parametros
+   366 00000097 817DF400000000          	cmp	[varlocal(3)], dword 0x00	; comando sem parametro
+   367 0000009E 7503                    	jne	.processa_mesmo
+   368 000000A0 894DF4                  	mov 	[varlocal(3)], dword ecx	; Armazena o endereco atual
+   369                                  
+   370                                    .processa_mesmo
+   371                                  
+   372                                  	; Processa o comando
+   373 000000A3 9C                      	pushfd	
+   374 000000A4 FF7510                  	push	dword [parametro(3)]		; parametro pra essa funcao 		(3)
+   375 000000A7 FF75F4                  	push	dword [varlocal(3)]		; ptr para os parametros		(2)
+   376 000000AA FF75FC                  	push 	dword [varlocal(1)]		; ptr para a string de comando 		(1) | inicio do buffer
+   377 000000AD FF550C                  	call	dword [parametro(2)]		; chama a funcao definida | processa_comando
+   378                                  	descarta_pilha 3
+   379 000000B0 81C40C000000        <1>  add esp, 4 * %1
+   380 000000B6 9D                      	popfd
+   381                                  
+   382                                  	; Restaura o buffer
+   383 000000B7 3D00000000              	cmp	eax, 0x00			; Chegou aqui sem ler nenhum byte ??
+   384 000000BC 7408                    	je	.fim				; Então  oarquivo acabou e deve terminar a leitura
+   385                                  
+   386 000000BE 8B4DFC                  	mov	ecx, [varlocal(1)]		; Senão, Restaura o buffer
+   387 000000C1 E963FFFFFF              	jmp	.le_linha			; E lê a proxima linha
+   388                                  
+   389                                    .fim
+   390                                  
+   391 000000C6 5A                      	pop	edx				; Restaura os registradores
+   392 000000C7 5B                      	pop	ebx
+   393 000000C8 58                      	pop	eax
+   394 000000C9 59                      	pop	ecx
+   395                                  	ccc_end					; Restaura o ambiente
+   396 000000CA 89EC                <1>  mov esp, ebp
+   397 000000CC 5D                  <1>  pop ebp
+   398 000000CD C3                      ret
+   399                                  
+   400                                  
+   401                                  
+   402                                  ; -----------------------------------------------
+   403                                  ; [nome]  	processa_comando
+   404                                  ; [descr] 	Procesa o comando de uma linha do arquivo
+   405                                  ; [param] 	ptr para a string de comando 	(1)
+   406                                  ;		ptr para os parametros		(2)
+   407                                  ;		ptr para a tabela de comandos	(3)
+   408                                  ; [return]	numero de bytes lidos como parametros do comando (eax)
+   409                                  ; -----------------------------------------------
+   410                                  ; 17/06/2005 02:34
+   411                                  ; Finaliza a versão 0.9 da função
+   412                                  ;
+   413                                  ; 17/06/2005 20:43
+   414                                  ; Finalizada a versão 1.0. A função já passa o controle ao manipulador do comando.
+   415                                  ; Falta agora apenas implementar os comandos ;-p (que é a parte fácil do trabalho hehe)
+   416                                  ; -----------------------------------------------
+   417                                  processa_comando:
+   418                                  	ccc_begin			; Prepara o ambiente
+   419 000000CE 55                  <1>  push ebp
+   420 000000CF 89E5                <1>  mov ebp, esp
+   421 000000D1 81EC00000000        <1>  sub esp, 4 * %1
+   422 000000D7 50                      	push 	eax			; Armazena os registradores
+   423 000000D8 53                      	push	ebx
+   424 000000D9 51                      	push	ecx
+   425                                  
+   426                                  
+   427                                  	;ebx armazenara o tamanho do comando
+   428 000000DA 8B5D0C                  	mov	ebx, dword [parametro(2)]
+   429 000000DD 2B5D08                  	sub	ebx, dword [parametro(1)]
+   430 000000E0 4B                      	dec	ebx
+   431                                  
+   432 000000E1 8B4D10                  	mov	ecx, dword [parametro(3)]		; ecx armazena o comando sendo comparado atualmente
+   433                                  
+   434 000000E4 FC                      	cld	; limpa o flag de direcao
+   435                                  
+   436                                  
+   437                                    .compara_comando
+   438                                  
+   439                                  	;ecx aponta para o elemento atual na TABELA de comandos
+   440                                  
+   441 000000E5 8B7508                  	mov	esi, dword [parametro(1)]		; aponta esi para a string a ser processada
+   442 000000E8 8B39                    	mov 	edi, [ecx]				; aponta edi para o comando atual
+   443 000000EA 8BBF[00000000]          	mov	edi, [edi + s_comando.ptComando]	; aponta edi para a string do comando atual
+   444                                  
+   445 000000F0 51                      	push	ecx					; armazena o comando atual a ser comparado
+   446                                  
+   447                                  	;
+   448                                  	; Compara enquanto for igual
+   449                                  	;
+   450 000000F1 89D9                    	mov	ecx, ebx				; numero de caracteres a comparar
+   451 000000F3 F3A6                    	repe	cmpsb					; compara enquanto as strings coincidirem E enquanto houver algum caractere a comparar (ecx > 0)
+   452                                  
+   453 000000F5 59                      	pop	ecx					; ecx aponta novamente para o comando que foi comparado
+   454                                  
+   455 000000F6 7410                    	je	.processa				; os comandos coincidem
+   456                                  
+   457                                  	;
+   458                                  	; Comando atual nao coincidiu
+   459                                  	;
+   460                                  
+   461 000000F8 81F9[00000000]          	cmp	ecx, fimComandos			; Chegou ao ultimo comando a comparar?
+   462                                  %ifdef DEBUG
+   463                                  	je 	.erro_comando				; Erro no comando
+   464                                  %else
+   465 000000FE 7419                    	je 	.termina				; Terminou o processamento
+   466                                  %endif
+   467                                  
+   468 00000100 81C104000000            	add 	ecx, 4					; Aponta para o proximo comando
+   469 00000106 EBDD                    	jmp	.compara_comando			; Compara com o proximo comando da tabela
+   470                                  
+   471                                  
+   472                                  %ifdef DEBUG
+   473                                    .erro_comando	
+   474                                  
+   475                                  	; Exibe o ero de comando nao reconhecido
+   476                                  	push eax					; print_z retorna o numer ode bytes escritos
+   477                                  
+   478                                  	print_str dword str_erroComando, 2		; mensagem de erro
+   479                                  	print_str dword [parametro(1)], 2		; string do comando
+   480                                  	_newline 2					; Nova linha
+   481                                  
+   482                                  	pop eax						; Restaura
+   483                                  
+   484                                  	jmp	.termina
+   485                                  %endif
+   486                                  
+   487                                  
+   488                                    .processa
+   489                                  
+   490                                  	; Chama a funcao adequada para o comando encontrado
+   491 00000108 8B09                    	mov 	ecx, [ecx]				; Aponta ecx para o comando atual
+   492 0000010A FF750C                  	push	dword [parametro(2)]			; (1) ptr para string do comando
+   493 0000010D FF91[00000000]          	call	dword [ecx + s_comando.ptFuncao]	; Chama a funcao
+   494                                  	descarta_pilha 1
+   495 00000113 81C404000000        <1>  add esp, 4 * %1
+   496                                  
+   497                                  
+   498                                    .termina
+   499                                  
+   500                                  	; Termina o algoritmo  
+   501 00000119 59                      	pop 	ecx					; Restaura os registradores
+   502 0000011A 5B                      	pop	ebx
+   503 0000011B 58                      	pop 	eax
+   504                                  	ccc_end						; Restaura o ambiente
+   505 0000011C 89EC                <1>  mov esp, ebp
+   506 0000011E 5D                  <1>  pop ebp
+   507 0000011F C3                      ret

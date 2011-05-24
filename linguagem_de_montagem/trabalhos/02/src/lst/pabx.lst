@@ -1,0 +1,520 @@
+     1                                  ; -----------------------------------------------
+     2                                  ; Segundo Trabalho de Linguagem de Montagem
+     3                                  ; Ciência da Computação - 2005/01 - UFES
+     4                                  ;
+     5                                  ; Autores:
+     6                                  ;	Reinaldo Junior < juniorz@gmail.com >
+     7                                  ;	http://www.phpbb.com.br/portal/
+     8                                  ;
+     9                                  ;	Rafael Garcia Birro < rgbirro@gmail.com >
+    10                                  ; -----------------------------------------------
+    11                                  ; Criado em: 08/07/2005
+    12                                  ; Versão 1.0
+    13                                  ; -----------------------------------------------
+    14                                  ; Descrição:
+    15                                  ; Esse arquivo contém as funções que auxiliam
+    16                                  ; na inteligencia do pabx em si.
+    17                                  ; -----------------------------------------------
+    18                                  
+    19                                  %include "includes/macros.inc"
+    20                              <1> ; -----------------------------------------------
+    21                              <1> ; Segundo Trabalho de Linguagem de Montagem
+    22                              <1> ; Ciência da Computação - 2005/01 - UFES
+    23                              <1> ;
+    24                              <1> ; Autores:
+    25                              <1> ;	Reinaldo Junior < juniorz@gmail.com >
+    26                              <1> ;	http://www.phpbb.com.br/portal/
+    27                              <1> ;
+    28                              <1> ;	Rafael Garcia Birro < rgbirro@gmail.com >
+    29                              <1> ; -----------------------------------------------
+    30                              <1> ; Criado em: 15/06/2005
+    31                              <1> ; Versão 1.0
+    32                              <1> ; -----------------------------------------------
+    33                              <1> ; Descrição:
+    34                              <1> ; Esse arquivo contem as macros utilizadas no programa
+    35                              <1> ; -----------------------------------------------
+    36                              <1> 
+    37                              <1> 
+    38                              <1> ; Status do telefone (mascara)
+    39                              <1> ;				xxxx	 	telefone entrou? (possui linha)
+    40                              <1> ;				    yyyy 	telefone ocupado? (fora do gancho)
+    41                              <1> %define MSK_TEL_FORA_GANCHO	00001111b	; Fora do gancho (nao importa se esta fazendo ou recebendo ligações)
+    42                              <1> %define MSK_TEL_LIVRE		00000000b	; No gancho e sem comunicação
+    43                              <1> %define MSK_TEL_TEM_LINHA	11110000b	; Em comunicação (agora um telefone pode estar em comunicaão e estar no gancho - como na vida real :-P )
+    44                              <1> 
+    45                              <1> 
+    46                              <1> ; Constantes do sistema de alocacao
+    47                              <1> %define ST_CELULA_LIVRE		0x00
+    48                              <1> %define ST_CELULA_OCUPADA	0x01
+    49                              <1> %define ST_CELULA_DISPONIVEL	0xFF
+    50                              <1> 
+    51                              <1> ; Mapas para o sistema de alocação
+    52                              <1> %define MAPA_CADASTRO 0
+    53                              <1> %define MAPA_CONVERSA 1
+    54                              <1> %define MAPA_MENSAGEM 2
+    55                              <1> 
+    56                              <1> ; Numero de estruturas
+    57                              <1> %define NUM_CADASTROS 200
+    58                              <1> %define NUM_CONVERSAS 100
+    59                              <1> 
+    60                              <1> ; Estruturas
+    61                              <1> %define TAM_ST_MEMORIA 7
+    62                              <1> %define TAM_ST_CADASTRO 13
+    63                              <1> %define TAM_ST_CONVERSA 12
+    64                              <1> %define TAM_ST_MENSAGEM 12
+    65                              <1> 
+    66                              <1> 
+    67                              <1> ; -----------------------------------------------
+    68                              <1> ;                .:] Macros [:.
+    69                              <1> ; -----------------------------------------------
+    70                              <1> 
+    71                              <1> ; -----------------------------------------------
+    72                              <1> ; [macro] _newline
+    73                              <1> ; [descr] imprime um \n
+    74                              <1> ; [param] descritor de arquivos destino para o \n
+    75                              <1> ; -----------------------------------------------
+    76                              <1> %macro	_newline 0-1 1
+    77                              <1> 	push 	eax		; eax recebe retorno de print_z	
+    78                              <1> 	print_char 0xA, %1
+    79                              <1> 	pop	eax		; Restaura eax
+    80                              <1> %endmacro
+    81                              <1> 
+    82                              <1> 
+    83                              <1> ; -----------------------------------------------
+    84                              <1> ; [macro] print_char
+    85                              <1> ; [descr] imprime um caractere
+    86                              <1> ; [param] (1) caractere
+    87                              <1> ; 	  (2) descritor de arquivos destino para o caractere
+    88                              <1> ; -----------------------------------------------
+    89                              <1> %macro	print_char 1-2 1
+    90                              <1> 	mov al, %1
+    91                              <1> 	mov ah, %2
+    92                              <1> 	call printchar_z
+    93                              <1> %endmacro
+    94                              <1> 
+    95                              <1> 
+    96                              <1> ; -----------------------------------------------
+    97                              <1> ; [macro] print_str
+    98                              <1> ; [descr] imprime uma string
+    99                              <1> ; [param] (1) ptr para a string (zero-terminated)
+   100                              <1> ; 	  (2) descritor de arquivos destino
+   101                              <1> ; -----------------------------------------------
+   102                              <1> %macro	print_str 1-2 1
+   103                              <1> 	push %1
+   104                              <1> 	push %2
+   105                              <1> 	call print_z
+   106                              <1> 	descarta_pilha 2
+   107                              <1> %endmacro
+   108                              <1> 
+   109                              <1> 
+   110                              <1> ; -----------------------------------------------
+   111                              <1> ; [macro] printn_str
+   112                              <1> ; [descr] imprime 'n' caracteres de uma string
+   113                              <1> ; [param] (1) ptr para a string
+   114                              <1> ;	  (2) numero de caracteres a imprimir
+   115                              <1> ; 	  (3) descritor de arquivos destino
+   116                              <1> ; -----------------------------------------------
+   117                              <1> %macro	printn_str 2-3 1
+   118                              <1> 	push %2
+   119                              <1> 	push %1
+   120                              <1> 	push %3
+   121                              <1> 	call printn_z
+   122                              <1> 	descarta_pilha 3
+   123                              <1> %endmacro
+   124                              <1> 
+   125                              <1> 
+   126                              <1> ; -----------------------------------------------
+   127                              <1> ; [macro] macro_syscall
+   128                              <1> ; [descr] executa uma syscall
+   129                              <1> ; [param] (1) numero da syscall
+   130                              <1> ; -----------------------------------------------
+   131                              <1> %macro	macro_syscall	1
+   132                              <1> 	mov eax, dword %1	; Numero da syscall
+   133                              <1> 	int 80h			; Chama o kernel
+   134                              <1> %endmacro
+   135                              <1> 
+   136                              <1> 
+   137                              <1> ; -----------------------------------------------
+   138                              <1> ; [macro] termina_programa
+   139                              <1> ; [descr] finaliza o processo
+   140                              <1> ; [param] (1) codigo de saida do processo
+   141                              <1> ; -----------------------------------------------
+   142                              <1> %macro termina_programa 1
+   143                              <1> 	mov 	ebx, %1		; codigo de saida
+   144                              <1> 	macro_syscall 1		; syscall: exit (kernel/exit.c)
+   145                              <1> %endmacro
+   146                              <1> 
+   147                              <1> 
+   148                              <1> ; -----------------------------------------------
+   149                              <1> ; [macro] descarta_pilha
+   150                              <1> ; [descr] descarta um numero de elementos do topo da pilha
+   151                              <1> ; [param] (1) numero de elemntos
+   152                              <1> ; -----------------------------------------------
+   153                              <1> %macro descarta_pilha 1
+   154                              <1> 	add esp, 4 * %1		; Descarta 4 * num_elementos bytes da pilha
+   155                              <1> %endmacro
+   156                              <1> 
+   157                              <1> 
+   158                              <1> ; -----------------------------------------------
+   159                              <1> ; [macro] ccc_begin
+   160                              <1> ; [descr] faz os preparativos iniciais para que um procedimento utilize a convenção de chamada do C
+   161                              <1> ; [param] (1) numero de variaveis locais que o proceidmento precisará
+   162                              <1> ; -----------------------------------------------
+   163                              <1> %macro ccc_begin 0-1 0
+   164                              <1> 	push	ebp		; Empilha ebp
+   165                              <1> 	mov	ebp, esp	; Prepara a pilha para poder ser utilizada no subprocedimento sem que se perca os parametros
+   166                              <1> 	sub	esp, 4 * %1	; Reserva espaço para variaveis locais
+   167                              <1> %endmacro
+   168                              <1> 
+   169                              <1> 
+   170                              <1> ; -----------------------------------------------
+   171                              <1> ; [macro] ccc_end
+   172                              <1> ; [descr] restaura a pilha para o estado inicial da chamada do procedimento
+   173                              <1> ; -----------------------------------------------
+   174                              <1> %macro ccc_end 0
+   175                              <1> 	mov	esp, ebp	; Restaura esp
+   176                              <1> 	pop	ebp		; Restaura ebp
+   177                              <1> %endmacro
+   178                              <1> 
+   179                              <1> 
+   180                              <1> ; -----------------------------------------------
+   181                              <1> ; [macro] parametro
+   182                              <1> ; [descr] expande para o endereço de um determinado parametro do procedimento
+   183                              <1> ; [param] (1) numero do parametro (contado da esquerda para a direita)
+   184                              <1> ; -----------------------------------------------
+   185                              <1> %define 	parametro(x)	ebp + 4 + 4 * x
+   186                              <1> 
+   187                              <1> 
+   188                              <1> ; -----------------------------------------------
+   189                              <1> ; [macro] varlocal
+   190                              <1> ; [descr] expande para o endereço de uma determinada variavel local do procedimento
+   191                              <1> ; [param] (1) numero do da variavel local
+   192                              <1> ; -----------------------------------------------
+   193                              <1> %define 	varlocal(x)	ebp - 4 * x
+   194                                  
+   195                                  extern MapaMemCadastro
+   196                                  extern MapaMemConversa
+   197                                  extern MapaMemMensagem
+   198                                  extern FimMapaMem
+   199                                  
+   200                                  extern st_memoria.endereco_real
+   201                                  extern st_memoria.tamanho
+   202                                  extern st_memoria.status
+   203                                  
+   204                                  extern st_telefone.numero
+   205                                  extern st_telefone.status
+   206                                  extern st_conversa.tel_1
+   207                                  extern st_conversa.tel_2
+   208                                  extern st_mensagem.id_conversa
+   209                                  extern st_mensagem.status
+   210                                  extern strlen_z
+   211                                  
+   212                                  global procura_telefone_cadastrado
+   213                                  global procura_conversa_telefone
+   214                                  global libera_mensagens
+   215                                  global status_mensagens
+   216                                  
+   217                                  %include "util/asm_io.inc"
+   218                              <1> 	extern  read_int, print_int, print_string
+   219                              <1> 	extern	read_char, print_char, print_nl
+   220                              <1> 	extern  sub_dump_regs, sub_dump_mem, sub_dump_math, sub_dump_stack
+   221                              <1> 
+   222                              <1> %macro 	dump_regs 1
+   223                              <1> 	push	  dword %1
+   224                              <1> 	call	  sub_dump_regs
+   225                              <1> %endmacro
+   226                              <1> 
+   227                              <1> 
+   228                              <1> ;
+   229                              <1> ; usage: dump_mem label, start-address, # paragraphs
+   230                              <1> %macro  dump_mem 3
+   231                              <1> 	push	 dword %1
+   232                              <1> 	push	 dword %2
+   233                              <1> 	push	 dword %3
+   234                              <1> 	call	 sub_dump_mem
+   235                              <1> %endmacro
+   236                              <1> 
+   237                              <1> %macro	dump_math 1
+   238                              <1> 	push	 dword %1
+   239                              <1> 	call	 sub_dump_math
+   240                              <1> %endmacro
+   241                              <1> 
+   242                              <1> %macro  dump_stack 3
+   243                              <1> 	push	 dword %3
+   244                              <1>         push     dword %2
+   245                              <1> 	push	 dword %1
+   246                              <1>         call     sub_dump_stack
+   247                              <1> %endmacro
+   248                                  
+   249                                  ; -----------------------------------------------
+   250                                  ; [nome]  	procura_telefone_cadastrado
+   251                                  ; [descr] 	procura por um telefone cadastrado no sistema
+   252                                  ; [param] 	(1) ptr para o numero do telefone
+   253                                  ; [return]	(eax) ptr para a celula onde se encontra o telefone
+   254                                  ; -----------------------------------------------
+   255                                  ; CHANGELOG
+   256                                  ; -----------------------------------------------
+   257                                  ; [28/06/2005 - 20:10]
+   258                                  ; Finalizada a versão 1.0
+   259                                  ; -----------------------------------------------
+   260                                  procura_telefone_cadastrado
+   261                                  	ccc_begin
+   262 00000000 55                  <1>  push ebp
+   263 00000001 89E5                <1>  mov ebp, esp
+   264 00000003 81EC00000000        <1>  sub esp, 4 * %1
+   265 00000009 53                      	push	ebx
+   266 0000000A 51                      	push	ecx
+   267                                  
+   268 0000000B FC                      	cld	; limpa o flag de direcao
+   269 0000000C BB[00000000]            	mov	ebx, MapaMemCadastro			; mapa de memoria
+   270                                  
+   271                                  
+   272                                    .compara_telefone
+   273                                  
+   274                                  	; Avanca para o proximo elemento na tabela
+   275 00000011 81C307000000            	add	ebx, TAM_ST_MEMORIA
+   276                                  
+   277                                  	; Chegou ao fim ?
+   278 00000017 81FB[00000000]          	cmp	ebx, MapaMemConversa
+   279 0000001D 7D2D                    	jge	.erro
+   280                                  
+   281                                  	; Apenas pesquisa por numeros que estão ocupados
+   282 0000001F 80BB[00000000]01        	cmp	byte [ebx + st_memoria.status], ST_CELULA_OCUPADA
+   283 00000026 75E9                    	jne	.compara_telefone
+   284                                  
+   285 00000028 8B7508                  	mov	esi, dword [parametro(1)]		; aponta esi para a string a ser processada
+   286 0000002B 8BBB[00000000]          	mov 	edi, [ebx + st_telefone.numero]		; aponta edi para o telefone atual
+   287                                  							; isso nao eh o correto, mas como eu coloquei o que importa no offset 0 a partir do endereço, isso funciona e econimoza alguns comandos (q seriam somar 0 algumas vezes)
+   288                                  
+   289                                  	; Armazena o numero de caracteres a comparar em eax
+   290 00000031 FF7508                  	push dword [parametro(1)]
+   291 00000034 E8(00000000)            	call strlen_z
+   292                                  	descarta_pilha 1
+   293 00000039 81C404000000        <1>  add esp, 4 * %1
+   294 0000003F 89C1                    	mov	ecx, eax				; numero de caracteres a comparar
+   295                                  
+   296                                  
+   297                                  	;
+   298                                  	; Compara enquanto for igual
+   299                                  	;
+   300 00000041 F3A6                    	repe	cmpsb					; compara enquanto as strings coincidirem E enquanto houver algum caractere a comparar (ecx > 0)
+   301 00000043 75CC                    	jne	.compara_telefone			; os comandos coincidem
+   302                                  
+   303                                  	; Retorna o endereço em eax
+   304 00000045 89D8                    	mov	eax, ebx
+   305 00000047 E902000000              	jmp	.fim
+   306                                  
+   307                                  
+   308                                    .erro	
+   309                                  
+   310                                  	; Nao achou
+   311 0000004C 31C0                    	xor	eax, eax
+   312                                  
+   313                                  
+   314                                    .fim
+   315                                  	; Termina a funcao
+   316 0000004E 59                      	pop	ecx
+   317 0000004F 5B                      	pop	ebx	
+   318                                  	ccc_end
+   319 00000050 89EC                <1>  mov esp, ebp
+   320 00000052 5D                  <1>  pop ebp
+   321 00000053 C3                      ret
+   322                                  
+   323                                  
+   324                                  
+   325                                  ; -----------------------------------------------
+   326                                  ; [nome]  	procura_conversa_telefone
+   327                                  ; [descr] 	procura uma conversa associada ao telefone especificado
+   328                                  ; [param] 	(1) ptr para a celula onde se encontra o telefone
+   329                                  ; [return]	(eax) ptr para a celula onde se encontra a conversa
+   330                                  ; -----------------------------------------------
+   331                                  ; CHANGELOG
+   332                                  ; -----------------------------------------------
+   333                                  ; [04/07/2005 - 23:11]
+   334                                  ; Versão WIP
+   335                                  ; -----------------------------------------------
+   336                                  procura_conversa_telefone
+   337                                  	ccc_begin
+   338 00000054 55                  <1>  push ebp
+   339 00000055 89E5                <1>  mov ebp, esp
+   340 00000057 81EC00000000        <1>  sub esp, 4 * %1
+   341 0000005D 53                      	push	ebx
+   342 0000005E 51                      	push	ecx
+   343                                  
+   344 0000005F B8[00000000]            	mov	eax, MapaMemConversa			; mapa de memoria
+   345 00000064 8B4D08                  	mov	ecx, dword [parametro(1)]		; telefone a ser buscado
+   346                                  
+   347                                  
+   348                                    .compara_telefone
+   349                                  
+   350                                  	; Avanca para o proximo elemento na tabela
+   351 00000067 0507000000              	add	eax, TAM_ST_MEMORIA
+   352                                  
+   353                                  	; Chegou ao fim ?
+   354 0000006C 3D[00000000]            	cmp	eax, MapaMemMensagem
+   355 00000071 7D24                    	jge	.erro
+   356                                  
+   357                                  	; Apenas pesquisa por numeros que estão ocupados
+   358 00000073 80B8[00000000]01        	cmp	byte [eax + st_memoria.status], ST_CELULA_OCUPADA
+   359 0000007A 75EB                    	jne	.compara_telefone
+   360                                  
+   361 0000007C 8B98[00000000]          	mov	ebx, [eax + st_memoria.endereco_real]	; Aponta para a conversa
+   362                                  
+   363 00000082 398B[00000000]          	cmp	dword [ebx + st_conversa.tel_1], ecx	; procura pelo telefone
+   364 00000088 740F                    	je	.fim
+   365                                  
+   366 0000008A 398B[00000000]          	cmp	dword [ebx + st_conversa.tel_2], ecx	; procura pelo telefone
+   367 00000090 75D5                    	jne	.compara_telefone
+   368                                  
+   369 00000092 E902000000              	jmp	.fim
+   370                                  
+   371                                  
+   372                                    .erro	
+   373                                  
+   374                                  	; Nao achou
+   375 00000097 31C0                    	xor	eax, eax
+   376                                  
+   377                                  
+   378                                    .fim
+   379                                  	; Termina a funcao
+   380 00000099 59                      	pop	ecx
+   381 0000009A 5B                      	pop	ebx	
+   382                                  	ccc_end
+   383 0000009B 89EC                <1>  mov esp, ebp
+   384 0000009D 5D                  <1>  pop ebp
+   385 0000009E C3                      ret
+   386                                  
+   387                                  
+   388                                  
+   389 0000009F 6802000000              	push	dword 2			; (2) Status minimo a se manter
+   390 000000A4 6802000000              	push	dword MAPA_MENSAGEM	; (1) Mapa a manipular
+   391 000000A9 E806000000              	call libera_mensagens
+   392                                  	descarta_pilha 2
+   393 000000AE 81C408000000        <1>  add esp, 4 * %1
+   394                                  
+   395                                  ; -----------------------------------------------
+   396                                  ; [nome]	libera_mensagens
+   397                                  ; [descr]	Libera as mensagens com o status maior que o status minimo informado
+   398                                  ; [param]	(1) status minimo
+   399                                  ; -----------------------------------------------
+   400                                  ; CHANGELOG
+   401                                  ; -----------------------------------------------
+   402                                  ; [25/07/2005 - 20:20]
+   403                                  ; Versão 1.0
+   404                                  ; -----------------------------------------------
+   405                                  libera_mensagens
+   406                                  	ccc_begin
+   407 000000B4 55                  <1>  push ebp
+   408 000000B5 89E5                <1>  mov ebp, esp
+   409 000000B7 81EC00000000        <1>  sub esp, 4 * %1
+   410 000000BD 50                      	push	eax
+   411 000000BE 53                      	push	ebx
+   412 000000BF 51                      	push	ecx
+   413 000000C0 52                      	push	edx
+   414                                  
+   415 000000C1 B8[00000000]            	mov	eax, MapaMemMensagem			; mapa de memoria
+   416 000000C6 89C2                    	mov	edx, eax				; EDX := registro mestre
+   417 000000C8 8B4D08                  	mov	ecx, dword [parametro(1)]		; status
+   418                                  
+   419                                  
+   420                                    .compara_mensagem
+   421                                  
+   422                                  	; Avanca para o proximo elemento na tabela
+   423 000000CB 0507000000              	add	eax, TAM_ST_MEMORIA
+   424                                  
+   425                                  	; Chegou ao fim ?
+   426 000000D0 3D[00000000]            	cmp	eax, FimMapaMem
+   427 000000D5 7D41                    	jge	.fim
+   428                                  
+   429                                  	; Apenas pesquisa por numeros que estão ocupados
+   430 000000D7 80B8[00000000]01        	cmp	byte [eax + st_memoria.status], ST_CELULA_OCUPADA
+   431 000000DE 75EB                    	jne	.compara_mensagem
+   432                                  
+   433 000000E0 8B98[00000000]          	mov	ebx, [eax + st_memoria.endereco_real]	; Aponta para a conversa
+   434                                  
+   435 000000E6 388B[00000000]          	cmp	byte [ebx + st_mensagem.status], cl	; Status
+   436 000000EC 7CDD                    	jl	.compara_mensagem
+   437                                  
+   438                                  	; Libera a memoria
+   439 000000EE C680[00000000]00        	mov	byte [eax + st_memoria.status], ST_CELULA_LIVRE
+   440                                  
+   441 000000F5 51                      	push	ecx
+   442 000000F6 0FB788[00000000]        	movzx	ecx, word [eax + st_memoria.tamanho]
+   443 000000FD 66018A[00000000]        	add	word [edx + st_memoria.tamanho], cx
+   444 00000104 59                      	pop	ecx
+   445                                  
+   446                                  dump_mem 1111, [eax], 1
+   447 00000105 6857040000          <1>  push dword %1
+   448 0000010A FF30                <1>  push dword %2
+   449 0000010C 6801000000          <1>  push dword %3
+   450 00000111 E8(00000000)        <1>  call sub_dump_mem
+   451                                  	
+   452 00000116 EBB3                    	jmp	.compara_mensagem
+   453                                  
+   454                                    .fim
+   455                                  	; Termina a funcao
+   456 00000118 5A                      	pop	edx
+   457 00000119 59                      	pop	ecx
+   458 0000011A 5B                      	pop	ebx
+   459 0000011B 58                      	pop	eax
+   460                                  	ccc_end
+   461 0000011C 89EC                <1>  mov esp, ebp
+   462 0000011E 5D                  <1>  pop ebp
+   463 0000011F C3                      ret
+   464                                  
+   465                                  
+   466                                  ; -----------------------------------------------
+   467                                  ; [nome]	libera_mensagens
+   468                                  ; [descr]	Libera as mensagens com o status maior que o status minimo informado
+   469                                  ; [param]	(1) conversa
+   470                                  ; -----------------------------------------------
+   471                                  ; CHANGELOG
+   472                                  ; -----------------------------------------------
+   473                                  ; [25/07/2005 - 19:50]
+   474                                  ; Versão 1.0
+   475                                  ; -----------------------------------------------
+   476                                  status_mensagens
+   477                                  	ccc_begin
+   478 00000120 55                  <1>  push ebp
+   479 00000121 89E5                <1>  mov ebp, esp
+   480 00000123 81EC00000000        <1>  sub esp, 4 * %1
+   481 00000129 50                      	push	eax
+   482 0000012A 53                      	push	ebx
+   483 0000012B 51                      	push	ecx
+   484                                  
+   485 0000012C B8[00000000]            	mov	eax, MapaMemMensagem				; mapa de memoria
+   486 00000131 8B4D08                  	mov	ecx, dword [parametro(1)]			; endereco da conversa
+   487 00000134 668B89[00000000]        	mov	cx, word [ecx + st_mensagem.id_conversa]	; Numero identificador da conversa
+   488                                  
+   489                                  
+   490                                    .compara_mensagem
+   491                                  
+   492                                  	; Avanca para o proximo elemento na tabela
+   493 0000013B 0507000000              	add	eax, TAM_ST_MEMORIA
+   494                                  
+   495                                  	; Chegou ao fim ?
+   496 00000140 3D[00000000]            	cmp	eax, FimMapaMem
+   497 00000145 7D1C                    	jge	.fim
+   498                                  
+   499                                  	; Apenas pesquisa por numeros que estão ocupados
+   500 00000147 80B8[00000000]01        	cmp	byte [eax + st_memoria.status], ST_CELULA_OCUPADA
+   501 0000014E 75EB                    	jne	.compara_mensagem
+   502                                  
+   503 00000150 8B98[00000000]          	mov	ebx, [eax + st_memoria.endereco_real]	; Aponta para a conversa
+   504                                  
+   505 00000156 66390B                  	cmp	word [ebx], cx				; A mensagem possui o ID da conversa especificada?
+   506 00000159 75E0                    	jne	.compara_mensagem
+   507                                  
+   508                                  	; Marca a memoria como já passada
+   509 0000015B FE83[00000000]          	inc 	byte [ebx + st_mensagem.status]
+   510 00000161 EBD8                    	jmp	.compara_mensagem
+   511                                  
+   512                                    .fim
+   513                                  
+   514 00000163 59                      	pop	ecx
+   515 00000164 5B                      	pop	ebx
+   516 00000165 58                      	pop	eax
+   517                                  	ccc_end
+   518 00000166 89EC                <1>  mov esp, ebp
+   519 00000168 5D                  <1>  pop ebp
+   520 00000169 C3                      ret

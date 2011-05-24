@@ -1,0 +1,6 @@
+0A28	Cadastros	 200 * 13 bytes
+04B0	Conversas	 100 * 12 bytes
+3128	Mensagens	1048 * 12 bytes
+---------------------------------------
+4000	Total		1024 * 16 bytes
+

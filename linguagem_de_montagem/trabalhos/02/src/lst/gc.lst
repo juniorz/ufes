@@ -1,0 +1,803 @@
+     1                                  ; -----------------------------------------------
+     2                                  ; Segundo Trabalho de Linguagem de Montagem
+     3                                  ; Ciência da Computação - 2005/01 - UFES
+     4                                  ; -----------------------------------------------
+     5                                  ; Autor: Reinaldo Junior < juniorz [at] gmail [dot] com >
+     6                                  ; 	 http://www.phpbb.com.br/portal/
+     7                                  ; -----------------------------------------------
+     8                                  ; Criado em: 15/06/2005
+     9                                  ; Versão 0.0.1
+    10                                  ; -----------------------------------------------
+    11                                  ; Descrição:
+    12                                  ; Esse arquivo contem funçoes de garbage collection
+    13                                  ; -----------------------------------------------
+    14                                  
+    15                                  
+    16                                  ; -----------------------------------------------
+    17                                  ;               .:] Changelog [:.
+    18                                  ; -----------------------------------------------
+    19                                  ; 20/06/2005 11:15
+    20                                  ; Criado o arquivo
+    21                                  ; -----------------------------------------------
+    22                                  
+    23                                  %include "includes/macros.inc"
+    24                              <1> ; -----------------------------------------------
+    25                              <1> ; Segundo Trabalho de Linguagem de Montagem
+    26                              <1> ; Ciência da Computação - 2005/01 - UFES
+    27                              <1> ;
+    28                              <1> ; Autores:
+    29                              <1> ;	Reinaldo Junior < juniorz@gmail.com >
+    30                              <1> ;	http://www.phpbb.com.br/portal/
+    31                              <1> ;
+    32                              <1> ;	Rafael Garcia Birro < rgbirro@gmail.com >
+    33                              <1> ; -----------------------------------------------
+    34                              <1> ; Criado em: 15/06/2005
+    35                              <1> ; Versão 1.0
+    36                              <1> ; -----------------------------------------------
+    37                              <1> ; Descrição:
+    38                              <1> ; Esse arquivo contem as macros utilizadas no programa
+    39                              <1> ; -----------------------------------------------
+    40                              <1> 
+    41                              <1> 
+    42                              <1> ; Status do telefone (mascara)
+    43                              <1> ;				xxxx	 	telefone entrou? (possui linha)
+    44                              <1> ;				    yyyy 	telefone ocupado? (fora do gancho)
+    45                              <1> %define MSK_TEL_FORA_GANCHO	00001111b	; Fora do gancho (nao importa se esta fazendo ou recebendo ligações)
+    46                              <1> %define MSK_TEL_LIVRE		00000000b	; No gancho e sem comunicação
+    47                              <1> %define MSK_TEL_TEM_LINHA	11110000b	; Em comunicação (agora um telefone pode estar em comunicaão e estar no gancho - como na vida real :-P )
+    48                              <1> 
+    49                              <1> 
+    50                              <1> ; Constantes do sistema de alocacao
+    51                              <1> %define ST_CELULA_LIVRE		0x00
+    52                              <1> %define ST_CELULA_OCUPADA	0x01
+    53                              <1> %define ST_CELULA_DISPONIVEL	0xFF
+    54                              <1> 
+    55                              <1> ; Mapas para o sistema de alocação
+    56                              <1> %define MAPA_CADASTRO 0
+    57                              <1> %define MAPA_CONVERSA 1
+    58                              <1> %define MAPA_MENSAGEM 2
+    59                              <1> 
+    60                              <1> ; Numero de estruturas
+    61                              <1> %define NUM_CADASTROS 200
+    62                              <1> %define NUM_CONVERSAS 100
+    63                              <1> 
+    64                              <1> ; Estruturas
+    65                              <1> %define TAM_ST_MEMORIA 7
+    66                              <1> %define TAM_ST_CADASTRO 13
+    67                              <1> %define TAM_ST_CONVERSA 12
+    68                              <1> %define TAM_ST_MENSAGEM 12
+    69                              <1> 
+    70                              <1> 
+    71                              <1> ; -----------------------------------------------
+    72                              <1> ;                .:] Macros [:.
+    73                              <1> ; -----------------------------------------------
+    74                              <1> 
+    75                              <1> ; -----------------------------------------------
+    76                              <1> ; [macro] _newline
+    77                              <1> ; [descr] imprime um \n
+    78                              <1> ; [param] descritor de arquivos destino para o \n
+    79                              <1> ; -----------------------------------------------
+    80                              <1> %macro	_newline 0-1 1
+    81                              <1> 	push 	eax		; eax recebe retorno de print_z	
+    82                              <1> 	print_char 0xA, %1
+    83                              <1> 	pop	eax		; Restaura eax
+    84                              <1> %endmacro
+    85                              <1> 
+    86                              <1> 
+    87                              <1> ; -----------------------------------------------
+    88                              <1> ; [macro] print_char
+    89                              <1> ; [descr] imprime um caractere
+    90                              <1> ; [param] (1) caractere
+    91                              <1> ; 	  (2) descritor de arquivos destino para o caractere
+    92                              <1> ; -----------------------------------------------
+    93                              <1> %macro	print_char 1-2 1
+    94                              <1> 	mov al, %1
+    95                              <1> 	mov ah, %2
+    96                              <1> 	call printchar_z
+    97                              <1> %endmacro
+    98                              <1> 
+    99                              <1> 
+   100                              <1> ; -----------------------------------------------
+   101                              <1> ; [macro] print_str
+   102                              <1> ; [descr] imprime uma string
+   103                              <1> ; [param] (1) ptr para a string (zero-terminated)
+   104                              <1> ; 	  (2) descritor de arquivos destino
+   105                              <1> ; -----------------------------------------------
+   106                              <1> %macro	print_str 1-2 1
+   107                              <1> 	push %1
+   108                              <1> 	push %2
+   109                              <1> 	call print_z
+   110                              <1> 	descarta_pilha 2
+   111                              <1> %endmacro
+   112                              <1> 
+   113                              <1> 
+   114                              <1> ; -----------------------------------------------
+   115                              <1> ; [macro] printn_str
+   116                              <1> ; [descr] imprime 'n' caracteres de uma string
+   117                              <1> ; [param] (1) ptr para a string
+   118                              <1> ;	  (2) numero de caracteres a imprimir
+   119                              <1> ; 	  (3) descritor de arquivos destino
+   120                              <1> ; -----------------------------------------------
+   121                              <1> %macro	printn_str 2-3 1
+   122                              <1> 	push %2
+   123                              <1> 	push %1
+   124                              <1> 	push %3
+   125                              <1> 	call printn_z
+   126                              <1> 	descarta_pilha 3
+   127                              <1> %endmacro
+   128                              <1> 
+   129                              <1> 
+   130                              <1> ; -----------------------------------------------
+   131                              <1> ; [macro] macro_syscall
+   132                              <1> ; [descr] executa uma syscall
+   133                              <1> ; [param] (1) numero da syscall
+   134                              <1> ; -----------------------------------------------
+   135                              <1> %macro	macro_syscall	1
+   136                              <1> 	mov eax, dword %1	; Numero da syscall
+   137                              <1> 	int 80h			; Chama o kernel
+   138                              <1> %endmacro
+   139                              <1> 
+   140                              <1> 
+   141                              <1> ; -----------------------------------------------
+   142                              <1> ; [macro] termina_programa
+   143                              <1> ; [descr] finaliza o processo
+   144                              <1> ; [param] (1) codigo de saida do processo
+   145                              <1> ; -----------------------------------------------
+   146                              <1> %macro termina_programa 1
+   147                              <1> 	mov 	ebx, %1		; codigo de saida
+   148                              <1> 	macro_syscall 1		; syscall: exit (kernel/exit.c)
+   149                              <1> %endmacro
+   150                              <1> 
+   151                              <1> 
+   152                              <1> ; -----------------------------------------------
+   153                              <1> ; [macro] descarta_pilha
+   154                              <1> ; [descr] descarta um numero de elementos do topo da pilha
+   155                              <1> ; [param] (1) numero de elemntos
+   156                              <1> ; -----------------------------------------------
+   157                              <1> %macro descarta_pilha 1
+   158                              <1> 	add esp, 4 * %1		; Descarta 4 * num_elementos bytes da pilha
+   159                              <1> %endmacro
+   160                              <1> 
+   161                              <1> 
+   162                              <1> ; -----------------------------------------------
+   163                              <1> ; [macro] ccc_begin
+   164                              <1> ; [descr] faz os preparativos iniciais para que um procedimento utilize a convenção de chamada do C
+   165                              <1> ; [param] (1) numero de variaveis locais que o proceidmento precisará
+   166                              <1> ; -----------------------------------------------
+   167                              <1> %macro ccc_begin 0-1 0
+   168                              <1> 	push	ebp		; Empilha ebp
+   169                              <1> 	mov	ebp, esp	; Prepara a pilha para poder ser utilizada no subprocedimento sem que se perca os parametros
+   170                              <1> 	sub	esp, 4 * %1	; Reserva espaço para variaveis locais
+   171                              <1> %endmacro
+   172                              <1> 
+   173                              <1> 
+   174                              <1> ; -----------------------------------------------
+   175                              <1> ; [macro] ccc_end
+   176                              <1> ; [descr] restaura a pilha para o estado inicial da chamada do procedimento
+   177                              <1> ; -----------------------------------------------
+   178                              <1> %macro ccc_end 0
+   179                              <1> 	mov	esp, ebp	; Restaura esp
+   180                              <1> 	pop	ebp		; Restaura ebp
+   181                              <1> %endmacro
+   182                              <1> 
+   183                              <1> 
+   184                              <1> ; -----------------------------------------------
+   185                              <1> ; [macro] parametro
+   186                              <1> ; [descr] expande para o endereço de um determinado parametro do procedimento
+   187                              <1> ; [param] (1) numero do parametro (contado da esquerda para a direita)
+   188                              <1> ; -----------------------------------------------
+   189                              <1> %define 	parametro(x)	ebp + 4 + 4 * x
+   190                              <1> 
+   191                              <1> 
+   192                              <1> ; -----------------------------------------------
+   193                              <1> ; [macro] varlocal
+   194                              <1> ; [descr] expande para o endereço de uma determinada variavel local do procedimento
+   195                              <1> ; [param] (1) numero do da variavel local
+   196                              <1> ; -----------------------------------------------
+   197                              <1> %define 	varlocal(x)	ebp - 4 * x
+   198                                  %define TAM_ST_MEMORIA 7
+   199                                  
+   200                                  global malloc_z
+   201                                  global free_z
+   202                                  
+   203                                  extern MapaMem
+   204                                  extern NumeroCelulas
+   205                                  extern st_memoria.endereco_real
+   206                                  extern st_memoria.tamanho
+   207                                  extern st_memoria.status
+   208                                  
+   209                                  ; RETIRAR
+   210                                  %include "util/asm_io.inc"
+   211                              <1> 	extern  read_int, print_int, print_string
+   212                              <1> 	extern	read_char, print_char, print_nl
+   213                              <1> 	extern  sub_dump_regs, sub_dump_mem, sub_dump_math, sub_dump_stack
+   214                              <1> 
+   215                              <1> %macro 	dump_regs 1
+   216                              <1> 	push	  dword %1
+   217                              <1> 	call	  sub_dump_regs
+   218                              <1> %endmacro
+   219                              <1> 
+   220                              <1> 
+   221                              <1> ;
+   222                              <1> ; usage: dump_mem label, start-address, # paragraphs
+   223                              <1> %macro  dump_mem 3
+   224                              <1> 	push	 dword %1
+   225                              <1> 	push	 dword %2
+   226                              <1> 	push	 dword %3
+   227                              <1> 	call	 sub_dump_mem
+   228                              <1> %endmacro
+   229                              <1> 
+   230                              <1> %macro	dump_math 1
+   231                              <1> 	push	 dword %1
+   232                              <1> 	call	 sub_dump_math
+   233                              <1> %endmacro
+   234                              <1> 
+   235                              <1> %macro  dump_stack 3
+   236                              <1> 	push	 dword %3
+   237                              <1>         push     dword %2
+   238                              <1> 	push	 dword %1
+   239                              <1>         call     sub_dump_stack
+   240                              <1> %endmacro
+   241                                  
+   242                                  ; [std_io.o]
+   243                                  extern print_z
+   244                                  extern printchar_z
+   245                                  
+   246                                  
+   247                                  ; RETIRAR
+   248                                  ;extern getchar
+   249                                  ;extern int2ascii
+   250                                  
+   251                                  ; -----------------------------------------------
+   252                                  ; [nome]	malloc_z
+   253                                  ; [descr]	reserva uma determinada quantidade de memoria
+   254                                  ; [param]	(1) Espaço de memória a ser utilizado
+   255                                  ;		(2) Quantidade de memoria a ser reservada
+   256                                  ; [return]	(eax) endereco indireto para a memoria alocada ou -1 em caso de erro
+   257                                  ; -----------------------------------------------
+   258                                  ; CHANGELOG
+   259                                  ; -----------------------------------------------
+   260                                  ; [21/06/2005 - 00:32]
+   261                                  ; Versão 0.5
+   262                                  ; Falta implementar a parte que fará a mensagem funcionar, que é o redimensionamento das celulas de memoria (e o garbage collection em si)
+   263                                  ;
+   264                                  ; [24/06/2005 - 19:15]
+   265                                  ; Versão 0.7
+   266                                  ; Corrigidos problemas de verificação do tamanho da celula. (ao inves de comparar uma word eu comparava uma dword :-D )
+   267                                  ;
+   268                                  ; [28/06/2005 - 22:25]
+   269                                  ; Versão 0.7.1
+   270                                  ; Alterada a convenção de retorno e implementado um debug e uma pequena otimização
+   271                                  ;
+   272                                  ; [14/07/2005 - 19:33]
+   273                                  ; Versão 0.9
+   274                                  ; Iniciada a implementação do caso em que será preciso efetuar o Garbage Collection.
+   275                                  ;
+   276                                  ;
+   277                                  ; [TODO]
+   278                                  ; Implementar o redimensionamento de uma celula caso sobre bytes
+   279                                  ; -----------------------------------------------
+   280                                  malloc_z:
+   281                                  	ccc_begin
+   282 00000000 55                  <1>  push ebp
+   283 00000001 89E5                <1>  mov ebp, esp
+   284 00000003 81EC00000000        <1>  sub esp, 4 * %1
+   285                                  
+   286 00000009 53                      	push 	ebx
+   287 0000000A 51                      	push	ecx
+   288 0000000B 9C                      	pushfd
+   289                                  
+   290                                  
+   291                                    .inicio
+   292                                  
+   293                                  	;
+   294                                  	; Inicia as variaveis
+   295                                  	;
+   296 0000000C 8B4508                  	mov	eax, dword [parametro(1)]	; parametro(1) possui o elemento da tabela de mapas que sera manipulado (0 - 2)
+   297                                  
+   298 0000000F 89C3                    	mov	ebx, eax			; copia para ebx
+   299 00000011 43                      	inc	ebx				; ebx possui o mapa seguinte ao mapa que será atualizado
+   300 00000012 8B1C9D[00000000]        	mov	ebx, dword [MapaMem + 4 * ebx]	; ebx := elemento da tabela de mapas seguinte ao que sera manipulado (1 - 3)
+   301 00000019 89D9                    	mov	ecx, ebx			; varlocal(1) possui o limite superior do mapa que está sendo manipulado
+   302                                  
+   303 0000001B 8B0485[00000000]        	mov	eax, dword [MapaMem + 4 * eax]	; eax := Registro mestre do Mapa de memoria a ser manipulado
+   304 00000022 8B5D0C                  	mov	ebx, dword [parametro(2)]	; ebx := bytes a alocar
+   305                                  
+   306                                  
+   307                                  	;
+   308                                  	; Verifica se há espaço suficiente
+   309                                  	;
+   310 00000025 663998[00000000]        	cmp	word [eax + st_memoria.tamanho], bx	; Possui essa quantidade ?
+   311 0000002C 7D07                    	jge	.procura_espaco				; Procura o espaço
+   312                                  
+   313 0000002E 31C0                    	xor	eax, eax				; Erro
+   314 00000030 E99B000000              	jmp	.fim
+   315                                  
+   316                                  
+   317                                    .procura_espaco
+   318                                  
+   319                                  	; Procura um pedaço livre e que tenha o tamanho necessário
+   320 00000035 0507000000              	add	eax, TAM_ST_MEMORIA			; Aponta para a proxima celula
+   321                                  
+   322                                  %ifdef DEBUG
+   323                                  	_newline
+   324                                  	dump_regs 222001
+   325                                  	dump_mem 222001, eax, 1
+   326                                  	dump_mem 222002, [eax], 1
+   327                                  
+   328                                  	; Faz uma pausa :-P
+   329                                  	push eax
+   330                                  	push ebx
+   331                                  	push ecx
+   332                                  	push edx
+   333                                  	call getchar
+   334                                  	pop edx
+   335                                  	pop ecx	
+   336                                  	pop ebx
+   337                                  	pop eax
+   338                                  %endif
+   339                                  
+   340                                  								; EBX := Tamanho necessario 
+   341 0000003A 663B98[00000000]        	cmp	bx, word [eax + st_memoria.tamanho]		; Essa célula a possui o tamanho que preciso?
+   342 00000041 7F09                    	jnle	.verifica_fim					; Continua procurando ate encontrar uma celula com tamanho maior ou igual ao que preciso
+   343                                  
+   344 00000043 80B8[00000000]00        	cmp	byte [eax + st_memoria.status], ST_CELULA_LIVRE	; Verifica se o espaço está ocupado
+   345 0000004A 7414                    	je	.retorna					; Retorna o endereço
+   346                                  
+   347                                  
+   348                                    .verifica_fim
+   349                                  
+   350 0000004C 39C8                    	cmp	eax, ecx		; Chegou ao fim ?
+   351 0000004E 7CE5                    	jl	.procura_espaco		; Continua procurando
+   352                                  
+   353                                  	; Chegou ao fim e nao achou nada nenhuma celula que possua NO MINIMO a quantidade de bytes necessários
+   354                                  	; Então, desfragmenta
+   355 00000050 FF7508                  	push dword [parametro(1)]	; Mapa a efetuar o CG
+   356 00000053 E8B0000000              	call defrag_mem			; Implementa um garbage collection automatico,
+   357                                  					; caso nao tenha encontrado uma celula livre com o espaço de memoria necessário.
+   358                                  					; A idéia é varrer o mapa de memoria procurando por celulas que possuam a quantidade de bytes necessária,
+   359                                  					; e caso sobre algum byte na celula que sera utilizada , essa quantidade que sobrou será alocada em outra célula - caso exista -
+   360                                  					; (o que diminuiria a probabilidade de se efetuar esse garbage collection mais vezes do que o necessário).
+   361                                  					; Essa alocação ocorre no FINAL desse procedimento.
+   362                                  					; Ver "PABX User Guide" pg 1724 (hehehe)
+   363                                  	descarta_pilha 1
+   364 00000058 81C404000000        <1>  add esp, 4 * %1
+   365                                  
+   366                                  
+   367                                  	; Se possuia espaço, mas nao possuia nenhuma celula do tamanho,
+   368                                  	; após o GC haverá um celula do tamanho necessario (ou maior).
+   369                                  	; Então, roda a função de novo
+   370 0000005E EBAC                    	jmp	.inicio
+   371                                  
+   372                                  
+   373                                    .retorna
+   374                                  
+   375 00000060 C680[00000000]01        	mov	byte [eax + st_memoria.status], ST_CELULA_OCUPADA	; Ocupa a celula que será utilizada
+   376                                  
+   377                                  	;
+   378                                  	; Atualiza o Registro mestre
+   379                                  	;
+   380 00000067 50                      	push 	eax
+   381                                  
+   382 00000068 8B4508                  	mov	eax, dword [parametro(1)]	; parametro(1) possui o elemento da tabela de mapas que sera manipulado (0 - 2)
+   383 0000006B 8B0485[00000000]        	mov	eax, dword [MapaMem + 4 * eax]	; eax := Registro mestre do Mapa de memoria a ser manipulado
+   384                                  
+   385 00000072 662998[00000000]        	sub	word [eax + st_memoria.tamanho], bx		; Espaço livre
+   386 00000079 7507                    	jnz	.salta01
+   387 0000007B C680[00000000]01        	mov	byte [eax + st_memoria.status], ST_CELULA_OCUPADA	; Se acabou o espaço no espaço que o mapa gerencia, marca o espaço como ocupado no registro mestre
+   388                                  
+   389                                  
+   390                                      .salta01	
+   391                                  
+   392 00000082 58                      	pop	eax
+   393                                  
+   394                                  	; Para aproveitar o espaço, verifica se será utilizado todo o espaço da celula recém-ocupada
+   395 00000083 662B98[00000000]        	sub	bx, word [eax + st_memoria.tamanho]
+   396 0000008A 7444                    	jz	.fim
+   397                                  
+   398                                  	; Faz a realocação dos bytes que eventualmente venha ma estar sobrando na celula que será utilizada agora
+   399                                  	; Aloca o espaço que sobrou na primeira célula DISPONIVEL encontrada
+   400                                  	; Se nao encontrar, deixa do tamanho que está :-D
+   401 0000008C 66F7DB                  	neg	bx						; BX := numero de bytes que sobraram
+   402                                  
+   403                                  	;
+   404                                  	; Aloca os bytes
+   405                                  	;
+   406                                  
+   407                                  	; Procura por uma celula disponivel
+   408 0000008F 50                      	push	eax				; Armazena EAX
+   409                                  
+   410 00000090 FF7508                  	push dword [parametro(1)]		; Mapa a efetuar o CG
+   411 00000093 E88F010000              	call procura_celula_disponivel		; Procura por uma celula disponivel e retornma em EAX
+   412                                  	descarta_pilha 1
+   413 00000098 81C404000000        <1>  add esp, 4 * %1
+   414                                  
+   415 0000009E 3D00000000              	cmp	eax, 0x00	; Possui alguma celula DISPONIVEL?
+   416 000000A3 89C1                    	mov	ecx, eax	; Armazena a celula. Nao altera os FLAGS
+   417 000000A5 58                      	pop	eax		; Restaura EAX (nao altera os FLAGS)
+   418 000000A6 7428                    	je	.fim		; Se nao possui sai assim mesmo
+   419                                  
+   420                                  	; ECX := Celula DISPONIVEL
+   421                                  	; EAX := Celula que possui espaço sobrando
+   422                                  	; BX := Numero de bytes que estão sobrando
+   423                                  
+   424                                  %ifdef DEBUG
+   425                                  	_newline
+   426                                  	dump_regs 666666
+   427                                  	dump_mem 666666, eax, 1
+   428                                  	dump_mem 666666, ecx, 1
+   429                                  %endif
+   430                                  	
+   431                                  	; Reduz o tamanho da celula que tem espaço sobrando
+   432 000000A8 662998[00000000]        	sub	word [eax + st_memoria.tamanho], bx
+   433                                  
+   434                                  	; Tamanho da nova celula
+   435 000000AF 668999[00000000]        	mov	word [ecx + st_memoria.tamanho], bx
+   436                                  
+   437                                  	; Calcula o endereço do inicio dos bytes restantes
+   438 000000B6 0FB798[00000000]        	movzx	ebx, word [eax + st_memoria.tamanho]
+   439 000000BD 0398[00000000]          	add	ebx, dword [eax + st_memoria.endereco_real]
+   440                                  
+   441                                  	; Endereço gerenciado pela nova celula
+   442 000000C3 8999[00000000]          	mov	dword [ecx + st_memoria.endereco_real], ebx
+   443                                  	
+   444                                  	; Status da nova celula
+   445 000000C9 C681[00000000]00        	mov	byte [ecx + st_memoria.status], ST_CELULA_LIVRE
+   446                                  
+   447                                  %ifdef DEBUG
+   448                                  	dump_regs 777777
+   449                                  	dump_mem 777777, eax, 1
+   450                                  	dump_mem 777777, ecx, 1
+   451                                  	_newline
+   452                                  %endif
+   453                                  
+   454                                    .fim
+   455                                  
+   456                                  %ifdef DEBUG
+   457                                  	_newline
+   458                                  	dump_mem 222999, eax, 1
+   459                                  %endif
+   460                                  
+   461 000000D0 9D                      	popfd
+   462 000000D1 59                      	pop	ecx
+   463 000000D2 5B                      	pop	ebx
+   464                                  	ccc_end		; Restaura o ambiente
+   465 000000D3 89EC                <1>  mov esp, ebp
+   466 000000D5 5D                  <1>  pop ebp
+   467 000000D6 C3                      ret
+   468                                  
+   469                                  ; -----------------------------------------------
+   470                                  ; [nome]	free_z
+   471                                  ; [descr]	libera uma celula que esteja sendo utilizada
+   472                                  ; [param]	(1) ptr para a celula a ser liberada
+   473                                  ; [return]	(eax) bytes liberados
+   474                                  ; -----------------------------------------------
+   475                                  ; CHANGELOG
+   476                                  ; -----------------------------------------------
+   477                                  ; [29/06/2005 - 00:35]
+   478                                  ; Versão 1.0
+   479                                  ; -----------------------------------------------
+   480                                  free_z
+   481                                  	ccc_begin
+   482 000000D7 55                  <1>  push ebp
+   483 000000D8 89E5                <1>  mov ebp, esp
+   484 000000DA 81EC00000000        <1>  sub esp, 4 * %1
+   485                                  
+   486 000000E0 8B4508                  	mov	eax, [parametro(1)]					; EAX := ptr para a celula
+   487 000000E3 80B8[00000000]01        	cmp	byte [eax + st_memoria.status], ST_CELULA_OCUPADA	; Memoria esta ocupada?
+   488 000000EA 740A                    	je	.memoria_ocupada
+   489                                  
+   490                                  	; Tentando liberar uma memoria nao ocupada
+   491 000000EC B8FFFFFFFF              	mov	eax, -1						; ERRO
+   492 000000F1 E90E000000              	jmp	.fim
+   493                                  
+   494                                  
+   495                                    .memoria_ocupada
+   496                                  	; Libera
+   497 000000F6 C680[00000000]00        	mov	byte [eax + st_memoria.status], ST_CELULA_LIVRE	; Memoria agora esta livre
+   498 000000FD 0FB780[00000000]        	movzx	eax, word [eax + st_memoria.tamanho]		; Memoria liberada
+   499                                  
+   500                                  
+   501                                    .fim
+   502                                  	ccc_end
+   503 00000104 89EC                <1>  mov esp, ebp
+   504 00000106 5D                  <1>  pop ebp
+   505 00000107 C3                      ret
+   506                                  
+   507                                  
+   508                                  ; -----------------------------------------------
+   509                                  ; [nome]	defrag_mem
+   510                                  ; [descr]	Manipula a memoria desfragmentando-a
+   511                                  ; [param]	(1) mapa a ser manipulado
+   512                                  ; [return]	(eax) celula encontrada, ou 0x00 em caso de erro
+   513                                  ; -----------------------------------------------
+   514                                  ; CHANGELOG
+   515                                  ; -----------------------------------------------
+   516                                  ; [23/07/2005 - 01:33]
+   517                                  ; Versão WIP
+   518                                  ;
+   519                                  ; [25/07/2005 - 18:50]
+   520                                  ; Versão 1.0
+   521                                  ; -----------------------------------------------
+   522                                  defrag_mem
+   523                                  	ccc_begin 1
+   524 00000108 55                  <1>  push ebp
+   525 00000109 89E5                <1>  mov ebp, esp
+   526 0000010B 81EC04000000        <1>  sub esp, 4 * %1
+   527 00000111 50                      	push 	eax
+   528 00000112 51                      	push	ecx
+   529 00000113 52                      	push	edx
+   530                                  
+   531                                  ;dump_regs 98765
+   532                                  	
+   533                                  	; Nesse momento eu sei que há pelo menos 2 celulas LIVRES com menos de "parametro(2)" bytes
+   534                                  	; Minha estrategia é encontrá-las e mesclá-las tornando-as 1 celula de "parametro(2)" bytes e outra com os bytes restantes
+   535                                  	; Como??? Tento mesclar 2 celulas e retorno o controle a outra função que estara em loop enquanto nao conseguir uma celula com pelo menos "parametro(2)" bytes
+   536                                  	; A estrutura esta segura contra um loop infinito pois antes de tudo eu verifico se existe no total esse espaço livre... :P
+   537                                  	; Como performance nao é a questão, a coisa fica mais facil heheh
+   538                                  
+   539                                  	;
+   540                                  	; varlocal(1) := endereco que se está procurando atualmente
+   541                                  	;
+   542                                  
+   543                                  	; Procura a celula que esteja manipulando o espaço que é o inicio do mapa
+   544                                  	; Essa celula tera como endereco real o mesmo endereço do registro mestre
+   545 00000114 8B4508                  	mov	eax, dword [parametro(1)]	; parametro(1) possui o elemento da tabela de mapas que sera manipulado (0 - 2)
+   546 00000117 8B0485[00000000]        	mov	eax, dword [MapaMem + 4 * eax]	; EAX := Registro mestre do Mapa de memoria a ser manipulado
+   547                                  
+   548                                  	; EAX := registro mestre (uma celula)
+   549                                  	; EDX := Endereco real do resgitro mestre
+   550 0000011E 8B90[00000000]          	mov	edx, dword [eax + st_memoria.endereco_real]
+   551 00000124 8955FC                  	mov	dword [varlocal(1)], edx
+   552                                  
+   553                                  
+   554                                    .procura_celula
+   555                                  	; Procura a celula desse endereco  
+   556 00000127 FF75FC                  	push	dword [varlocal(1)]	; Endereco real da celula que esta sendo procurada
+   557 0000012A FF7508                  	push	dword [parametro(1)]	; Celula a ser manipulada
+   558 0000012D E8B4000000              	call	procura_celula
+   559                                  	descarta_pilha 2
+   560 00000132 81C408000000        <1>  add esp, 4 * %1
+   561                                  
+   562                                  	; EAX := celula encontrada
+   563                                  	; EDX := endereço real que a celula manipula
+   564                                  	; **** SE EAX = 0, é um erro, é pouco provavel, mas é uma brecha heehhe ****
+   565 00000138 3D00000000              	cmp	eax, 0x00
+   566 0000013D 0F849C000000            	je	near .erro
+   567                                  
+   568                                  	; Verifica se a celula esta livre
+   569 00000143 80B8[00000000]00        	cmp	byte [eax + st_memoria.status], ST_CELULA_LIVRE
+   570 0000014A 7411                    	je	.memoria_livre
+   571                                  
+   572                                  
+   573                                  	; Celula oupada
+   574 0000014C 31C9                    	xor	ecx, ecx
+   575 0000014E 0FB788[00000000]        	movzx	ecx, word [eax + st_memoria.tamanho]
+   576                                  ;	add	dword [varlocal(1)], ecx		; VARLOCAL(1) := endereço para onde a proxima celula procurada aponta
+   577 00000155 034DFC                  	add 	ecx, dword [varlocal(1)]
+   578 00000158 894DFC                  	mov	dword [varlocal(1)], ecx
+   579                                  
+   580                                  ;dump_regs 100111
+   581                                  ;dump_mem 100111, eax, 2
+   582                                  ; Faz uma pausa :-P
+   583                                  ;push eax
+   584                                  ;push ebx
+   585                                  ;push ecx
+   586                                  ;push edx
+   587                                  ;call getchar
+   588                                  ;pop edx
+   589                                  ;pop ecx	
+   590                                  ;pop ebx
+   591                                  ;pop eax
+   592                                  
+   593 0000015B EBCA                    	jmp	.procura_celula				; Procura ate encontrar uma celula livre
+   594                                  
+   595                                  
+   596                                    .memoria_livre
+   597                                  	; Verifica a proxima celula
+   598                                  	; ****** DEVERIA VERIFICAR ANTES SE NAO CHEGOU AO FIM DO ESPAÇO DE MEMORIA
+   599 0000015D 89C2                    	mov	edx, eax				; EDX := celula livre
+   600 0000015F 0FB788[00000000]        	movzx	ecx, word [eax + st_memoria.tamanho]
+   601 00000166 014DFC                  	add	dword [varlocal(1)], ecx		; VARLOCAL(1) := endereço para onde a proxima celula procurada aponta
+   602                                  
+   603                                  	; Procura a celula desse endereco  
+   604 00000169 FF75FC                  	push	dword [varlocal(1)]	; Endereco real da celula que esta sendo procurada
+   605 0000016C FF7508                  	push	dword [parametro(1)]	; Celula a ser manipulada
+   606 0000016F E872000000              	call	procura_celula
+   607                                  	descarta_pilha 2
+   608 00000174 81C408000000        <1>  add esp, 4 * %1
+   609                                  
+   610                                  ;_newline
+   611                                  ;dump_regs 100222
+   612                                  
+   613                                  	; A proxima celula nao existe.. Ihh.. Ferrouuu...
+   614 0000017A 3D00000000              	cmp	eax, 0x00
+   615 0000017F 0F845A000000            	je	near .erro
+   616                                  
+   617                                  	; Status da proxima celula
+   618 00000185 80B8[00000000]00        	cmp	byte [eax + st_memoria.status], ST_CELULA_LIVRE
+   619 0000018C 7424                    	je	.mescla_celulas
+   620                                  
+   621                                  	; Celula desabilitada
+   622                                  ;	cmp	byte [eax + st_memoria.status], ST_CELULA_DISPONIVEL
+   623                                  ;	je	.mescla_celulas
+   624                                  	
+   625                                  	;
+   626                                  	; EAX := celula de baixo
+   627                                  	; EDX := celula de cima
+   628                                  	;
+   629                                  
+   630                                  ;dump_mem 1232123, eax, 5
+   631                                  ;dump_mem 1232123, edx, 5
+   632                                  		
+   633                                  	; Move a celula ocupada para cima
+   634 0000018E FC                      	cld
+   635                                  ;	xor	ecx, ecx
+   636 0000018F 0FB788[00000000]        	movzx	ecx, word [eax + st_memoria.tamanho]
+   637 00000196 8BB0[00000000]          	mov	esi, dword [eax + st_memoria.endereco_real]	; Move da celula de baixo
+   638 0000019C 8BBA[00000000]          	mov	edi, dword [edx + st_memoria.endereco_real]	; Para a celula de cima
+   639                                  
+   640                                  	; Atualiza as celulas
+   641 000001A2 89B8[00000000]          	mov	dword [eax + st_memoria.endereco_real], edi
+   642                                  
+   643                                  	; Move os dados
+   644 000001A8 F3A4                    	rep	movsb
+   645                                  
+   646                                  	; EDI := Fim da celula de cima
+   647 000001AA 89BA[00000000]          	mov	dword [edx + st_memoria.endereco_real], edi	
+   648                                  
+   649 000001B0 EBAB                    	jmp	.memoria_livre
+   650                                  
+   651                                  
+   652                                    .mescla_celulas
+   653                                  
+   654                                  	; Mescla as duas celulas
+   655 000001B2 0FB788[00000000]        	movzx	ecx, word [eax + st_memoria.tamanho]		; ECX := tamanho da celula de BAIXO
+   656 000001B9 66018A[00000000]        	add	word [edx + st_memoria.tamanho], cx		; Aumenta o tamanho da celula de cima
+   657                                  
+   658                                  	; Inutiliza a celula de baixo
+   659 000001C0 C780[00000000]0000-     	mov	dword [eax + st_memoria.endereco_real], 0x0		; Celula que gerencia o conteudo da memoria 0x0
+   660 000001C8 0000               
+   661 000001CA 66C780[00000000]00-     	mov	word [eax + st_memoria.tamanho], 0x0			; Celula com tamanho 0x0
+   662 000001D2 00                 
+   663 000001D3 C680[00000000]FF        	mov	byte [eax + st_memoria.status], ST_CELULA_DISPONIVEL	; Indica que a celula está disponivel para ser utilizada para gerenciar uma memoria qualquer
+   664                                  
+   665                                  ;dump_mem 123999, edx, 2
+   666                                  ;dump_mem 123998, eax, 2
+   667                                  	
+   668                                  	; A celula de cima agora gerencia a memoria dela MAIS a memoria que pertenciaa celula de baixo.
+   669                                  	; Se sobrar, masi tarde esse espaço será devolvido à essa celula que ficou DISPONIVEL (e com tamanho 0)
+   670 000001DA E900000000              	jmp	.fim
+   671                                  
+   672                                    .erro
+   673                                  
+   674                                  ;dump_mem 99999, 0x00, 1
+   675                                  ;_newline
+   676                                  
+   677                                    .fim
+   678 000001DF 5A                      	pop	edx
+   679 000001E0 59                      	pop	ecx
+   680 000001E1 58                      	pop	eax
+   681                                  	ccc_end
+   682 000001E2 89EC                <1>  mov esp, ebp
+   683 000001E4 5D                  <1>  pop ebp
+   684 000001E5 C3                      ret
+   685                                  
+   686                                  ; -----------------------------------------------
+   687                                  ; [nome]	procura_celula
+   688                                  ; [descr]	Procura no mapa especificado por uma celula que aponte para o endereco especificado
+   689                                  ; [param]	(1) mapa a ser manipulado
+   690                                  ;		(2) endereco real da celula em questao
+   691                                  ; [return]	(eax) celula encontrada, ou 0x00 em caso de erro
+   692                                  ; -----------------------------------------------
+   693                                  ; CHANGELOG
+   694                                  ; -----------------------------------------------
+   695                                  ; [22/07/2005 - 21:50]
+   696                                  ; Versão 1.0
+   697                                  ; -----------------------------------------------
+   698                                  procura_celula
+   699                                  	ccc_begin 1
+   700 000001E6 55                  <1>  push ebp
+   701 000001E7 89E5                <1>  mov ebp, esp
+   702 000001E9 81EC04000000        <1>  sub esp, 4 * %1
+   703                                  ;	push	eax
+   704 000001EF 53                      	push	ebx
+   705 000001F0 51                      	push	ecx
+   706                                  
+   707 000001F1 8B4508                  	mov	eax, dword [parametro(1)]	; parametro(1) possui o elemento da tabela de mapas que sera manipulado (0 - 2)
+   708 000001F4 89C3                    	mov	ebx, eax			; copia para ebx
+   709 000001F6 43                      	inc	ebx				; ebx possui o mapa seguinte ao mapa que será atualizado
+   710 000001F7 8B1C9D[00000000]        	mov	ebx, dword [MapaMem + 4 * ebx]	; ebx := elemento da tabela de mapas seguinte ao que sera manipulado (1 - 3)
+   711 000001FE 895DFC                  	mov	dword [varlocal(1)], ebx	; varlocal(1) possui o limite superior do mapa que está sendo manipulado
+   712                                  
+   713 00000201 8B0485[00000000]        	mov	eax, dword [MapaMem + 4 * eax]	; eax := Registro mestre do Mapa de memoria a ser manipulado
+   714                                  
+   715                                  
+   716                                    .procura_endereco
+   717                                  
+   718                                  	; Procura um pedaço livre e que tenha o tamanho necessário
+   719 00000208 0507000000              	add	eax, TAM_ST_MEMORIA			; Aponta para a proxima celula
+   720                                  
+   721 0000020D 3B45FC                  	cmp	eax, dword [varlocal(1)]			; Chegou ao fim ?
+   722 00000210 7D0D                    	jge	.fim_mapa
+   723                                  
+   724 00000212 8B98[00000000]          	mov	ebx, dword [eax + st_memoria.endereco_real]	; Essa célula é a que estou procurando ?
+   725 00000218 395D0C                  	cmp	dword [parametro(2)], ebx			
+   726 0000021B 7404                    	je	.fim
+   727                                  
+   728 0000021D EBE9                    	jmp	.procura_endereco
+   729                                  
+   730                                  
+   731                                    .fim_mapa
+   732                                  	; chegou ao fim do mapa sem encontrar
+   733 0000021F 31C0                    	xor eax, eax				; eax := 0
+   734                                  
+   735                                  
+   736                                    .fim
+   737                                  
+   738 00000221 59                      	pop	ecx
+   739 00000222 5B                      	pop	ebx
+   740                                  ;	pop	eax
+   741                                  	ccc_end
+   742 00000223 89EC                <1>  mov esp, ebp
+   743 00000225 5D                  <1>  pop ebp
+   744 00000226 C3                      ret
+   745                                  
+   746                                  
+   747                                  
+   748                                  ; -----------------------------------------------
+   749                                  ; [nome]	procura_celula_disponivel
+   750                                  ; [descr]	Procura no mapa especificado por uma celula que esteja disponivel para manipular algum espaço de memoria
+   751                                  ; [param]	(1) mapa a ser manipulado
+   752                                  ; [return]	(eax) celula encontrada, ou 0x00 em caso de erro
+   753                                  ; -----------------------------------------------
+   754                                  ; CHANGELOG
+   755                                  ; -----------------------------------------------
+   756                                  ; [25/07/2005 - ]
+   757                                  ; Versão 1.0
+   758                                  ; -----------------------------------------------
+   759                                  procura_celula_disponivel
+   760                                  	ccc_begin 1
+   761 00000227 55                  <1>  push ebp
+   762 00000228 89E5                <1>  mov ebp, esp
+   763 0000022A 81EC04000000        <1>  sub esp, 4 * %1
+   764 00000230 53                      	push	ebx
+   765 00000231 51                      	push	ecx
+   766                                  
+   767 00000232 8B4508                  	mov	eax, dword [parametro(1)]	; parametro(1) possui o elemento da tabela de mapas que sera manipulado (0 - 2)
+   768 00000235 89C3                    	mov	ebx, eax			; copia para ebx
+   769 00000237 43                      	inc	ebx				; ebx possui o mapa seguinte ao mapa que será atualizado
+   770 00000238 8B1C9D[00000000]        	mov	ebx, dword [MapaMem + 4 * ebx]	; ebx := elemento da tabela de mapas seguinte ao que sera manipulado (1 - 3)
+   771 0000023F 895DFC                  	mov	dword [varlocal(1)], ebx	; varlocal(1) possui o limite superior do mapa que está sendo manipulado
+   772                                  
+   773 00000242 8B0485[00000000]        	mov	eax, dword [MapaMem + 4 * eax]	; eax := Registro mestre do Mapa de memoria a ser manipulado
+   774                                  
+   775                                  
+   776                                    .procura_endereco
+   777                                  
+   778                                  	; Procura um pedaço livre e que tenha o tamanho necessário
+   779 00000249 0507000000              	add	eax, TAM_ST_MEMORIA					; Aponta para a proxima celula
+   780                                  
+   781 0000024E 3B45FC                  	cmp	eax, dword [varlocal(1)]				; Chegou ao fim ?
+   782 00000251 7D0B                    	jge	.fim_mapa
+   783                                  
+   784 00000253 80B8[00000000]FF        	cmp	byte [eax + st_memoria.status],	ST_CELULA_DISPONIVEL	; Essa célula é a que estou procurando ?
+   785 0000025A 7404                    	je	.fim
+   786                                  
+   787 0000025C EBEB                    	jmp	.procura_endereco
+   788                                  
+   789                                  
+   790                                    .fim_mapa
+   791                                  	; chegou ao fim do mapa sem encontrar
+   792 0000025E 31C0                    	xor eax, eax				; eax := 0
+   793                                  
+   794                                  
+   795                                    .fim
+   796                                  
+   797 00000260 59                      	pop	ecx
+   798 00000261 5B                      	pop	ebx
+   799                                  ;	pop	eax
+   800                                  	ccc_end
+   801 00000262 89EC                <1>  mov esp, ebp
+   802 00000264 5D                  <1>  pop ebp
+   803 00000265 C3                      ret

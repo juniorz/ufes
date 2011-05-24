@@ -1,0 +1,260 @@
+     1                                  ; -----------------------------------------------
+     2                                  ; Segundo Trabalho de Linguagem de Montagem
+     3                                  ; Ciência da Computação - 2005/01 - UFES
+     4                                  ; -----------------------------------------------
+     5                                  ; Autor: Reinaldo Junior < juniorz [at] gmail [dot] com >
+     6                                  ; 	 http://www.phpbb.com.br/portal/
+     7                                  ; -----------------------------------------------
+     8                                  ; Criado em: 15/06/2005
+     9                                  ; Versão 0.0.1
+    10                                  ; -----------------------------------------------
+    11                                  ; Descrição:
+    12                                  ; Esse arquivo contem funçoes de manipulação de arquivo
+    13                                  ; -----------------------------------------------
+    14                                  
+    15                                  
+    16                                  
+    17                                  ; -----------------------------------------------
+    18                                  ;               .:] Changelog [:.
+    19                                  ; -----------------------------------------------
+    20                                  ; 17/06/2005 11:15
+    21                                  ; Criado o arquivo
+    22                                  ; -----------------------------------------------
+    23                                  
+    24                                  %include "includes/macros.inc"
+    25                              <1> ; -----------------------------------------------
+    26                              <1> ; Segundo Trabalho de Linguagem de Montagem
+    27                              <1> ; Ciência da Computação - 2005/01 - UFES
+    28                              <1> ;
+    29                              <1> ; Autores:
+    30                              <1> ;	Reinaldo Junior < juniorz@gmail.com >
+    31                              <1> ;	http://www.phpbb.com.br/portal/
+    32                              <1> ;
+    33                              <1> ;	Rafael Garcia Birro < rgbirro@gmail.com >
+    34                              <1> ; -----------------------------------------------
+    35                              <1> ; Criado em: 15/06/2005
+    36                              <1> ; Versão 1.0
+    37                              <1> ; -----------------------------------------------
+    38                              <1> ; Descrição:
+    39                              <1> ; Esse arquivo contem as macros utilizadas no programa
+    40                              <1> ; -----------------------------------------------
+    41                              <1> 
+    42                              <1> 
+    43                              <1> ; Status do telefone (mascara)
+    44                              <1> ;				xxxx	 	telefone entrou? (possui linha)
+    45                              <1> ;				    yyyy 	telefone ocupado? (fora do gancho)
+    46                              <1> %define MSK_TEL_FORA_GANCHO	00001111b	; Fora do gancho (nao importa se esta fazendo ou recebendo ligações)
+    47                              <1> %define MSK_TEL_LIVRE		00000000b	; No gancho e sem comunicação
+    48                              <1> %define MSK_TEL_TEM_LINHA	11110000b	; Em comunicação (agora um telefone pode estar em comunicaão e estar no gancho - como na vida real :-P )
+    49                              <1> 
+    50                              <1> 
+    51                              <1> ; Constantes do sistema de alocacao
+    52                              <1> %define ST_CELULA_LIVRE		0x00
+    53                              <1> %define ST_CELULA_OCUPADA	0x01
+    54                              <1> %define ST_CELULA_DISPONIVEL	0xFF
+    55                              <1> 
+    56                              <1> ; Mapas para o sistema de alocação
+    57                              <1> %define MAPA_CADASTRO 0
+    58                              <1> %define MAPA_CONVERSA 1
+    59                              <1> %define MAPA_MENSAGEM 2
+    60                              <1> 
+    61                              <1> ; Numero de estruturas
+    62                              <1> %define NUM_CADASTROS 200
+    63                              <1> %define NUM_CONVERSAS 100
+    64                              <1> 
+    65                              <1> ; Estruturas
+    66                              <1> %define TAM_ST_MEMORIA 7
+    67                              <1> %define TAM_ST_CADASTRO 13
+    68                              <1> %define TAM_ST_CONVERSA 12
+    69                              <1> %define TAM_ST_MENSAGEM 12
+    70                              <1> 
+    71                              <1> 
+    72                              <1> ; -----------------------------------------------
+    73                              <1> ;                .:] Macros [:.
+    74                              <1> ; -----------------------------------------------
+    75                              <1> 
+    76                              <1> ; -----------------------------------------------
+    77                              <1> ; [macro] _newline
+    78                              <1> ; [descr] imprime um \n
+    79                              <1> ; [param] descritor de arquivos destino para o \n
+    80                              <1> ; -----------------------------------------------
+    81                              <1> %macro	_newline 0-1 1
+    82                              <1> 	push 	eax		; eax recebe retorno de print_z	
+    83                              <1> 	print_char 0xA, %1
+    84                              <1> 	pop	eax		; Restaura eax
+    85                              <1> %endmacro
+    86                              <1> 
+    87                              <1> 
+    88                              <1> ; -----------------------------------------------
+    89                              <1> ; [macro] print_char
+    90                              <1> ; [descr] imprime um caractere
+    91                              <1> ; [param] (1) caractere
+    92                              <1> ; 	  (2) descritor de arquivos destino para o caractere
+    93                              <1> ; -----------------------------------------------
+    94                              <1> %macro	print_char 1-2 1
+    95                              <1> 	mov al, %1
+    96                              <1> 	mov ah, %2
+    97                              <1> 	call printchar_z
+    98                              <1> %endmacro
+    99                              <1> 
+   100                              <1> 
+   101                              <1> ; -----------------------------------------------
+   102                              <1> ; [macro] print_str
+   103                              <1> ; [descr] imprime uma string
+   104                              <1> ; [param] (1) ptr para a string (zero-terminated)
+   105                              <1> ; 	  (2) descritor de arquivos destino
+   106                              <1> ; -----------------------------------------------
+   107                              <1> %macro	print_str 1-2 1
+   108                              <1> 	push %1
+   109                              <1> 	push %2
+   110                              <1> 	call print_z
+   111                              <1> 	descarta_pilha 2
+   112                              <1> %endmacro
+   113                              <1> 
+   114                              <1> 
+   115                              <1> ; -----------------------------------------------
+   116                              <1> ; [macro] printn_str
+   117                              <1> ; [descr] imprime 'n' caracteres de uma string
+   118                              <1> ; [param] (1) ptr para a string
+   119                              <1> ;	  (2) numero de caracteres a imprimir
+   120                              <1> ; 	  (3) descritor de arquivos destino
+   121                              <1> ; -----------------------------------------------
+   122                              <1> %macro	printn_str 2-3 1
+   123                              <1> 	push %2
+   124                              <1> 	push %1
+   125                              <1> 	push %3
+   126                              <1> 	call printn_z
+   127                              <1> 	descarta_pilha 3
+   128                              <1> %endmacro
+   129                              <1> 
+   130                              <1> 
+   131                              <1> ; -----------------------------------------------
+   132                              <1> ; [macro] macro_syscall
+   133                              <1> ; [descr] executa uma syscall
+   134                              <1> ; [param] (1) numero da syscall
+   135                              <1> ; -----------------------------------------------
+   136                              <1> %macro	macro_syscall	1
+   137                              <1> 	mov eax, dword %1	; Numero da syscall
+   138                              <1> 	int 80h			; Chama o kernel
+   139                              <1> %endmacro
+   140                              <1> 
+   141                              <1> 
+   142                              <1> ; -----------------------------------------------
+   143                              <1> ; [macro] termina_programa
+   144                              <1> ; [descr] finaliza o processo
+   145                              <1> ; [param] (1) codigo de saida do processo
+   146                              <1> ; -----------------------------------------------
+   147                              <1> %macro termina_programa 1
+   148                              <1> 	mov 	ebx, %1		; codigo de saida
+   149                              <1> 	macro_syscall 1		; syscall: exit (kernel/exit.c)
+   150                              <1> %endmacro
+   151                              <1> 
+   152                              <1> 
+   153                              <1> ; -----------------------------------------------
+   154                              <1> ; [macro] descarta_pilha
+   155                              <1> ; [descr] descarta um numero de elementos do topo da pilha
+   156                              <1> ; [param] (1) numero de elemntos
+   157                              <1> ; -----------------------------------------------
+   158                              <1> %macro descarta_pilha 1
+   159                              <1> 	add esp, 4 * %1		; Descarta 4 * num_elementos bytes da pilha
+   160                              <1> %endmacro
+   161                              <1> 
+   162                              <1> 
+   163                              <1> ; -----------------------------------------------
+   164                              <1> ; [macro] ccc_begin
+   165                              <1> ; [descr] faz os preparativos iniciais para que um procedimento utilize a convenção de chamada do C
+   166                              <1> ; [param] (1) numero de variaveis locais que o proceidmento precisará
+   167                              <1> ; -----------------------------------------------
+   168                              <1> %macro ccc_begin 0-1 0
+   169                              <1> 	push	ebp		; Empilha ebp
+   170                              <1> 	mov	ebp, esp	; Prepara a pilha para poder ser utilizada no subprocedimento sem que se perca os parametros
+   171                              <1> 	sub	esp, 4 * %1	; Reserva espaço para variaveis locais
+   172                              <1> %endmacro
+   173                              <1> 
+   174                              <1> 
+   175                              <1> ; -----------------------------------------------
+   176                              <1> ; [macro] ccc_end
+   177                              <1> ; [descr] restaura a pilha para o estado inicial da chamada do procedimento
+   178                              <1> ; -----------------------------------------------
+   179                              <1> %macro ccc_end 0
+   180                              <1> 	mov	esp, ebp	; Restaura esp
+   181                              <1> 	pop	ebp		; Restaura ebp
+   182                              <1> %endmacro
+   183                              <1> 
+   184                              <1> 
+   185                              <1> ; -----------------------------------------------
+   186                              <1> ; [macro] parametro
+   187                              <1> ; [descr] expande para o endereço de um determinado parametro do procedimento
+   188                              <1> ; [param] (1) numero do parametro (contado da esquerda para a direita)
+   189                              <1> ; -----------------------------------------------
+   190                              <1> %define 	parametro(x)	ebp + 4 + 4 * x
+   191                              <1> 
+   192                              <1> 
+   193                              <1> ; -----------------------------------------------
+   194                              <1> ; [macro] varlocal
+   195                              <1> ; [descr] expande para o endereço de uma determinada variavel local do procedimento
+   196                              <1> ; [param] (1) numero do da variavel local
+   197                              <1> ; -----------------------------------------------
+   198                              <1> %define 	varlocal(x)	ebp - 4 * x
+   199                                  
+   200                                  global abre_arquivo
+   201                                  global fecha_arquivo
+   202                                  
+   203                                  ; -----------------------------------------------
+   204                                  ; [nome]  	abre_arquivo
+   205                                  ; [descr] 	abre um arquivo e armazena seu descritor
+   206                                  ; [param] 	(1) ptr para o nome do arquivo
+   207                                  ; [return]	(eax) desc de arquivos
+   208                                  ; -----------------------------------------------
+   209                                  abre_arquivo:
+   210                                  	ccc_begin			; Prepara o ambiente
+   211 00000000 55                  <1>  push ebp
+   212 00000001 89E5                <1>  mov ebp, esp
+   213 00000003 81EC00000000        <1>  sub esp, 4 * %1
+   214                                  
+   215 00000009 53                      	push 	ebx
+   216 0000000A 51                      	push 	ecx
+   217 0000000B 52                      	push 	edx
+   218                                  
+   219 0000000C 8B5D08                  	mov 	ebx, [parametro(1)]	; Nome do arquivo
+   220 0000000F B900000000              	mov 	ecx, 00			; file access bits: readonly
+   221 00000014 BA04000000              	mov 	edx, 00004		; file permission flag: read by others
+   222                                  
+   223                                  	macro_syscall 	5		; syscall: open (fs/open.c)
+   224 00000019 B805000000          <1>  mov eax, dword %1
+   225 0000001E CD80                <1>  int 80h
+   226                                  
+   227 00000020 5A                      	pop	edx			; Restaura os registradores
+   228 00000021 59                      	pop	ecx
+   229 00000022 5B                      	pop	ebx
+   230                                  
+   231                                  	ccc_end				; Restaura o ambiente
+   232 00000023 89EC                <1>  mov esp, ebp
+   233 00000025 5D                  <1>  pop ebp
+   234 00000026 C3                      ret					; Retorna o controle ao programa
+   235                                  
+   236                                  
+   237                                  ; -----------------------------------------------
+   238                                  ; [nome]  	fecha_arquivo
+   239                                  ; [descr] 	fecha um arquivo
+   240                                  ; [param] 	(1) desc do arquivo
+   241                                  ; [return]	(eax) sucesso ou erro
+   242                                  ; -----------------------------------------------
+   243                                  fecha_arquivo:
+   244                                  	ccc_begin			; Prepara o ambiente
+   245 00000027 55                  <1>  push ebp
+   246 00000028 89E5                <1>  mov ebp, esp
+   247 0000002A 81EC00000000        <1>  sub esp, 4 * %1
+   248 00000030 53                      	push	ebx
+   249                                  
+   250 00000031 8B5D08                  	mov	ebx, [parametro(1)]	; descritor do arquivo
+   251                                  	
+   252                                  	macro_syscall 6			; syscall: close (fs/open.c)
+   253 00000034 B806000000          <1>  mov eax, dword %1
+   254 00000039 CD80                <1>  int 80h
+   255                                  
+   256 0000003B 5B                      	pop	ebx
+   257                                  	ccc_end				; Restaura o ambiente
+   258 0000003C 89EC                <1>  mov esp, ebp
+   259 0000003E 5D                  <1>  pop ebp
+   260 0000003F C3                      ret					; Retorna o controle ao programa

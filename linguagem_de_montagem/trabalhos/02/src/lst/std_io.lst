@@ -1,0 +1,579 @@
+     1                                  ; -----------------------------------------------
+     2                                  ; Segundo Trabalho de Linguagem de Montagem
+     3                                  ; Ciência da Computação - 2005/01 - UFES
+     4                                  ; -----------------------------------------------
+     5                                  ; Autor: Reinaldo Junior < juniorz [at] gmail [dot] com >
+     6                                  ; 	 http://www.phpbb.com.br/portal/
+     7                                  ; -----------------------------------------------
+     8                                  ; Criado em: 15/06/2005
+     9                                  ; Versão 0.0.1
+    10                                  ; -----------------------------------------------
+    11                                  ; Descrição:
+    12                                  ; Esse arquivo contem funçoes basicas de saida
+    13                                  ; -----------------------------------------------
+    14                                  
+    15                                  ; -----------------------------------------------
+    16                                  ;               .:] Changelog [:.
+    17                                  ; -----------------------------------------------
+    18                                  ; 14/06/2005
+    19                                  ; Criação do arquivo
+    20                                  ; Inicio da escrita da documentaçã oo trabalho
+    21                                  ; Adotado o método de "Dividir para conquistar"
+    22                                  ; -----------------------------------------------
+    23                                  
+    24                                  %include "includes/macros.inc"
+    25                              <1> ; -----------------------------------------------
+    26                              <1> ; Segundo Trabalho de Linguagem de Montagem
+    27                              <1> ; Ciência da Computação - 2005/01 - UFES
+    28                              <1> ;
+    29                              <1> ; Autores:
+    30                              <1> ;	Reinaldo Junior < juniorz@gmail.com >
+    31                              <1> ;	http://www.phpbb.com.br/portal/
+    32                              <1> ;
+    33                              <1> ;	Rafael Garcia Birro < rgbirro@gmail.com >
+    34                              <1> ; -----------------------------------------------
+    35                              <1> ; Criado em: 15/06/2005
+    36                              <1> ; Versão 1.0
+    37                              <1> ; -----------------------------------------------
+    38                              <1> ; Descrição:
+    39                              <1> ; Esse arquivo contem as macros utilizadas no programa
+    40                              <1> ; -----------------------------------------------
+    41                              <1> 
+    42                              <1> 
+    43                              <1> ; Status do telefone (mascara)
+    44                              <1> ;				xxxx	 	telefone entrou? (possui linha)
+    45                              <1> ;				    yyyy 	telefone ocupado? (fora do gancho)
+    46                              <1> %define MSK_TEL_FORA_GANCHO	00001111b	; Fora do gancho (nao importa se esta fazendo ou recebendo ligações)
+    47                              <1> %define MSK_TEL_LIVRE		00000000b	; No gancho e sem comunicação
+    48                              <1> %define MSK_TEL_TEM_LINHA	11110000b	; Em comunicação (agora um telefone pode estar em comunicaão e estar no gancho - como na vida real :-P )
+    49                              <1> 
+    50                              <1> 
+    51                              <1> ; Constantes do sistema de alocacao
+    52                              <1> %define ST_CELULA_LIVRE		0x00
+    53                              <1> %define ST_CELULA_OCUPADA	0x01
+    54                              <1> %define ST_CELULA_DISPONIVEL	0xFF
+    55                              <1> 
+    56                              <1> ; Mapas para o sistema de alocação
+    57                              <1> %define MAPA_CADASTRO 0
+    58                              <1> %define MAPA_CONVERSA 1
+    59                              <1> %define MAPA_MENSAGEM 2
+    60                              <1> 
+    61                              <1> ; Numero de estruturas
+    62                              <1> %define NUM_CADASTROS 200
+    63                              <1> %define NUM_CONVERSAS 100
+    64                              <1> 
+    65                              <1> ; Estruturas
+    66                              <1> %define TAM_ST_MEMORIA 7
+    67                              <1> %define TAM_ST_CADASTRO 13
+    68                              <1> %define TAM_ST_CONVERSA 12
+    69                              <1> %define TAM_ST_MENSAGEM 12
+    70                              <1> 
+    71                              <1> 
+    72                              <1> ; -----------------------------------------------
+    73                              <1> ;                .:] Macros [:.
+    74                              <1> ; -----------------------------------------------
+    75                              <1> 
+    76                              <1> ; -----------------------------------------------
+    77                              <1> ; [macro] _newline
+    78                              <1> ; [descr] imprime um \n
+    79                              <1> ; [param] descritor de arquivos destino para o \n
+    80                              <1> ; -----------------------------------------------
+    81                              <1> %macro	_newline 0-1 1
+    82                              <1> 	push 	eax		; eax recebe retorno de print_z	
+    83                              <1> 	print_char 0xA, %1
+    84                              <1> 	pop	eax		; Restaura eax
+    85                              <1> %endmacro
+    86                              <1> 
+    87                              <1> 
+    88                              <1> ; -----------------------------------------------
+    89                              <1> ; [macro] print_char
+    90                              <1> ; [descr] imprime um caractere
+    91                              <1> ; [param] (1) caractere
+    92                              <1> ; 	  (2) descritor de arquivos destino para o caractere
+    93                              <1> ; -----------------------------------------------
+    94                              <1> %macro	print_char 1-2 1
+    95                              <1> 	mov al, %1
+    96                              <1> 	mov ah, %2
+    97                              <1> 	call printchar_z
+    98                              <1> %endmacro
+    99                              <1> 
+   100                              <1> 
+   101                              <1> ; -----------------------------------------------
+   102                              <1> ; [macro] print_str
+   103                              <1> ; [descr] imprime uma string
+   104                              <1> ; [param] (1) ptr para a string (zero-terminated)
+   105                              <1> ; 	  (2) descritor de arquivos destino
+   106                              <1> ; -----------------------------------------------
+   107                              <1> %macro	print_str 1-2 1
+   108                              <1> 	push %1
+   109                              <1> 	push %2
+   110                              <1> 	call print_z
+   111                              <1> 	descarta_pilha 2
+   112                              <1> %endmacro
+   113                              <1> 
+   114                              <1> 
+   115                              <1> ; -----------------------------------------------
+   116                              <1> ; [macro] printn_str
+   117                              <1> ; [descr] imprime 'n' caracteres de uma string
+   118                              <1> ; [param] (1) ptr para a string
+   119                              <1> ;	  (2) numero de caracteres a imprimir
+   120                              <1> ; 	  (3) descritor de arquivos destino
+   121                              <1> ; -----------------------------------------------
+   122                              <1> %macro	printn_str 2-3 1
+   123                              <1> 	push %2
+   124                              <1> 	push %1
+   125                              <1> 	push %3
+   126                              <1> 	call printn_z
+   127                              <1> 	descarta_pilha 3
+   128                              <1> %endmacro
+   129                              <1> 
+   130                              <1> 
+   131                              <1> ; -----------------------------------------------
+   132                              <1> ; [macro] macro_syscall
+   133                              <1> ; [descr] executa uma syscall
+   134                              <1> ; [param] (1) numero da syscall
+   135                              <1> ; -----------------------------------------------
+   136                              <1> %macro	macro_syscall	1
+   137                              <1> 	mov eax, dword %1	; Numero da syscall
+   138                              <1> 	int 80h			; Chama o kernel
+   139                              <1> %endmacro
+   140                              <1> 
+   141                              <1> 
+   142                              <1> ; -----------------------------------------------
+   143                              <1> ; [macro] termina_programa
+   144                              <1> ; [descr] finaliza o processo
+   145                              <1> ; [param] (1) codigo de saida do processo
+   146                              <1> ; -----------------------------------------------
+   147                              <1> %macro termina_programa 1
+   148                              <1> 	mov 	ebx, %1		; codigo de saida
+   149                              <1> 	macro_syscall 1		; syscall: exit (kernel/exit.c)
+   150                              <1> %endmacro
+   151                              <1> 
+   152                              <1> 
+   153                              <1> ; -----------------------------------------------
+   154                              <1> ; [macro] descarta_pilha
+   155                              <1> ; [descr] descarta um numero de elementos do topo da pilha
+   156                              <1> ; [param] (1) numero de elemntos
+   157                              <1> ; -----------------------------------------------
+   158                              <1> %macro descarta_pilha 1
+   159                              <1> 	add esp, 4 * %1		; Descarta 4 * num_elementos bytes da pilha
+   160                              <1> %endmacro
+   161                              <1> 
+   162                              <1> 
+   163                              <1> ; -----------------------------------------------
+   164                              <1> ; [macro] ccc_begin
+   165                              <1> ; [descr] faz os preparativos iniciais para que um procedimento utilize a convenção de chamada do C
+   166                              <1> ; [param] (1) numero de variaveis locais que o proceidmento precisará
+   167                              <1> ; -----------------------------------------------
+   168                              <1> %macro ccc_begin 0-1 0
+   169                              <1> 	push	ebp		; Empilha ebp
+   170                              <1> 	mov	ebp, esp	; Prepara a pilha para poder ser utilizada no subprocedimento sem que se perca os parametros
+   171                              <1> 	sub	esp, 4 * %1	; Reserva espaço para variaveis locais
+   172                              <1> %endmacro
+   173                              <1> 
+   174                              <1> 
+   175                              <1> ; -----------------------------------------------
+   176                              <1> ; [macro] ccc_end
+   177                              <1> ; [descr] restaura a pilha para o estado inicial da chamada do procedimento
+   178                              <1> ; -----------------------------------------------
+   179                              <1> %macro ccc_end 0
+   180                              <1> 	mov	esp, ebp	; Restaura esp
+   181                              <1> 	pop	ebp		; Restaura ebp
+   182                              <1> %endmacro
+   183                              <1> 
+   184                              <1> 
+   185                              <1> ; -----------------------------------------------
+   186                              <1> ; [macro] parametro
+   187                              <1> ; [descr] expande para o endereço de um determinado parametro do procedimento
+   188                              <1> ; [param] (1) numero do parametro (contado da esquerda para a direita)
+   189                              <1> ; -----------------------------------------------
+   190                              <1> %define 	parametro(x)	ebp + 4 + 4 * x
+   191                              <1> 
+   192                              <1> 
+   193                              <1> ; -----------------------------------------------
+   194                              <1> ; [macro] varlocal
+   195                              <1> ; [descr] expande para o endereço de uma determinada variavel local do procedimento
+   196                              <1> ; [param] (1) numero do da variavel local
+   197                              <1> ; -----------------------------------------------
+   198                              <1> %define 	varlocal(x)	ebp - 4 * x
+   199                                  
+   200                                  global strlen_z
+   201                                  global print_z
+   202                                  global strncpy_z
+   203                                  global printn_z
+   204                                  global getparametro_z
+   205                                  global printchar_z
+   206                                  global int2ascii
+   207                                  
+   208                                  %include "util/asm_io.inc"
+   209                              <1> 	extern  read_int, print_int, print_string
+   210                              <1> 	extern	read_char, print_char, print_nl
+   211                              <1> 	extern  sub_dump_regs, sub_dump_mem, sub_dump_math, sub_dump_stack
+   212                              <1> 
+   213                              <1> %macro 	dump_regs 1
+   214                              <1> 	push	  dword %1
+   215                              <1> 	call	  sub_dump_regs
+   216                              <1> %endmacro
+   217                              <1> 
+   218                              <1> 
+   219                              <1> ;
+   220                              <1> ; usage: dump_mem label, start-address, # paragraphs
+   221                              <1> %macro  dump_mem 3
+   222                              <1> 	push	 dword %1
+   223                              <1> 	push	 dword %2
+   224                              <1> 	push	 dword %3
+   225                              <1> 	call	 sub_dump_mem
+   226                              <1> %endmacro
+   227                              <1> 
+   228                              <1> %macro	dump_math 1
+   229                              <1> 	push	 dword %1
+   230                              <1> 	call	 sub_dump_math
+   231                              <1> %endmacro
+   232                              <1> 
+   233                              <1> %macro  dump_stack 3
+   234                              <1> 	push	 dword %3
+   235                              <1>         push     dword %2
+   236                              <1> 	push	 dword %1
+   237                              <1>         call     sub_dump_stack
+   238                              <1> %endmacro
+   239                                  
+   240                                  
+   241                                  ; -----------------------------------------------
+   242                                  ; [nome]	getparametro_z
+   243                                  ; [desc]	Essa funcao prepara uma string para que possam ser lidos varios parametros dela.
+   244                                  ;		Resumidamente, ela converte o primeiro espaço em branco da string por um 0x00. Caso encontre um 0x00 antes de substituir, ela nao faz nada (precaução) :-D
+   245                                  ; [params]	(1) ptr para a string
+   246                                  ; [return]	(eax) numero de caracteres do parametro
+   247                                  ; -----------------------------------------------
+   248                                  ; CHANGELOG
+   249                                  ; -----------------------------------------------
+   250                                  ; [01/07/2005 - 00:52]
+   251                                  ; Versão 1.0
+   252                                  ; -----------------------------------------------
+   253                                  getparametro_z:
+   254                                  	ccc_begin 			; Prepara o ambiente
+   255 00000000 55                  <1>  push ebp
+   256 00000001 89E5                <1>  mov ebp, esp
+   257 00000003 81EC00000000        <1>  sub esp, 4 * %1
+   258                                  ;	push	ecx			; Armazena ecx
+   259 00000009 9C                      	pushfd
+   260                                  
+   261                                  	; Aponta eax pro inicio da string
+   262 0000000A 8B4508                  	mov	eax, [parametro(1)]	; ptr para o buffer de saida
+   263 0000000D 48                      	dec	eax			; Inicializa para poder urilizar o incrementos no inicio do loop
+   264                                  					; e assim permitir que os flags nao sejam alterados apos a comparacao
+   265                                  
+   266                                  
+   267                                    .loop
+   268                                  
+   269                                  	; Varre byte a byte
+   270 0000000E 40                      	inc	eax
+   271                                  
+   272 0000000F 803820                  	cmp	byte [eax], ' '		; Espaço ?
+   273 00000012 75FA                    	jne	.loop
+   274 00000014 C60000                  	mov	byte [eax], 0x00	; Transforma em 0x00
+   275                                  
+   276 00000017 803800                  	cmp	byte [eax], 0x00	; 0x00 ?
+   277 0000001A 75F2                    	jne	.loop
+   278                                  
+   279 0000001C 2B4508                  	sub 	eax, [parametro(1)]	; Calcula o deslocamento
+   280                                  					; Retorno em eax
+   281                                  
+   282 0000001F 9D                      	popfd
+   283                                  ;	pop	ecx			; Restarua ecx
+   284                                  	ccc_end				; Restaura o ambiente
+   285 00000020 89EC                <1>  mov esp, ebp
+   286 00000022 5D                  <1>  pop ebp
+   287 00000023 C3                      ret					; Retorna o controle ao programa
+   288                                  
+   289                                  
+   290                                  
+   291                                  ; -----------------------------------------------
+   292                                  ; [nome]	strlen_z
+   293                                  ; [desc]	Calcula o tamanho de uma string "Zero-terminated"
+   294                                  ; [params]	(1) ptr para a string
+   295                                  ; [return]	(eax) numero de caracteres na string
+   296                                  ; -----------------------------------------------
+   297                                  ; Changelog
+   298                                  ; -----------------------------------------------
+   299                                  ; [15/06/2005 - 03:00]
+   300                                  ; Versão Final
+   301                                  ; -----------------------------------------------
+   302                                  strlen_z:
+   303                                  	ccc_begin 			; Prepara o ambiente
+   304 00000024 55                  <1>  push ebp
+   305 00000025 89E5                <1>  mov ebp, esp
+   306 00000027 81EC00000000        <1>  sub esp, 4 * %1
+   307                                  ;	push	ecx			; Armazena ecx
+   308 0000002D 9C                      	pushfd
+   309                                  	
+   310                                  	; Aponta eax pro inicio da string
+   311 0000002E 8B4508                  	mov	eax, [parametro(1)]	; ptr para o buffer de saida
+   312 00000031 48                      	dec	eax			; Inicializa para poder urilizar o incrementos no inicio do loop
+   313                                  					; e assim permitir que os flags nao sejam alterados apos a comparacao
+   314                                  
+   315                                  
+   316                                    .loop
+   317                                  
+   318                                  	; Varre byte a byte
+   319 00000032 40                      	inc	eax
+   320 00000033 803800                  	cmp	byte [eax], 0
+   321 00000036 75FA                    	jne	.loop
+   322                                  
+   323 00000038 2B4508                  	sub 	eax, [parametro(1)]	; Calcula o deslocamento
+   324                                  					; Retorno em eax
+   325                                  
+   326 0000003B 9D                      	popfd
+   327                                  ;	pop	ecx			; Restarua ecx
+   328                                  	ccc_end				; Restaura o ambiente
+   329 0000003C 89EC                <1>  mov esp, ebp
+   330 0000003E 5D                  <1>  pop ebp
+   331 0000003F C3                      ret					; Retorna o controle ao programa
+   332                                  
+   333                                  
+   334                                  
+   335                                  ; -----------------------------------------------
+   336                                  ; [nome]	print_z
+   337                                  ; [desc]	Imprime uma string "Zero-terminated"
+   338                                  ; [params]	descritor de arquivo para a saida	(1)
+   339                                  ;		ptr pra a string			(2)
+   340                                  ; [return]	numero de bytes escritos		(eax)
+   341                                  ; -----------------------------------------------
+   342                                  ; Changelog
+   343                                  ; -----------------------------------------------
+   344                                  ; [15/06/2005 - 03:10]
+   345                                  ; Versão Final
+   346                                  ; -----------------------------------------------
+   347                                  print_z:
+   348                                  	ccc_begin 			; Prepara o ambiente
+   349 00000040 55                  <1>  push ebp
+   350 00000041 89E5                <1>  mov ebp, esp
+   351 00000043 81EC00000000        <1>  sub esp, 4 * %1
+   352 00000049 50                      	push	eax
+   353 0000004A 53                      	push	ebx
+   354 0000004B 51                      	push 	ecx
+   355 0000004C 52                      	push 	edx
+   356                                  
+   357 0000004D FF750C                  	push	dword [parametro(2)]	; ptr para a string
+   358 00000050 E8CFFFFFFF              	call strlen_z			; Retorno em eax
+   359                                  	descarta_pilha 1		; Descarta q parametro
+   360 00000055 81C404000000        <1>  add esp, 4 * %1
+   361                                  
+   362                                  	; Parametro para syscall
+   363 0000005B 8B5D08                  	mov	ebx, [parametro(1)]	; descritor do arquivo (1 stdout)
+   364 0000005E 89C2                    	mov	edx, eax		; numero de bytes a escrever	
+   365 00000060 8B4D0C                  	mov	ecx, [parametro(2)]	; ptr para o buffer
+   366                                  	macro_syscall 4			; syscall: write (fs/read_write.c)
+   367 00000063 B804000000          <1>  mov eax, dword %1
+   368 00000068 CD80                <1>  int 80h
+   369                                  
+   370 0000006A 5A                      	pop 	edx
+   371 0000006B 59                      	pop 	ecx
+   372 0000006C 5B                      	pop	ebx
+   373 0000006D 58                      	pop	eax
+   374                                  	ccc_end				; Restaura o ambiente
+   375 0000006E 89EC                <1>  mov esp, ebp
+   376 00000070 5D                  <1>  pop ebp
+   377 00000071 C3                      ret					; Retorna o controle ao programa
+   378                                  
+   379                                  
+   380                                  ; -----------------------------------------------
+   381                                  ; [nome]	printn_z
+   382                                  ; [desc]	Imprime uma os primeiros n caracteres de uma string
+   383                                  ; [params]	(1) descritor de arquivo para a saida
+   384                                  ;		(2) ptr pra a string
+   385                                  ;		(3) numer de caracteres a imprimir
+   386                                  ; [return]	(eax) numero de bytes escritos
+   387                                  ; -----------------------------------------------
+   388                                  ; Changelog
+   389                                  ; -----------------------------------------------
+   390                                  ; [30/06/2005 - 22:59]
+   391                                  ; Versão 1.0
+   392                                  ; Tornou-se necessaria essa função para imprimir o numero dos telefones
+   393                                  ; -----------------------------------------------
+   394                                  printn_z:
+   395                                  	ccc_begin 			; Prepara o ambiente
+   396 00000072 55                  <1>  push ebp
+   397 00000073 89E5                <1>  mov ebp, esp
+   398 00000075 81EC00000000        <1>  sub esp, 4 * %1
+   399 0000007B 50                      	push	eax
+   400 0000007C 53                      	push	ebx
+   401 0000007D 51                      	push 	ecx
+   402 0000007E 52                      	push 	edx
+   403                                  
+   404                                  	; Parametro para syscall
+   405 0000007F 8B5D08                  	mov	ebx, [parametro(1)]	; descritor do arquivo
+   406 00000082 8B5510                  	mov	edx, [parametro(3)]	; numero de bytes a escrever
+   407 00000085 8B4D0C                  	mov	ecx, [parametro(2)]	; ptr para o buffer
+   408                                  	macro_syscall 4			; syscall: write (fs/read_write.c)
+   409 00000088 B804000000          <1>  mov eax, dword %1
+   410 0000008D CD80                <1>  int 80h
+   411                                  
+   412 0000008F 5A                      	pop 	edx
+   413 00000090 59                      	pop 	ecx
+   414 00000091 5B                      	pop	ebx
+   415 00000092 58                      	pop	eax
+   416                                  	ccc_end				; Restaura o ambiente
+   417 00000093 89EC                <1>  mov esp, ebp
+   418 00000095 5D                  <1>  pop ebp
+   419 00000096 C3                      ret					; Retorna o controle ao programa
+   420                                  
+   421                                  
+   422                                  ; -----------------------------------------------
+   423                                  ; [nome]	strncpy_z
+   424                                  ; [desc]	Copia N caracteres do buffer fonte
+   425                                  ;		para destino. Se encontrar o fim do buffer
+   426                                  ;		origem, para a copia.
+   427                                  ; [params]	ptr para fonte			(1)
+   428                                  ;		ptr para destino		(2)
+   429                                  ;		numero de caracteres a copiar	(3)
+   430                                  ; [return]	numero de bytes escritos	(eax)
+   431                                  ; -----------------------------------------------
+   432                                  ; Changelog
+   433                                  ; -----------------------------------------------
+   434                                  ; [18/06/2005 - 12:23]
+   435                                  ; Versão 1.0
+   436                                  ; -----------------------------------------------
+   437                                  strncpy_z:
+   438                                  	ccc_begin			; Define o ambiente
+   439 00000097 55                  <1>  push ebp
+   440 00000098 89E5                <1>  mov ebp, esp
+   441 0000009A 81EC00000000        <1>  sub esp, 4 * %1
+   442 000000A0 50                      	push	eax
+   443 000000A1 51                      	push 	ecx
+   444 000000A2 9C                      	pushfd
+   445                                  
+   446 000000A3 FC                      	cld				; Limpao flag de direção
+   447                                  	
+   448 000000A4 31C0                    	xor	eax, eax
+   449 000000A6 8B7508                  	mov 	esi, [parametro(1)]	; De
+   450 000000A9 8B7D0C                  	mov 	edi, [parametro(2)]	; Para
+   451 000000AC 8B4D10                  	mov 	ecx, [parametro(3)]	; Bytes
+   452                                  
+   453                                  
+   454                                    .loop
+   455 000000AF AC                      	lodsb				; Le
+   456 000000B0 AA                      	stosb				; Armazena
+   457                                  	
+   458 000000B1 49                      	dec	ecx
+   459                                  
+   460 000000B2 81F900000000            	cmp	ecx, 0x0		; Fim do loop?
+   461 000000B8 7404                    	je	.sair
+   462                                  
+   463 000000BA 3C00                    	cmp	al, 0x0			; Fim da string?
+   464 000000BC 75F1                    	jne	.loop
+   465                                  
+   466                                  
+   467                                    .sair
+   468                                  
+   469 000000BE 9D                      	popfd
+   470 000000BF 59                      	pop 	ecx
+   471 000000C0 58                      	pop	eax
+   472                                  	ccc_end				; Restaura o ambiente
+   473 000000C1 89EC                <1>  mov esp, ebp
+   474 000000C3 5D                  <1>  pop ebp
+   475 000000C4 C3                      ret					; Retorna o controle ao programa
+   476                                  
+   477                                  
+   478                                  
+   479                                  ; -----------------------------------------------
+   480                                  ; [nome]	printchar_z
+   481                                  ; [desc]	Imprime um caractere em al para o descritor de arquivos em ah
+   482                                  ; [params]	(al) caractere a ser impresso
+   483                                  ; 		(ah) file descriptor
+   484                                  ; -----------------------------------------------
+   485                                  ; CHANGELOG
+   486                                  ; -----------------------------------------------
+   487                                  ; [04/07/2005 - 18:43]
+   488                                  ; Versão 1.0
+   489                                  ; -----------------------------------------------
+   490                                  printchar_z
+   491                                  	ccc_begin		; Define o ambiente
+   492 000000C5 55                  <1>  push ebp
+   493 000000C6 89E5                <1>  mov ebp, esp
+   494 000000C8 81EC00000000        <1>  sub esp, 4 * %1
+   495                                  ;	push 	eax
+   496 000000CE 53                      	push	ebx
+   497 000000CF 51                      	push 	ecx
+   498 000000D0 52                      	push 	edx
+   499 000000D1 9C                      	pushfd			; Armazena os flags
+   500                                  
+   501 000000D2 4C                      	dec esp
+   502 000000D3 880424                  	mov [esp], byte al
+   503                                  ;	push byte al		; Caractere a ser impresso
+   504                                  
+   505                                  	; Parametro para syscall
+   506 000000D6 0FB6DC                  	movzx	ebx, ah		; descritor do arquivo (1 stdout)
+   507 000000D9 BA01000000              	mov	edx, 0x1	; numero de bytes a escrever
+   508 000000DE 89E1                    	mov	ecx, esp	; ptr para o buffer
+   509                                  	macro_syscall 4		; syscall: write (fs/read_write.c)
+   510 000000E0 B804000000          <1>  mov eax, dword %1
+   511 000000E5 CD80                <1>  int 80h
+   512                                  
+   513 000000E7 44                      	inc esp			; Descarta o byte
+   514                                  
+   515 000000E8 9D                      	popfd			; Restaura os flags
+   516 000000E9 5A                      	pop	edx
+   517 000000EA 59                      	pop	ecx
+   518 000000EB 5B                      	pop	ebx
+   519                                  ;	pop	eax
+   520                                  	ccc_end			; Restaura o ambiente
+   521 000000EC 89EC                <1>  mov esp, ebp
+   522 000000EE 5D                  <1>  pop ebp
+   523 000000EF C3                      ret
+   524                                  
+   525                                  
+   526                                  ; -----------------------------------------------
+   527                                  ; [nome]	int2ascii
+   528                                  ; [desc]	converte um valor inteiro em sua reresentação ascii
+   529                                  ; [params]	(eax) numero a ser imrpesso
+   530                                  ; -----------------------------------------------
+   531                                  ; CHANGELOG
+   532                                  ; -----------------------------------------------
+   533                                  ; [04/07/2005 - 20:16]
+   534                                  ; Versão 1.0
+   535                                  ; -----------------------------------------------
+   536                                  int2ascii
+   537                                  	ccc_begin
+   538 000000F0 55                  <1>  push ebp
+   539 000000F1 89E5                <1>  mov ebp, esp
+   540 000000F3 81EC00000000        <1>  sub esp, 4 * %1
+   541 000000F9 50                      	push eax
+   542 000000FA 53                      	push ebx
+   543 000000FB 51                      	push ecx
+   544 000000FC 52                      	push edx
+   545                                  
+   546 000000FD 31C9                    	xor     ecx, ecx	; contador do numero de caracteres que deverao ser imprimidos
+   547 000000FF BB0A000000              	mov     ebx, 0xA	; Base
+   548                                  
+   549                                  
+   550                                    .divide
+   551 00000104 31D2                    	xor     edx, edx	; Zera EDX
+   552 00000106 F7F3                    	div     ebx
+   553                                  
+   554 00000108 81C230000000            	add     edx, '0'	; Converte pra ascii
+   555 0000010E 4C                      	dec	esp		; Move a pilha manualmente
+   556 0000010F 881424                  	mov 	[esp], byte dl
+   557 00000112 41                      	inc	ecx
+   558                                  
+   559 00000113 3D00000000                      cmp     eax, 0x0  	; Zerou ?
+   560 00000118 7FEA                            jg      .divide
+   561                                  
+   562 0000011A 66B80100                	mov	ax, 0x1		; stdout - parametro para printchar_z
+   563                                  
+   564                                  
+   565                                    .imprime
+   566 0000011E 8A0424                  	mov	al, byte [esp]	; Pega o caractere da pilha
+   567 00000121 E89FFFFFFF              	call printchar_z	; Imprime o caracteres
+   568 00000126 44                      	inc	esp		; Restaura a pilha
+   569 00000127 49                      	dec	ecx		; e o contador
+   570 00000128 75F4                    	jnz	.imprime
+   571                                  
+   572 0000012A 5A                      	pop edx
+   573 0000012B 59                      	pop ecx
+   574 0000012C 5B                      	pop ebx
+   575 0000012D 58                      	pop eax
+   576                                  	ccc_end
+   577 0000012E 89EC                <1>  mov esp, ebp
+   578 00000130 5D                  <1>  pop ebp
+   579 00000131 C3                      ret
