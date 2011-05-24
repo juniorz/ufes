@@ -1,0 +1,6 @@
+Estrutura de Dados
+Ciência da Computação - UFES
+
+Aluno: Reinaldo de Souza Junior
+
+A documentação encontra-se dentro do diretorio "doc/" no formato html ("ed20051-trab1-doc/") e no formato pdf ("ed20051-trab1-doc.pdf").

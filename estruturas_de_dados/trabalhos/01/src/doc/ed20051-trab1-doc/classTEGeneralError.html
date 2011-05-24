@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Estrutura de Dados - Trabalho 1: TEGeneralError class Reference</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.3.7 -->
+<div class="qindex"><a class="qindex" href="main.html">Página&nbsp;Principal</a> | <a class="qindex" href="hierarchy.html">Hierarquia&nbsp;de&nbsp;Classes</a> | <a class="qindex" href="classes.html">Lista&nbsp;Alfabética</a> | <a class="qindex" href="annotated.html">Estruturas&nbsp;de&nbsp;Dados</a> | <a class="qindex" href="files.html">Lista&nbsp;de&nbsp;Arquivos</a> | <a class="qindex" href="functions.html">Campos&nbsp;de&nbsp;Dados</a></div>
+<h1>Referência da Classe TEGeneralError</h1><code>#include &lt;<a class="el" href="TError_8h-source.html">TError.h</a>&gt;</code>
+<p>
+<p>Diagrama de Hierarquia para TEGeneralError:
+<p><center><img src="classTEGeneralError.png" usemap="#TEGeneralError_map" border="0" alt=""></center>
+<map name="TEGeneralError_map">
+<area href="classTEInvalidHashFunction.html" alt="TEInvalidHashFunction" shape="rect" coords="0,56,142,80">
+<area href="classTEInvariant.html" alt="TEInvariant" shape="rect" coords="152,56,294,80">
+<area href="classTENullElement.html" alt="TENullElement" shape="rect" coords="304,56,446,80">
+<area href="classTEOutOfBounds.html" alt="TEOutOfBounds" shape="rect" coords="456,56,598,80">
+<area href="classTEStackUnderflow.html" alt="TEStackUnderflow" shape="rect" coords="608,56,750,80">
+</map>
+<hr><a name="_details"></a><h2>Descrição Detalhada</h2>
+Classe genérica de tratamento de erro. A classe TEGeneralError trata as exceções de maneira genérica, amazenando informações sobre a exceção em sí e as circunstâncias que a causaram. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00022">22</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.<table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Métodos Públicos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEGeneralError.html#a1">TEGeneralError</a> (const char *gerador, const char *mensagem)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construtor.  <a href="#a1"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEGeneralError.html#a2">~TEGeneralError</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destrutor.  <a href="#a2"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEGeneralError.html#a3">toString</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Imprime o erro.  <a href="#a3"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEGeneralError.html#a4">Exit</a> (int cod)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Finaliza o programa e exibe o erro.  <a href="#a4"></a><br><br></td></tr>
+<tr><td colspan=2><br><h2>Métodos Protegidos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEGeneralError.html#b0">SetGerador</a> (const char *gerador)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Define o método que gerou o erro.  <a href="#b0"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEGeneralError.html#b1">SetMensagem</a> (const char *mensagem)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Define a mensagem de erro.  <a href="#b1"></a><br><br></td></tr>
+<tr><td colspan=2><br><h2>Atributos Protegidos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>const char *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEGeneralError.html#p0">GeradorErro</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Nome do Método que gerou a exceção.  <a href="#p0"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>const char *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEGeneralError.html#p1">MensagemErro</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Mensagem de erro que descreve a exceção gerada.  <a href="#p1"></a><br><br></td></tr>
+</table>
+<hr><h2>Construtores &amp; Destrutores</h2>
+<a class="anchor" name="a1" doxytag="TEGeneralError::TEGeneralError" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> TEGeneralError::TEGeneralError           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const char *&nbsp;</td>
+          <td class="mdname" nowrap> <em>gerador</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>const char *&nbsp;</td>
+          <td class="mdname" nowrap> <em>mensagem</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Construtor. 
+<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>gerador</em>&nbsp;</td><td>Método que gerou a exceção </td></tr>
+    <tr><td></td><td valign=top><em>mensagem</em>&nbsp;</td><td>Mensagem de erro</td></tr>
+  </table>
+</dl>
+
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00034">34</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.
+<p>
+<pre class="fragment"><div>00034 : <a class="code" href="classTEGeneralError.html#p0">GeradorErro</a>(gerador), <a class="code" href="classTEGeneralError.html#p1">MensagemErro</a>(mensagem) {};
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2" doxytag="TEGeneralError::~TEGeneralError" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> TEGeneralError::~<a class="el" href="classTEGeneralError.html">TEGeneralError</a>           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Destrutor. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00039">39</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.
+<p>
+<pre class="fragment"><div>00039 { <a class="code" href="classTEGeneralError.html#p0">GeradorErro</a> = NULL; <a class="code" href="classTEGeneralError.html#p1">MensagemErro</a> = NULL;};
+</div></pre>    </td>
+  </tr>
+</table>
+<hr><h2>Métodos</h2>
+<a class="anchor" name="a3" doxytag="TEGeneralError::toString" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void TEGeneralError::toString           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Imprime o erro. 
+<p>
+Imprime o conteúdo do erro no formato: "[GeradorErro] ~&gt; MensagemErro" para a saída padrão de erro
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00046">46</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.
+<p>
+Referenciado por <a class="el" href="TError_8h-source.html#l00054">Exit()</a>.
+<p>
+<pre class="fragment"><div>00046 {std::cerr &lt;&lt; <span class="stringliteral">"["</span> &lt;&lt; <a class="code" href="classTEGeneralError.html#p0">GeradorErro</a> &lt;&lt; <span class="stringliteral">"] ~&gt; "</span> &lt;&lt; <a class="code" href="classTEGeneralError.html#p1">MensagemErro</a> &lt;&lt; std::endl;};
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a4" doxytag="TEGeneralError::Exit" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void TEGeneralError::Exit           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">int&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>cod</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Finaliza o programa e exibe o erro. 
+<p>
+Imprime o conteúdo do erro e aborta o programa com o código de saida <code>cod</code> <dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>cod</em>&nbsp;</td><td>Código de saída do programa</td></tr>
+  </table>
+</dl>
+
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00054">54</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.
+<p>
+Referenciado por <a class="el" href="TError_8h-source.html#l00054">Exit()</a>, <a class="el" href="TApplication_8h-source.html#l00193">TApplication&lt; T &gt;::ValidaArquivoInput()</a>, <a class="el" href="TApplication_8h-source.html#l00220">TApplication&lt; T &gt;::ValidaArquivoSearch()</a> e <a class="el" href="TApplication_8h-source.html#l00156">TApplication&lt; T &gt;::ValidaTipoEstrutura()</a>.
+<p>
+<pre class="fragment"><div>00054 { <a class="code" href="classTEGeneralError.html#a3">toString</a>(); exit(cod); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="b0" doxytag="TEGeneralError::SetGerador" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void TEGeneralError::SetGerador           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const char *&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>gerador</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline, protected]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Define o método que gerou o erro. 
+<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>gerador</em>&nbsp;</td><td>Método que gerou o erro </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Veja também:</b></dt><dd><a class="el" href="classTEGeneralError.html#b1">SetMensagem</a></dd></dl>
+
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00066">66</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.
+<p>
+Referenciado por <a class="el" href="TError_8h-source.html#l00066">SetGerador()</a>.
+<p>
+<pre class="fragment"><div>00066 { <a class="code" href="classTEGeneralError.html#p0">GeradorErro</a> = gerador; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="b1" doxytag="TEGeneralError::SetMensagem" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void TEGeneralError::SetMensagem           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const char *&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>mensagem</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline, protected]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Define a mensagem de erro. 
+<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>mensagem</em>&nbsp;</td><td>Mensagem de erros </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Veja também:</b></dt><dd><a class="el" href="classTEGeneralError.html#b0">SetGerador</a></dd></dl>
+
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00074">74</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.
+<p>
+Referenciado por <a class="el" href="TError_8h-source.html#l00074">SetMensagem()</a>.
+<p>
+<pre class="fragment"><div>00074 { <a class="code" href="classTEGeneralError.html#p1">MensagemErro</a> = mensagem; };
+</div></pre>    </td>
+  </tr>
+</table>
+<hr><h2>Campos e Atributos</h2>
+<a class="anchor" name="p0" doxytag="TEGeneralError::GeradorErro" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> const char* <a class="el" href="classTEGeneralError.html#p0">TEGeneralError::GeradorErro</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Nome do Método que gerou a exceção. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00057">57</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.
+<p>
+Referenciado por <a class="el" href="TError_8h-source.html#l00066">SetGerador()</a>, <a class="el" href="TError_8h-source.html#l00034">TEGeneralError()</a>, <a class="el" href="TError_8h-source.html#l00046">toString()</a> e <a class="el" href="TError_8h-source.html#l00039">~TEGeneralError()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p1" doxytag="TEGeneralError::MensagemErro" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> const char* <a class="el" href="classTEGeneralError.html#p1">TEGeneralError::MensagemErro</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Mensagem de erro que descreve a exceção gerada. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00058">58</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.
+<p>
+Referenciado por <a class="el" href="TError_8h-source.html#l00074">SetMensagem()</a>, <a class="el" href="TError_8h-source.html#l00034">TEGeneralError()</a>, <a class="el" href="TError_8h-source.html#l00046">toString()</a> e <a class="el" href="TError_8h-source.html#l00039">~TEGeneralError()</a>.    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>Gerado em Tue Jun 7 22:36:05 2005 para Estrutura de Dados - Trabalho 1 por
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.7 </small></address>
+</body>
+</html>

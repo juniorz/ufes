@@ -1,0 +1,614 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Estrutura de Dados - Trabalho 1: Pessoa class Reference</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.3.7 -->
+<div class="qindex"><a class="qindex" href="main.html">Página&nbsp;Principal</a> | <a class="qindex" href="hierarchy.html">Hierarquia&nbsp;de&nbsp;Classes</a> | <a class="qindex" href="classes.html">Lista&nbsp;Alfabética</a> | <a class="qindex" href="annotated.html">Estruturas&nbsp;de&nbsp;Dados</a> | <a class="qindex" href="files.html">Lista&nbsp;de&nbsp;Arquivos</a> | <a class="qindex" href="functions.html">Campos&nbsp;de&nbsp;Dados</a></div>
+<h1>Referência da Classe Pessoa</h1><code>#include &lt;<a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>&gt;</code>
+<p>
+<hr><a name="_details"></a><h2>Descrição Detalhada</h2>
+Pessoa genérica para exemplificar a aplicação das estruturas de dados. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00017">17</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.<table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Métodos Públicos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>char *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#a2">GetNome</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Obtém o nome da pessoa.  <a href="#a2"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#a3">GetCodigo</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Obtém o Código da pessoa.  <a href="#a3"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#a4">SetNome</a> (char *nome)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Define o nome da pessoa.  <a href="#a4"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#a5">SetCodigo</a> (int codigo)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Define o Código da pessoa.  <a href="#a5"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#a6">operator const int</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Faz a conversão de Pessoa para (int).  <a href="#a6"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#a7">operator const float</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Faz a conversão de Pessoa para (float).  <a href="#a7"></a><br><br></td></tr>
+<tr><td colspan=2><br><h2>Atributos Privados</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#r0">codPessoa</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Código da Pessoa.  <a href="#r0"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>char&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#r1">strNome</a> [255]</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Nome da Pessoa.  <a href="#r1"></a><br><br></td></tr>
+<tr><td colspan=2><br><h2>Amigas</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#n0">operator&gt;</a> (const <a class="el" href="classPessoa.html">Pessoa</a> &amp;a, const <a class="el" href="classPessoa.html">Pessoa</a> &amp;b)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sobreescreve o operador <b>&gt;</b>.  <a href="#n0"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#n1">operator&lt;</a> (const <a class="el" href="classPessoa.html">Pessoa</a> &amp;a, const <a class="el" href="classPessoa.html">Pessoa</a> &amp;b)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sobreescreve o operador <b>&lt;</b>.  <a href="#n1"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#n2">operator==</a> (const <a class="el" href="classPessoa.html">Pessoa</a> &amp;a, const <a class="el" href="classPessoa.html">Pessoa</a> &amp;b)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sobreescreve o operador <b>==</b>.  <a href="#n2"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#n3">operator&gt;=</a> (const <a class="el" href="classPessoa.html">Pessoa</a> &amp;a, const <a class="el" href="classPessoa.html">Pessoa</a> &amp;b)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sobreescreve o operador <b>&gt;=</b>.  <a href="#n3"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#n4">operator&lt;=</a> (const <a class="el" href="classPessoa.html">Pessoa</a> &amp;a, const <a class="el" href="classPessoa.html">Pessoa</a> &amp;b)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sobreescreve o operador <b>&lt;=</b>.  <a href="#n4"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>ostream &amp;&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPessoa.html#n5">operator&lt;&lt;</a> (ostream &amp;out, const <a class="el" href="classPessoa.html">Pessoa</a> &amp;a)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sobreescreve o operador <b>&lt;&lt;</b> (para um stream de saida).  <a href="#n5"></a><br><br></td></tr>
+</table>
+<hr><h2>Métodos</h2>
+<a class="anchor" name="a2" doxytag="Pessoa::GetNome" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> char* Pessoa::GetNome           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Obtém o nome da pessoa. 
+<p>
+<dl compact><dt><b>Retorna:</b></dt><dd>Nome da Pessoa</dd></dl>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00031">31</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+<pre class="fragment"><div>00031 { <span class="keywordflow">return</span> <a class="code" href="classPessoa.html#r1">strNome</a>; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a3" doxytag="Pessoa::GetCodigo" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> int Pessoa::GetCodigo           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Obtém o Código da pessoa. 
+<p>
+<dl compact><dt><b>Retorna:</b></dt><dd>Código da Pessoa</dd></dl>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00037">37</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+<pre class="fragment"><div>00037 { <span class="keywordflow">return</span> <a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a4" doxytag="Pessoa::SetNome" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void Pessoa::SetNome           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">char *&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>nome</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Define o nome da pessoa. 
+<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>nome</em>&nbsp;</td><td>Nome da Pessoa</td></tr>
+  </table>
+</dl>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00043">43</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+Referenciado por <a class="el" href="Pessoa_8h-source.html#l00043">SetNome()</a>.
+<p>
+<pre class="fragment"><div>00043 { strncpy(strNome, nome, 255); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a5" doxytag="Pessoa::SetCodigo" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void Pessoa::SetCodigo           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">int&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>codigo</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Define o Código da pessoa. 
+<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>codigo</em>&nbsp;</td><td>Código da Pessoa</td></tr>
+  </table>
+</dl>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00049">49</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+Referenciado por <a class="el" href="Pessoa_8h-source.html#l00049">SetCodigo()</a>.
+<p>
+<pre class="fragment"><div>00049 { <a class="code" href="classPessoa.html#r0">codPessoa</a> = codigo; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a6" doxytag="Pessoa::operator const int" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> Pessoa::operator const int           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Faz a conversão de Pessoa para (int). 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00084">84</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+<pre class="fragment"><div>00084 { <span class="keywordflow">return</span> <a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a7" doxytag="Pessoa::operator const float" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> Pessoa::operator const float           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Faz a conversão de Pessoa para (float). 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00089">89</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+<pre class="fragment"><div>00089 { <span class="keywordflow">return</span> (<span class="keywordtype">float</span>) <a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+</div></pre>    </td>
+  </tr>
+</table>
+<hr><h2>Amigas e Funções Relacionadas</h2>
+<a class="anchor" name="n0" doxytag="Pessoa::operator>" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> bool operator&gt;           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>b</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [friend]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Sobreescreve o operador <b>&gt;</b>. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00054">54</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+<pre class="fragment"><div>00054 { <span class="keywordflow">return</span> a.<a class="code" href="classPessoa.html#r0">codPessoa</a> &gt; b.<a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="n1" doxytag="Pessoa::operator<" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> bool operator&lt;           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>b</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [friend]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Sobreescreve o operador <b>&lt;</b>. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00059">59</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+<pre class="fragment"><div>00059 { <span class="keywordflow">return</span> a.<a class="code" href="classPessoa.html#r0">codPessoa</a> &lt; b.<a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="n2" doxytag="Pessoa::operator==" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> int operator==           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>b</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [friend]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Sobreescreve o operador <b>==</b>. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00064">64</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+<pre class="fragment"><div>00064 { <span class="keywordflow">return</span> a.<a class="code" href="classPessoa.html#r0">codPessoa</a> == b.<a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="n3" doxytag="Pessoa::operator>=" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> bool operator&gt;=           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>b</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [friend]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Sobreescreve o operador <b>&gt;=</b>. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00069">69</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+<pre class="fragment"><div>00069 { <span class="keywordflow">return</span> a.<a class="code" href="classPessoa.html#r0">codPessoa</a> &gt;= b.<a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="n4" doxytag="Pessoa::operator<=" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> bool operator&lt;=           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>b</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [friend]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Sobreescreve o operador <b>&lt;=</b>. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00074">74</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+<pre class="fragment"><div>00074 { <span class="keywordflow">return</span> a.<a class="code" href="classPessoa.html#r0">codPessoa</a> &lt;= b.<a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="n5" doxytag="Pessoa::operator<<" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> ostream&amp; operator&lt;&lt;           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">ostream &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>const <a class="el" href="classPessoa.html">Pessoa</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>a</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [friend]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Sobreescreve o operador <b>&lt;&lt;</b> (para um stream de saida). 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00079">79</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+<pre class="fragment"><div>00079 { out &lt;&lt; a.<a class="code" href="classPessoa.html#r0">codPessoa</a>; out &lt;&lt; <span class="stringliteral">" - "</span>; out &lt;&lt; a.<a class="code" href="classPessoa.html#r1">strNome</a>;  };
+</div></pre>    </td>
+  </tr>
+</table>
+<hr><h2>Campos e Atributos</h2>
+<a class="anchor" name="r0" doxytag="Pessoa::codPessoa" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classPessoa.html#r0">Pessoa::codPessoa</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Código da Pessoa. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00019">19</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+Referenciado por <a class="el" href="Pessoa_8h-source.html#l00037">GetCodigo()</a>, <a class="el" href="Pessoa_8h-source.html#l00089">operator const float()</a>, <a class="el" href="Pessoa_8h-source.html#l00084">operator const int()</a> e <a class="el" href="Pessoa_8h-source.html#l00049">SetCodigo()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="r1" doxytag="Pessoa::strNome" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> char <a class="el" href="classPessoa.html#r1">Pessoa::strNome</a>[255]<code> [private]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Nome da Pessoa. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="Pessoa_8h-source.html#l00020">20</a> do arquivo <a class="el" href="Pessoa_8h-source.html">Pessoa.h</a>.
+<p>
+Referenciado por <a class="el" href="Pessoa_8h-source.html#l00031">GetNome()</a> e <a class="el" href="Pessoa_8h-source.html#l00043">SetNome()</a>.    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>Gerado em Tue Jun 7 22:36:05 2005 para Estrutura de Dados - Trabalho 1 por
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.7 </small></address>
+</body>
+</html>

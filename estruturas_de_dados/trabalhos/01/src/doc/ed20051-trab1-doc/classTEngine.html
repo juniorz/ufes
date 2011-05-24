@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Estrutura de Dados - Trabalho 1:  TemplateTEngine&lt; T &gt; class Reference</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.3.7 -->
+<div class="qindex"><a class="qindex" href="main.html">Página&nbsp;Principal</a> | <a class="qindex" href="hierarchy.html">Hierarquia&nbsp;de&nbsp;Classes</a> | <a class="qindex" href="classes.html">Lista&nbsp;Alfabética</a> | <a class="qindex" href="annotated.html">Estruturas&nbsp;de&nbsp;Dados</a> | <a class="qindex" href="files.html">Lista&nbsp;de&nbsp;Arquivos</a> | <a class="qindex" href="functions.html">Campos&nbsp;de&nbsp;Dados</a></div>
+<h1>Referência da Template de Classe TEngine&lt; T &gt;</h1><code>#include &lt;<a class="el" href="TEngine_8h-source.html">TEngine.h</a>&gt;</code>
+<p>
+<p>Diagrama de Hierarquia para TEngine&lt; T &gt;:
+<p><center><img src="classTEngine.png" usemap="#TEngine< T >_map" border="0" alt=""></center>
+<map name="TEngine< T >_map">
+<area href="classTEngineTHashTable.html" alt="TEngineTHashTable< T >" shape="rect" coords="0,56,156,80">
+<area href="classTEngineTList.html" alt="TEngineTList< T >" shape="rect" coords="166,56,322,80">
+<area href="classTEngineTQueue.html" alt="TEngineTQueue< T >" shape="rect" coords="332,56,488,80">
+<area href="classTEngineTSortedList.html" alt="TEngineTSortedList< T >" shape="rect" coords="498,56,654,80">
+<area href="classTEngineTStack.html" alt="TEngineTStack< T >" shape="rect" coords="664,56,820,80">
+</map>
+<hr><a name="_details"></a><h2>Descrição Detalhada</h2>
+<h3>template&lt;class T&gt;<br>
+ class TEngine&lt; T &gt;</h3>
+
+Engine abstrata do programa. 
+<p>
+Classe abstrata para definir a "engine" do programa principal facilitando a lógica do programa 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TEngine_8h-source.html#l00023">23</a> do arquivo <a class="el" href="TEngine_8h-source.html">TEngine.h</a>.<table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Métodos Públicos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEngine.html#a0">clean</a> ()=0</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Faz a limpeza dos objetos.  <a href="#a0"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEngine.html#a1">InsereElemento</a> (int posicao, T *elemento)=0</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Insere um elemento na estrutura.  <a href="#a1"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual T *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEngine.html#a2">ProcuraElemento</a> (T *elemento)=0</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Procura um elemento na estrutura.  <a href="#a2"></a><br><br></td></tr>
+</table>
+<hr><h2>Métodos</h2>
+<a class="anchor" name="a0" doxytag="TEngine::clean" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> virtual void <a class="el" href="classTEngine.html">TEngine</a>&lt; T &gt;::clean           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Faz a limpeza dos objetos. 
+<p>
+Tem o objetivo de funcionar como um destrutor
+<p>
+Implementado por <a class="el" href="classTEngineTHashTable.html#a1">TEngineTHashTable&lt; T &gt;</a>, <a class="el" href="classTEngineTList.html#a1">TEngineTList&lt; T &gt;</a>, <a class="el" href="classTEngineTQueue.html#a1">TEngineTQueue&lt; T &gt;</a>, <a class="el" href="classTEngineTSortedList.html#a1">TEngineTSortedList&lt; T &gt;</a> e <a class="el" href="classTEngineTStack.html#a1">TEngineTStack&lt; T &gt;</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a1" doxytag="TEngine::InsereElemento" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> virtual void <a class="el" href="classTEngine.html">TEngine</a>&lt; T &gt;::InsereElemento           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">int&nbsp;</td>
+          <td class="mdname" nowrap> <em>posicao</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>T *&nbsp;</td>
+          <td class="mdname" nowrap> <em>elemento</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Insere um elemento na estrutura. 
+<p>
+Insere o elemento <code>elemento</code> na posicao <code>posicao</code> Esse método é chamado a cada linha lida do arquivo de INPUT e é responsável pela inserção de cada elemento na estrutura em questão <dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>posicao</em>&nbsp;</td><td>Posição onde o elemento será inserido </td></tr>
+    <tr><td></td><td valign=top><em>elemento</em>&nbsp;</td><td>O elemento que será inserido na lista</td></tr>
+  </table>
+</dl>
+
+<p>
+Implementado por <a class="el" href="classTEngineTHashTable.html#a2">TEngineTHashTable&lt; T &gt;</a>, <a class="el" href="classTEngineTList.html#a2">TEngineTList&lt; T &gt;</a>, <a class="el" href="classTEngineTQueue.html#a2">TEngineTQueue&lt; T &gt;</a>, <a class="el" href="classTEngineTSortedList.html#a2">TEngineTSortedList&lt; T &gt;</a> e <a class="el" href="classTEngineTStack.html#a2">TEngineTStack&lt; T &gt;</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2" doxytag="TEngine::ProcuraElemento" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> virtual T* <a class="el" href="classTEngine.html">TEngine</a>&lt; T &gt;::ProcuraElemento           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">T *&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>elemento</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Procura um elemento na estrutura. 
+<p>
+Retorna a posicao do primeiro elemento iagual a <code>elemento</code> existente na lista Esse método é chamado a cada linha lida do arquivo de SEARCH e é responsável pela busca de cada elemento na estrutura em questão <dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>elemento</em>&nbsp;</td><td>O elemento que será procurado </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Retorna:</b></dt><dd>Ponteiro para o elemento encontrado</dd></dl>
+
+<p>
+Implementado por <a class="el" href="classTEngineTHashTable.html#a3">TEngineTHashTable&lt; T &gt;</a>, <a class="el" href="classTEngineTList.html#a3">TEngineTList&lt; T &gt;</a>, <a class="el" href="classTEngineTQueue.html#a3">TEngineTQueue&lt; T &gt;</a>, <a class="el" href="classTEngineTSortedList.html#a3">TEngineTSortedList&lt; T &gt;</a> e <a class="el" href="classTEngineTStack.html#a3">TEngineTStack&lt; T &gt;</a>.    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>Gerado em Tue Jun 7 22:36:06 2005 para Estrutura de Dados - Trabalho 1 por
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.7 </small></address>
+</body>
+</html>

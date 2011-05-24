@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Estrutura de Dados - Trabalho 1:  TemplateTEngineTList&lt; T &gt; class Reference</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.3.7 -->
+<div class="qindex"><a class="qindex" href="main.html">Página&nbsp;Principal</a> | <a class="qindex" href="hierarchy.html">Hierarquia&nbsp;de&nbsp;Classes</a> | <a class="qindex" href="classes.html">Lista&nbsp;Alfabética</a> | <a class="qindex" href="annotated.html">Estruturas&nbsp;de&nbsp;Dados</a> | <a class="qindex" href="files.html">Lista&nbsp;de&nbsp;Arquivos</a> | <a class="qindex" href="functions.html">Campos&nbsp;de&nbsp;Dados</a></div>
+<h1>Referência da Template de Classe TEngineTList&lt; T &gt;</h1><code>#include &lt;<a class="el" href="TEngineTList_8h-source.html">TEngineTList.h</a>&gt;</code>
+<p>
+<p>Diagrama de Hierarquia para TEngineTList&lt; T &gt;:
+<p><center><img src="classTEngineTList.png" usemap="#TEngineTList< T >_map" border="0" alt=""></center>
+<map name="TEngineTList< T >_map">
+<area href="classTEngine.html" alt="TEngine< T >" shape="rect" coords="0,0,115,24">
+</map>
+<hr><a name="_details"></a><h2>Descrição Detalhada</h2>
+<h3>template&lt;class T&gt;<br>
+ class TEngineTList&lt; T &gt;</h3>
+
+Engine referente à <a class="el" href="classTList.html">TList</a>. 
+<p>
+Essa engine trata o arquivo de INPUT e de SEARCH e manipula uma estrutura do tipo <a class="el" href="classTList.html">TList</a> diretamente. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TEngineTList_8h-source.html#l00037">37</a> do arquivo <a class="el" href="TEngineTList_8h-source.html">TEngineTList.h</a>.<table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Métodos Públicos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEngineTList.html#a0">TEngineTList</a> (<a class="el" href="classTList.html">TList</a>&lt; T &gt; *l)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construtor.  <a href="#a0"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEngineTList.html#a1">clean</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Faz a limpeza dos objetos.  <a href="#a1"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEngineTList.html#a2">InsereElemento</a> (int posicao, T *elemento)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Insere um elemento na estrutura.  <a href="#a2"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>T *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEngineTList.html#a3">ProcuraElemento</a> (T *elemento)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Procura um elemento na estrutura.  <a href="#a3"></a><br><br></td></tr>
+<tr><td colspan=2><br><h2>Campos de Dados</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classTList.html">TList</a>&lt; T &gt; *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEngineTList.html#o0">Lista</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Estrutura do tipo Lista que será utilizada para armazenar os elementos.  <a href="#o0"></a><br><br></td></tr>
+</table>
+<hr><h2>Construtores &amp; Destrutores</h2>
+<a class="anchor" name="a0" doxytag="TEngineTList::TEngineTList" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classTEngineTList.html">TEngineTList</a>&lt; T &gt;::<a class="el" href="classTEngineTList.html">TEngineTList</a>           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top"><a class="el" href="classTList.html">TList</a>&lt; T &gt; *&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>l</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Construtor. 
+<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>l</em>&nbsp;</td><td>Estrutura que será gerenciada pela engine</td></tr>
+  </table>
+</dl>
+
+<p>
+Definição na linha <a class="el" href="TEngineTList_8h-source.html#l00045">45</a> do arquivo <a class="el" href="TEngineTList_8h-source.html">TEngineTList.h</a>.
+<p>
+<pre class="fragment"><div>00045 : <a class="code" href="classTEngineTList.html#o0">Lista</a>(l) { };
+</div></pre>    </td>
+  </tr>
+</table>
+<hr><h2>Métodos</h2>
+<a class="anchor" name="a1" doxytag="TEngineTList::clean" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> void <a class="el" href="classTEngineTList.html">TEngineTList</a>&lt; T &gt;::clean           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Faz a limpeza dos objetos. 
+<p>
+Tem o objetivo de funcionar como um destrutor
+<p>
+Implementa <a class="el" href="classTEngine.html#a0">TEngine&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TEngineTList_8h-source.html#l00053">53</a> do arquivo <a class="el" href="TEngineTList_8h-source.html">TEngineTList.h</a>.
+<p>
+<pre class="fragment"><div>00053 { <span class="keyword">delete</span> <a class="code" href="classTEngineTList.html#o0">Lista</a>; };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2" doxytag="TEngineTList::InsereElemento" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> void <a class="el" href="classTEngineTList.html">TEngineTList</a>&lt; T &gt;::InsereElemento           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">int&nbsp;</td>
+          <td class="mdname" nowrap> <em>posicao</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>T *&nbsp;</td>
+          <td class="mdname" nowrap> <em>elemento</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Insere um elemento na estrutura. 
+<p>
+Insere o elemento <code>elemento</code> na posicao <code>posicao</code> Esse método é chamado a cada linha lida do arquivo de INPUT e é responsável pela inserção de cada elemento na estrutura em questão <dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>posicao</em>&nbsp;</td><td>Posição onde o elemento será inserido </td></tr>
+    <tr><td></td><td valign=top><em>elemento</em>&nbsp;</td><td>O elemento que será inserido na lista</td></tr>
+  </table>
+</dl>
+
+<p>
+Implementa <a class="el" href="classTEngine.html#a1">TEngine&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TEngineTList_8h-source.html#l00054">54</a> do arquivo <a class="el" href="TEngineTList_8h-source.html">TEngineTList.h</a>.
+<p>
+Referenciado por <a class="el" href="TEngineTList_8h-source.html#l00054">TEngineTList&lt; T &gt;::InsereElemento()</a>.
+<p>
+<pre class="fragment"><div>00054 { <a class="code" href="classTEngineTList.html#o0">Lista</a>-&gt;Insert(elemento, posicao); } ;
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a3" doxytag="TEngineTList::ProcuraElemento" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> T* <a class="el" href="classTEngineTList.html">TEngineTList</a>&lt; T &gt;::ProcuraElemento           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">T *&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>elemento</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Procura um elemento na estrutura. 
+<p>
+Retorna a posicao do primeiro elemento iagual a <code>elemento</code> existente na lista Esse método é chamado a cada linha lida do arquivo de SEARCH e é responsável pela busca de cada elemento na estrutura em questão <dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>elemento</em>&nbsp;</td><td>O elemento que será procurado </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Retorna:</b></dt><dd>Ponteiro para o elemento encontrado</dd></dl>
+
+<p>
+Implementa <a class="el" href="classTEngine.html#a2">TEngine&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TEngineTList_8h-source.html#l00055">55</a> do arquivo <a class="el" href="TEngineTList_8h-source.html">TEngineTList.h</a>.
+<p>
+Referenciado por <a class="el" href="TEngineTList_8h-source.html#l00055">TEngineTList&lt; T &gt;::ProcuraElemento()</a>.
+<p>
+<pre class="fragment"><div>00055 { <span class="keywordtype">int</span> posicao; <span class="keywordflow">return</span> (-1 != (posicao = <a class="code" href="classTEngineTList.html#o0">Lista</a>-&gt;Search(elemento)) ) ? <a class="code" href="classTEngineTList.html#o0">Lista</a>-&gt;Get(posicao) : NULL; };
+</div></pre>    </td>
+  </tr>
+</table>
+<hr><h2>Campos e Atributos</h2>
+<a class="anchor" name="o0" doxytag="TEngineTList::Lista" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classTList.html">TList</a>&lt;T&gt;* <a class="el" href="classTEngineTList.html">TEngineTList</a>&lt; T &gt;::<a class="el" href="classTEngineTList.html#o0">Lista</a>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Estrutura do tipo Lista que será utilizada para armazenar os elementos. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TEngineTList_8h-source.html#l00039">39</a> do arquivo <a class="el" href="TEngineTList_8h-source.html">TEngineTList.h</a>.
+<p>
+Referenciado por <a class="el" href="TEngineTList_8h-source.html#l00053">TEngineTList&lt; T &gt;::clean()</a>, <a class="el" href="TEngineTList_8h-source.html#l00054">TEngineTList&lt; T &gt;::InsereElemento()</a>, <a class="el" href="TEngineTList_8h-source.html#l00055">TEngineTList&lt; T &gt;::ProcuraElemento()</a> e <a class="el" href="TEngineTList_8h-source.html#l00045">TEngineTList&lt; T &gt;::TEngineTList()</a>.    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>Gerado em Tue Jun 7 22:36:06 2005 para Estrutura de Dados - Trabalho 1 por
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.7 </small></address>
+</body>
+</html>

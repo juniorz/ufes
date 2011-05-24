@@ -1,0 +1,677 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Estrutura de Dados - Trabalho 1:  TemplateTQueue&lt; T &gt; class Reference</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.3.7 -->
+<div class="qindex"><a class="qindex" href="main.html">Página&nbsp;Principal</a> | <a class="qindex" href="hierarchy.html">Hierarquia&nbsp;de&nbsp;Classes</a> | <a class="qindex" href="classes.html">Lista&nbsp;Alfabética</a> | <a class="qindex" href="annotated.html">Estruturas&nbsp;de&nbsp;Dados</a> | <a class="qindex" href="files.html">Lista&nbsp;de&nbsp;Arquivos</a> | <a class="qindex" href="functions.html">Campos&nbsp;de&nbsp;Dados</a></div>
+<h1>Referência da Template de Classe TQueue&lt; T &gt;</h1><code>#include &lt;<a class="el" href="TQueue_8h-source.html">TQueue.h</a>&gt;</code>
+<p>
+<p>Diagrama de Hierarquia para TQueue&lt; T &gt;:
+<p><center><img src="classTQueue.png" usemap="#TQueue< T >_map" border="0" alt=""></center>
+<map name="TQueue< T >_map">
+<area href="classTAbstractList.html" alt="TAbstractList< T >" shape="rect" coords="0,0,116,24">
+</map>
+<hr><a name="_details"></a><h2>Descrição Detalhada</h2>
+<h3>template&lt;class T&gt;<br>
+ class TQueue&lt; T &gt;</h3>
+
+Fila. 
+<p>
+Estrutura de Fila<p>
+<dl compact><dt><b>Versão:</b></dt><dd>1.0 </dd></dl>
+<dl compact><dt><b>Autor:</b></dt><dd>Reinaldo de Souza Junior &lt;<a href="mailto:juniorz@gmail.com.br">juniorz@gmail.com.br</a>&gt; </dd></dl>
+<dl compact><dt><b>Data:</b></dt><dd>05/2005 </dd></dl>
+
+<p>
+
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00026">26</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.<table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Métodos Públicos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a0">Append</a> (T *data)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Insere um elemento no final da fila.  <a href="#a0"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>T *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a1">Get</a> (int pos)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retorna um elemento de uma posição específica.  <a href="#a1"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>T *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a2">GetCurrent</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retorna o elemento corrente da lista.  <a href="#a2"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a3">Count</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retorna o numero de elementos da pilha.  <a href="#a3"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a4">MoveFirst</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Aponta o elemento corrente para o primeiro elemento da lista.  <a href="#a4"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a5">MoveNext</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Aponta o elemento corrente para próximo elemento da lista.  <a href="#a5"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a6">MovePrior</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Aponta o elemento corrente para o elemento anterior da lista.  <a href="#a6"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a7">MoveLast</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Aponta o elemento corrente para o último elemento da lista.  <a href="#a7"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a8">ResetCurrent</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reseta o elemento corrente da fila.  <a href="#a8"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a9">Search</a> (T *procurado)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Busca um elemento na fila.  <a href="#a9"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a10">Del</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Remove o primeiro elemento da fila.  <a href="#a10"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a11">DelAll</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Remove todos os elemento da pilha.  <a href="#a11"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a12">Kill</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destrói o primeiro elemento da fila.  <a href="#a12"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTQueue.html#a13">KillAll</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destrói todos os elemento da pilha.  <a href="#a13"></a><br><br></td></tr>
+</table>
+<hr><h2>Métodos</h2>
+<a class="anchor" name="a0" doxytag="TQueue::Append" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::Append           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">T *&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>data</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Insere um elemento no final da fila. 
+<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>data</em>&nbsp;</td><td>Ponteiro para um elemento que será inserido na fila </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Retorna:</b></dt><dd>Posição do elemento inserido na fila</dd></dl>
+<dl compact><dt><b>Exceções:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>TENullElement*</em>&nbsp;</td><td>caso <code>data</code> seja nulo (não aponta para nada). <b>Veja:</b> <a class="el" href="classTENullElement.html">TENullElement</a> </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Veja também:</b></dt><dd><a class="el" href="classTEGeneralError.html">TEGeneralError</a></dd></dl>
+
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00042">42</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+Referenciado por <a class="el" href="TQueue_8h-source.html#l00042">TQueue&lt; T &gt;::Append()</a>.
+<p>
+<pre class="fragment"><div>00042 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html">TAbstractList&lt;T&gt;::Insert</a>(data, <a class="code" href="classTQueue.html#a3">Count</a>()); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a1" doxytag="TQueue::Get" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> T* <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::Get           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">int&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>pos</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retorna um elemento de uma posição específica. 
+<p>
+Retorna um ponteiro para elemento da lista que ocupa a posição <code>pos</code> <p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>pos</em>&nbsp;</td><td>Posição do elemento que se deseja obter </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Retorna:</b></dt><dd>Ponteiro associado ao nó que ocupa a posição <code>pos</code> na lista.</dd></dl>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(n)$" src="form_1.png">
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b3">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00059">59</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+Referenciado por <a class="el" href="TQueue_8h-source.html#l00059">TQueue&lt; T &gt;::Get()</a>.
+<p>
+<pre class="fragment"><div>00059 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html">TAbstractList&lt;T&gt;::Get</a>(pos); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2" doxytag="TQueue::GetCurrent" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> T* <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::GetCurrent           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retorna o elemento corrente da lista. 
+<p>
+<dl compact><dt><b>Retorna:</b></dt><dd>Ponteiro associado ao nó que ocupa a posição corrente na lista.</dd></dl>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(1)$" src="form_0.png">
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b4">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00072">72</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+<pre class="fragment"><div>00072 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html#b4">TAbstractList&lt;T&gt;::GetCurrent</a>(); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a3" doxytag="TQueue::Count" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::Count           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retorna o numero de elementos da pilha. 
+<p>
+<dl compact><dt><b>Veja também:</b></dt><dd><a class="el" href="classTAbstractList.html#p0">TAbstractList::Size</a></dd></dl>
+
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b2">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00083">83</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+Referenciado por <a class="el" href="TQueue_8h-source.html#l00042">TQueue&lt; T &gt;::Append()</a>.
+<p>
+<pre class="fragment"><div>00083 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html#b2">TAbstractList&lt;T&gt;::Count</a>(); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a4" doxytag="TQueue::MoveFirst" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::MoveFirst           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Aponta o elemento corrente para o primeiro elemento da lista. 
+<p>
+<dl compact><dt><b>Retorna:</b></dt><dd>Posição do elemento corrente da lista (usualmente retorna 0)</dd></dl>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(1)$" src="form_0.png">
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b10">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00097">97</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+<pre class="fragment"><div>00097 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html#b10">TAbstractList&lt;T&gt;::MoveFirst</a>(); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a5" doxytag="TQueue::MoveNext" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::MoveNext           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Aponta o elemento corrente para próximo elemento da lista. 
+<p>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(1)$" src="form_0.png">
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b11">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00109">109</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+<pre class="fragment"><div>00109 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html#b11">TAbstractList&lt;T&gt;::MoveNext</a>(); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a6" doxytag="TQueue::MovePrior" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::MovePrior           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Aponta o elemento corrente para o elemento anterior da lista. 
+<p>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(1)$" src="form_0.png">
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b12">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00121">121</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+<pre class="fragment"><div>00121 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html#b12">TAbstractList&lt;T&gt;::MovePrior</a>(); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a7" doxytag="TQueue::MoveLast" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::MoveLast           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Aponta o elemento corrente para o último elemento da lista. 
+<p>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(1)$" src="form_0.png">
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b13">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00133">133</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+<pre class="fragment"><div>00133 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html#b13">TAbstractList&lt;T&gt;::MoveLast</a>(); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a8" doxytag="TQueue::ResetCurrent" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> void <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::ResetCurrent           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Reseta o elemento corrente da fila. 
+<p>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(1)$" src="form_0.png">
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b15">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00145">145</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+<pre class="fragment"><div>00145 { <a class="code" href="classTAbstractList.html#b15">TAbstractList&lt;T&gt;::ResetCurrent</a>(); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a9" doxytag="TQueue::Search" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::Search           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">T *&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>procurado</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Busca um elemento na fila. 
+<p>
+Busca o primeiro elemento da fila que seja igual a "procurado" e retorna sua posição.<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>procurado</em>&nbsp;</td><td>Elemento a ser buscado na fila </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Retorna:</b></dt><dd>Posição do elemento, caso tenha encontrado algum, ou -1 caso o elemento não tenha sido encontrado.</dd></dl>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(1)$" src="form_0.png">
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b16">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00162">162</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+Referenciado por <a class="el" href="TQueue_8h-source.html#l00162">TQueue&lt; T &gt;::Search()</a>.
+<p>
+<pre class="fragment"><div>00162 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html">TAbstractList&lt;T&gt;::Search</a>(procurado); } ;
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a10" doxytag="TQueue::Del" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::Del           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Remove o primeiro elemento da fila. 
+<p>
+<dl compact><dt><b>Retorna:</b></dt><dd>Posição do elemento corrente da fila após a remoção.</dd></dl>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(n)$" src="form_1.png">
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00176">176</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+<pre class="fragment"><div>00176 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html">TAbstractList&lt;T&gt;::Del</a>(0); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a11" doxytag="TQueue::DelAll" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> void <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::DelAll           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Remove todos os elemento da pilha. 
+<p>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(n)$" src="form_1.png">
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b7">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00188">188</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+<pre class="fragment"><div>00188 { <a class="code" href="classTAbstractList.html#b7">TAbstractList&lt;T&gt;::DelAll</a>(); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a12" doxytag="TQueue::Kill" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::Kill           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Destrói o primeiro elemento da fila. 
+<p>
+Libera a memória ocupada pelo primeiro elemento da fila e retira-o. Após a chamada desse método o elemento, qualquer referência ao elemento destruído será inválida.<p>
+<dl compact><dt><b>Retorna:</b></dt><dd>Posição do elemento corrente da fila.</dd></dl>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(n)$" src="form_1.png">
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00205">205</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+<pre class="fragment"><div>00205 { <span class="keywordflow">return</span> <a class="code" href="classTAbstractList.html">TAbstractList&lt;T&gt;::Kill</a>(0); };
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a13" doxytag="TQueue::KillAll" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> void <a class="el" href="classTQueue.html">TQueue</a>&lt; T &gt;::KillAll           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Destrói todos os elemento da pilha. 
+<p>
+<b>Complexidade:</b> <img class="formulaInl" alt="$O(n)$" src="form_1.png">
+<p>
+Reimplementação de <a class="el" href="classTAbstractList.html#b9">TAbstractList&lt; T &gt;</a>.
+<p>
+Definição na linha <a class="el" href="TQueue_8h-source.html#l00217">217</a> do arquivo <a class="el" href="TQueue_8h-source.html">TQueue.h</a>.
+<p>
+<pre class="fragment"><div>00217 { <a class="code" href="classTAbstractList.html#b9">TAbstractList&lt;T&gt;::KillAll</a>(); };
+</div></pre>    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>Gerado em Tue Jun 7 22:36:07 2005 para Estrutura de Dados - Trabalho 1 por
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.7 </small></address>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Estrutura de Dados - Trabalho 1: TEInvariant class Reference</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.3.7 -->
+<div class="qindex"><a class="qindex" href="main.html">Página&nbsp;Principal</a> | <a class="qindex" href="hierarchy.html">Hierarquia&nbsp;de&nbsp;Classes</a> | <a class="qindex" href="classes.html">Lista&nbsp;Alfabética</a> | <a class="qindex" href="annotated.html">Estruturas&nbsp;de&nbsp;Dados</a> | <a class="qindex" href="files.html">Lista&nbsp;de&nbsp;Arquivos</a> | <a class="qindex" href="functions.html">Campos&nbsp;de&nbsp;Dados</a></div>
+<h1>Referência da Classe TEInvariant</h1><code>#include &lt;<a class="el" href="TError_8h-source.html">TError.h</a>&gt;</code>
+<p>
+<p>Diagrama de Hierarquia para TEInvariant:
+<p><center><img src="classTEInvariant.png" usemap="#TEInvariant_map" border="0" alt=""></center>
+<map name="TEInvariant_map">
+<area href="classTEGeneralError.html" alt="TEGeneralError" shape="rect" coords="0,0,102,24">
+</map>
+<hr><a name="_details"></a><h2>Descrição Detalhada</h2>
+Exceção "Invariant". 
+<p>
+Indica que um Invariante foi violado. Utilizada apenas em tempo de desenvolvimento das classes 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00138">138</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.<table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Métodos Públicos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTEInvariant.html#a0">TEInvariant</a> (const char *gerador)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Construtor.  <a href="#a0"></a><br><br></td></tr>
+</table>
+<hr><h2>Construtores &amp; Destrutores</h2>
+<a class="anchor" name="a0" doxytag="TEInvariant::TEInvariant" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> TEInvariant::TEInvariant           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const char *&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>gerador</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Construtor. 
+<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>gerador</em>&nbsp;</td><td>Método que gerou a exceção</td></tr>
+  </table>
+</dl>
+
+<p>
+Definição na linha <a class="el" href="TError_8h-source.html#l00144">144</a> do arquivo <a class="el" href="TError_8h-source.html">TError.h</a>.
+<p>
+<pre class="fragment"><div>00144 { <a class="code" href="classTEGeneralError.html#b0">SetGerador</a>(gerador); <a class="code" href="classTEGeneralError.html#b1">SetMensagem</a>(<span class="stringliteral">"Invariant Error"</span>); };
+</div></pre>    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>Gerado em Tue Jun 7 22:36:06 2005 para Estrutura de Dados - Trabalho 1 por
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.7 </small></address>
+</body>
+</html>

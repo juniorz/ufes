@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Estrutura de Dados - Trabalho 1: Pessoa.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.3.7 -->
+<div class="qindex"><a class="qindex" href="main.html">Página&nbsp;Principal</a> | <a class="qindex" href="hierarchy.html">Hierarquia&nbsp;de&nbsp;Classes</a> | <a class="qindex" href="classes.html">Lista&nbsp;Alfabética</a> | <a class="qindex" href="annotated.html">Estruturas&nbsp;de&nbsp;Dados</a> | <a class="qindex" href="files.html">Lista&nbsp;de&nbsp;Arquivos</a> | <a class="qindex" href="functions.html">Campos&nbsp;de&nbsp;Dados</a></div>
+<h1>Pessoa.h</h1><pre class="fragment"><div>00001 <span class="comment">/*******************************************************</span>
+00002 <span class="comment"> *              Estrutura de Dados                     *</span>
+00003 <span class="comment"> *******************************************************</span>
+00004 <span class="comment"> * Trabalho 1                                          *</span>
+00005 <span class="comment"> * Professor: Fabrício V. Matos                        *</span>
+00006 <span class="comment"> *******************************************************</span>
+00007 <span class="comment"> * Aluno: Reinaldo de Souza Junior                     *</span>
+00008 <span class="comment"> * Licensa: GPL vs2.0 [ veja /docs/LICENSE.txt ]       *</span>
+00009 <span class="comment"> *******************************************************/</span>
+00010 
+00011 <span class="preprocessor">#ifndef TPessoa_H</span>
+00012 <span class="preprocessor"></span><span class="preprocessor">#define TPessoa_H</span>
+00013 <span class="preprocessor"></span>
+<a name="l00017"></a><a class="code" href="classPessoa.html">00017</a> <span class="keyword">class </span><a class="code" href="classPessoa.html">Pessoa</a> {
+00018         <span class="keyword">private</span>:
+<a name="l00019"></a><a class="code" href="classPessoa.html#r0">00019</a>                 <span class="keywordtype">int</span> <a class="code" href="classPessoa.html#r0">codPessoa</a>;          
+<a name="l00020"></a><a class="code" href="classPessoa.html#r1">00020</a>                 <span class="keywordtype">char</span> <a class="code" href="classPessoa.html#r1">strNome</a>[255];      
+00022         <span class="keyword">public</span>:
+00023                 <span class="comment">//Construtor e Destrutor</span>
+00024                 <a class="code" href="classPessoa.html">Pessoa</a>() : <a class="code" href="classPessoa.html#r0">codPessoa</a>(-1) { strcpy(<a class="code" href="classPessoa.html#r1">strNome</a>, <span class="stringliteral">""</span>); };
+00025                 ~<a class="code" href="classPessoa.html">Pessoa</a>() { <span class="keyword">delete</span> strNome; };
+00026 
+<a name="l00031"></a><a class="code" href="classPessoa.html#a2">00031</a>                 <span class="keywordtype">char</span> *<a class="code" href="classPessoa.html#a2">GetNome</a>() { <span class="keywordflow">return</span> <a class="code" href="classPessoa.html#r1">strNome</a>; };
+00032                 
+<a name="l00037"></a><a class="code" href="classPessoa.html#a3">00037</a>                 <span class="keywordtype">int</span> <a class="code" href="classPessoa.html#a3">GetCodigo</a>() { <span class="keywordflow">return</span> <a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+00038 
+<a name="l00043"></a><a class="code" href="classPessoa.html#a4">00043</a>                 <span class="keywordtype">void</span> <a class="code" href="classPessoa.html#a4">SetNome</a>(<span class="keywordtype">char</span> *nome) { strncpy(<a class="code" href="classPessoa.html#r1">strNome</a>, nome, 255); };
+00044                 
+<a name="l00049"></a><a class="code" href="classPessoa.html#a5">00049</a>                 <span class="keywordtype">void</span> <a class="code" href="classPessoa.html#a5">SetCodigo</a>(<span class="keywordtype">int</span> codigo) { <a class="code" href="classPessoa.html#r0">codPessoa</a> = codigo; };
+00050                 
+<a name="l00054"></a><a class="code" href="classPessoa.html#n0">00054</a>                 <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code" href="classPessoa.html#n0">operator&gt;</a>(<span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; a, <span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; b) { <span class="keywordflow">return</span> a.<a class="code" href="classPessoa.html#r0">codPessoa</a> &gt; b.<a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+00055 
+<a name="l00059"></a><a class="code" href="classPessoa.html#n1">00059</a>                 <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code" href="classPessoa.html#n1">operator&lt;</a>(<span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; a, <span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; b) { <span class="keywordflow">return</span> a.<a class="code" href="classPessoa.html#r0">codPessoa</a> &lt; b.<a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+00060 
+<a name="l00064"></a><a class="code" href="classPessoa.html#n2">00064</a>                 <span class="keyword">friend</span> <span class="keywordtype">int</span> <a class="code" href="classPessoa.html#n2">operator==</a>(<span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; a, <span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; b) { <span class="keywordflow">return</span> a.<a class="code" href="classPessoa.html#r0">codPessoa</a> == b.<a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+00065                 
+<a name="l00069"></a><a class="code" href="classPessoa.html#n3">00069</a>                 <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code" href="classPessoa.html#n3">operator&gt;=</a>(<span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; a, <span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; b) { <span class="keywordflow">return</span> a.<a class="code" href="classPessoa.html#r0">codPessoa</a> &gt;= b.<a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+00070                 
+<a name="l00074"></a><a class="code" href="classPessoa.html#n4">00074</a>                 <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code" href="classPessoa.html#n4">operator&lt;=</a>(<span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; a, <span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; b) { <span class="keywordflow">return</span> a.<a class="code" href="classPessoa.html#r0">codPessoa</a> &lt;= b.<a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+00075 
+<a name="l00079"></a><a class="code" href="classPessoa.html#n5">00079</a>                 <span class="keyword">friend</span> ostream&amp; <a class="code" href="classPessoa.html#n5">operator&lt;&lt;</a>(ostream&amp; out, <span class="keyword">const</span> <a class="code" href="classPessoa.html">Pessoa</a>&amp; a) { out &lt;&lt; a.<a class="code" href="classPessoa.html#r0">codPessoa</a>; out &lt;&lt; <span class="stringliteral">" - "</span>; out &lt;&lt; a.<a class="code" href="classPessoa.html#r1">strNome</a>;  };
+00080                 
+<a name="l00084"></a><a class="code" href="classPessoa.html#a6">00084</a>                 <a class="code" href="classPessoa.html#a6">operator const int</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+00085                 
+<a name="l00089"></a><a class="code" href="classPessoa.html#a7">00089</a>                 <a class="code" href="classPessoa.html#a7">operator const float</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> (<span class="keywordtype">float</span>) <a class="code" href="classPessoa.html#r0">codPessoa</a>; };
+00090 };
+00091 
+00092 <span class="preprocessor">#endif</span>
+</div></pre><hr size="1"><address style="align: right;"><small>Gerado em Tue Jun 7 22:36:05 2005 para Estrutura de Dados - Trabalho 1 por
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.7 </small></address>
+</body>
+</html>

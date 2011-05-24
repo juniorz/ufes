@@ -1,0 +1,977 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Estrutura de Dados - Trabalho 1:  TemplateTApplication&lt; T &gt; class Reference</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Gerado por Doxygen 1.3.7 -->
+<div class="qindex"><a class="qindex" href="main.html">Página&nbsp;Principal</a> | <a class="qindex" href="hierarchy.html">Hierarquia&nbsp;de&nbsp;Classes</a> | <a class="qindex" href="classes.html">Lista&nbsp;Alfabética</a> | <a class="qindex" href="annotated.html">Estruturas&nbsp;de&nbsp;Dados</a> | <a class="qindex" href="files.html">Lista&nbsp;de&nbsp;Arquivos</a> | <a class="qindex" href="functions.html">Campos&nbsp;de&nbsp;Dados</a></div>
+<h1>Referência da Template de Classe TApplication&lt; T &gt;</h1><code>#include &lt;<a class="el" href="TApplication_8h-source.html">TApplication.h</a>&gt;</code>
+<p>
+<hr><a name="_details"></a><h2>Descrição Detalhada</h2>
+<h3>template&lt;class T&gt;<br>
+ class TApplication&lt; T &gt;</h3>
+
+Classe que implementa a aplicação central. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00037">37</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.<table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Métodos Públicos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#a0">~TApplication</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Destrutor.  <a href="#a0"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#a1">Init</a> (int argc, char *argv[])</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Inicializa a aplicação.  <a href="#a1"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#a2">ShowUsage</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Exibe a tela de ajuda para a aplicação.  <a href="#a2"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#a3">ValidaTipoEstrutura</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Valida o tipo de estrutura.  <a href="#a3"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#a4">ValidaArquivoInput</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Valida o arquivo de INPUT.  <a href="#a4"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#a5">ValidaArquivoSearch</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Valida o arquivo de SEARCH.  <a href="#a5"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#a6">InitEngine</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Inicializa a engine especifica de cada estrutura de dados.  <a href="#a6"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#a7">ProcessaInput</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Processa o arquivo de INPUT.  <a href="#a7"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#a8">ProcessaSearch</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Processa o arquivo de SEARCH.  <a href="#a8"></a><br><br></td></tr>
+<tr><td colspan=2><br><h2>Atributos Protegidos</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classTEngine.html">TEngine</a>&lt; T &gt; *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#p0">engine</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Engine especifica da estrutura de dados selecionada.  <a href="#p0"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>char&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#p1">iFile</a> [255]</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Nome do arquivo de INPUT.  <a href="#p1"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>char&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#p2">sFile</a> [255]</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Nome do arquivo de SEARCH.  <a href="#p2"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>char **&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#p3">argumentos</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Lista de argumentos.  <a href="#p3"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>FILE *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#p4">input</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Descritor de Arquivo para iFile.  <a href="#p4"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>FILE *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#p5">search</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Descritor de Arquivo para sFile.  <a href="#p5"></a><br><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classTApplication.html#y5">tipo_estrutura</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#p6">tipo</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Indicador do tipo de estrutura que está sendo utilizada no programa.  <a href="#p6"></a><br><br></td></tr>
+<tr><td colspan=2><br><h2>Tipos Privados</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>enum &nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classTApplication.html#y5">tipo_estrutura</a> { <br>
+&nbsp;&nbsp;<a class="el" href="classTApplication.html#y5y0">L</a>, 
+<a class="el" href="classTApplication.html#y5y1">SL</a>, 
+<a class="el" href="classTApplication.html#y5y2">S</a>, 
+<a class="el" href="classTApplication.html#y5y3">Q</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="classTApplication.html#y5y4">H</a>
+<br>
+ }</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Tipo de estrutura.  <a href="#y5">Mais...</a><br><br></td></tr>
+</table>
+<hr><h2>Enumerações</h2>
+<a class="anchor" name="y5" doxytag="TApplication::tipo_estrutura" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> enum <a class="el" href="classTApplication.html#y5">TApplication::tipo_estrutura</a><code> [private]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Tipo de estrutura. 
+<p>
+<dl compact><dt><b>Valores enumerados: </b></dt><dd>
+<table border=0 cellspacing=2 cellpadding=0>
+<tr><td valign=top><em><a class="anchor" name="y5y0" doxytag="L" ></a>L</em>&nbsp;</td><td>
+Lista (<a class="el" href="classTList.html">TList</a>). </td></tr>
+<tr><td valign=top><em><a class="anchor" name="y5y1" doxytag="SL" ></a>SL</em>&nbsp;</td><td>
+Lista Ordenada (<a class="el" href="classTSortedList.html">TSortedList</a>). </td></tr>
+<tr><td valign=top><em><a class="anchor" name="y5y2" doxytag="S" ></a>S</em>&nbsp;</td><td>
+Pilha (<a class="el" href="classTStack.html">TStack</a>). </td></tr>
+<tr><td valign=top><em><a class="anchor" name="y5y3" doxytag="Q" ></a>Q</em>&nbsp;</td><td>
+Fila (<a class="el" href="classTQueue.html">TQueue</a>). </td></tr>
+<tr><td valign=top><em><a class="anchor" name="y5y4" doxytag="H" ></a>H</em>&nbsp;</td><td>
+Tabela Hash (<a class="el" href="classTHashTable.html">THashTable</a>). </td></tr>
+</table>
+</dl>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00041">41</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+<pre class="fragment"><div>00042         {
+00043                 <a class="code" href="classTApplication.html#y5y0">L</a>,      
+00044                 <a class="code" href="classTApplication.html#y5y1">SL</a>,     
+00045                 <a class="code" href="classTApplication.html#y5y2">S</a>,      
+00046                 <a class="code" href="classTApplication.html#y5y3">Q</a>,      
+00047                 <a class="code" href="classTApplication.html#y5y4">H</a>       
+00048         };
+</div></pre>    </td>
+  </tr>
+</table>
+<hr><h2>Construtores &amp; Destrutores</h2>
+<a class="anchor" name="a0" doxytag="TApplication::~TApplication" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::~<a class="el" href="classTApplication.html">TApplication</a>           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Destrutor. 
+<p>
+Destrói o que deve ser destruído ao se terminar a aplicacao
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00400">400</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+<pre class="fragment"><div>00401 {
+00402         <span class="comment">//Fecha os arquivos</span>
+00403         fclose(input);
+00404         fclose(search);
+00405 
+00406         <span class="comment">//Limpa a engine</span>
+00407         <a class="code" href="classTApplication.html#p0">engine</a>-&gt;clean();
+00408 }
+</div></pre>    </td>
+  </tr>
+</table>
+<hr><h2>Métodos</h2>
+<a class="anchor" name="a1" doxytag="TApplication::Init" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> void <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::Init           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">int&nbsp;</td>
+          <td class="mdname" nowrap> <em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>char *&nbsp;</td>
+          <td class="mdname" nowrap> <em>argv</em>[]</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Inicializa a aplicação. 
+<p>
+<dl compact><dt><b>Parâmetros:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td></td><td valign=top><em>argc</em>&nbsp;</td><td>Numero de argumentos </td></tr>
+    <tr><td></td><td valign=top><em>argv</em>&nbsp;</td><td>Lista de argumentos</td></tr>
+  </table>
+</dl>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00127">127</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+<pre class="fragment"><div>00128 {
+00129         <span class="comment">//Aponta para os argumentos</span>
+00130         <a class="code" href="classTApplication.html#p3">argumentos</a> = argv;
+00131 
+00132         <span class="comment">//Verifica se o programa foi chamado da maneira correta</span>
+00133         <span class="keywordflow">if</span>(argc &lt; 4 || !strcmp(argv[1], <span class="stringliteral">"--help"</span>))
+00134         {
+00135                 <a class="code" href="classTApplication.html#a2">ShowUsage</a>();
+00136                 exit(0);
+00137         }
+00138 }
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2" doxytag="TApplication::ShowUsage" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> void <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::ShowUsage           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Exibe a tela de ajuda para a aplicação. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00142">142</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+Referenciado por <a class="el" href="TApplication_8h-source.html#l00127">TApplication&lt; T &gt;::Init()</a>, <a class="el" href="TApplication_8h-source.html#l00193">TApplication&lt; T &gt;::ValidaArquivoInput()</a> e <a class="el" href="TApplication_8h-source.html#l00220">TApplication&lt; T &gt;::ValidaArquivoSearch()</a>.
+<p>
+<pre class="fragment"><div>00143 {
+00144         std::cerr
+00145                 &lt;&lt; <span class="stringliteral">"Uso: "</span>&lt;&lt; <a class="code" href="classTApplication.html#p3">argumentos</a>[0] &lt;&lt; <span class="stringliteral">" ESTRUTURA INPUT.txt BUSCA.txt"</span> &lt;&lt; std::endl &lt;&lt; std::endl
+00146                 &lt;&lt; <span class="stringliteral">"ESTUTURA:"</span> &lt;&lt; std::endl
+00147                 &lt;&lt; <span class="stringliteral">"\t -l \t TList"</span> &lt;&lt; std::endl
+00148                 &lt;&lt; <span class="stringliteral">"\t -sl \t TSortedList"</span> &lt;&lt; std::endl
+00149                 &lt;&lt; <span class="stringliteral">"\t -s \t TStack"</span> &lt;&lt; std::endl
+00150                 &lt;&lt; <span class="stringliteral">"\t -q \t TQueue"</span> &lt;&lt; std::endl
+00151                 &lt;&lt; <span class="stringliteral">"\t -h \t THash"</span> &lt;&lt; std::endl;
+00152 }
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a3" doxytag="TApplication::ValidaTipoEstrutura" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> bool <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::ValidaTipoEstrutura           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Valida o tipo de estrutura. 
+<p>
+Valida o primeiro parâmetro passado ao programa e trata os possíveis erros
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00156">156</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+<pre class="fragment"><div>00157 {
+00158         <span class="comment">//Instancia o objeto</span>
+00159         <span class="keywordflow">if</span>(!strcmp(argumentos[1], <span class="stringliteral">"-l"</span>))
+00160         {
+00161                 <a class="code" href="classTApplication.html#p6">tipo</a> = <a class="code" href="classTApplication.html#y5y0">L</a>;
+00162         }
+00163         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(!strcmp(argumentos[1], <span class="stringliteral">"-sl"</span>))
+00164         {
+00165                 <a class="code" href="classTApplication.html#p6">tipo</a> = <a class="code" href="classTApplication.html#y5y1">SL</a>;
+00166         }
+00167         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(!strcmp(argumentos[1], <span class="stringliteral">"-s"</span>))
+00168         {
+00169                 <a class="code" href="classTApplication.html#p6">tipo</a> = <a class="code" href="classTApplication.html#y5y2">S</a>;
+00170         }
+00171         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(!strcmp(argumentos[1], <span class="stringliteral">"-q"</span>))
+00172         {
+00173                 <a class="code" href="classTApplication.html#p6">tipo</a> = <a class="code" href="classTApplication.html#y5y3">Q</a>;
+00174         }
+00175         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(!strcmp(argumentos[1], <span class="stringliteral">"-h"</span>))
+00176         {
+00177                 <a class="code" href="classTApplication.html#p6">tipo</a> = <a class="code" href="classTApplication.html#y5y4">H</a>;
+00178         }
+00179         <span class="keywordflow">else</span>
+00180         {
+00181                 <span class="keyword">const</span> <span class="keywordtype">char</span> *txt_erro = <span class="stringliteral">"ESTRUTURA inválida: "</span>;
+00182                 <span class="keywordtype">int</span> tamanho = strlen(txt_erro) + strlen(argumentos[1]);
+00183 
+00184                 <span class="keywordtype">char</span> msg_erro[++tamanho];
+00185 
+00186                 <a class="code" href="classTEGeneralError.html">TEGeneralError</a> *ErrorHandler = <span class="keyword">new</span> <a class="code" href="classTEGeneralError.html">TEGeneralError</a>(argumentos[0], strcat(strcpy(msg_erro, txt_erro), argumentos[1]));
+00187                 ErrorHandler-&gt;<a class="code" href="classTEGeneralError.html#a4">Exit</a>(1);
+00188         }
+00189         
+00190         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+00191 }
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a4" doxytag="TApplication::ValidaArquivoInput" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> bool <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::ValidaArquivoInput           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Valida o arquivo de INPUT. 
+<p>
+Valida o segundo parâmetro passado ao programa e trata os possíveis erros
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00193">193</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+<pre class="fragment"><div>00194 {
+00195         <span class="comment">//Abre o arquivo</span>
+00196         <span class="keywordflow">if</span>(strlen(argumentos[2]))
+00197         {
+00198                 <span class="keywordflow">if</span> ( (<a class="code" href="classTApplication.html#p4">input</a> = fopen(argumentos[2], <span class="stringliteral">"r"</span>)) == NULL )
+00199                 {
+00200                         <span class="keyword">const</span> <span class="keywordtype">char</span> *txt_erro = <span class="stringliteral">"Erro ao abrir o arquivo INPUT: "</span>;
+00201                         <span class="keywordtype">int</span> tamanho = strlen(txt_erro) + strlen(argumentos[2]);
+00202                         
+00203                         <span class="keywordtype">char</span> msg_erro[++tamanho];
+00204                 
+00205                         <a class="code" href="classTEGeneralError.html">TEGeneralError</a> *ErrorHandler = <span class="keyword">new</span> <a class="code" href="classTEGeneralError.html">TEGeneralError</a>(argumentos[0], strcat(strcpy(msg_erro, txt_erro), argumentos[2]));
+00206                         ErrorHandler-&gt;<a class="code" href="classTEGeneralError.html#a4">Exit</a>(2);
+00207 
+00208                 }
+00209 
+00210                 <span class="keywordflow">return</span> <span class="keyword">true</span>;
+00211         }
+00212         <span class="keywordflow">else</span>
+00213         {
+00214                 <a class="code" href="classTApplication.html#a2">ShowUsage</a>();
+00215         }
+00216 }
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a5" doxytag="TApplication::ValidaArquivoSearch" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> bool <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::ValidaArquivoSearch           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Valida o arquivo de SEARCH. 
+<p>
+Valida o terceiro parâmetro passado ao programa e trata os possíveis erros
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00220">220</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+<pre class="fragment"><div>00221 {
+00222         <span class="comment">//Abre o arquivo</span>
+00223         <span class="keywordflow">if</span>(strlen(argumentos[3]))
+00224         {
+00225                 <span class="keywordflow">if</span> ( (<a class="code" href="classTApplication.html#p5">search</a> = fopen(argumentos[3], <span class="stringliteral">"r"</span>)) == NULL )
+00226                 {
+00227                         <span class="keyword">const</span> <span class="keywordtype">char</span> *txt_erro = <span class="stringliteral">"Erro ao abrir o arquivo SEARCH: "</span>;
+00228                         <span class="keywordtype">int</span> tamanho = strlen(txt_erro) + strlen(argumentos[3]);
+00229                         
+00230                         <span class="keywordtype">char</span> msg_erro[++tamanho];
+00231                 
+00232                         <a class="code" href="classTEGeneralError.html">TEGeneralError</a> *ErrorHandler = <span class="keyword">new</span> <a class="code" href="classTEGeneralError.html">TEGeneralError</a>(argumentos[0], strcat(strcpy(msg_erro, txt_erro), argumentos[3]));
+00233                         ErrorHandler-&gt;<a class="code" href="classTEGeneralError.html#a4">Exit</a>(3);
+00234                 }
+00235 
+00236                 <span class="keywordflow">return</span> <span class="keyword">true</span>;
+00237         }
+00238         <span class="keywordflow">else</span>
+00239         {
+00240                 <a class="code" href="classTApplication.html#a2">ShowUsage</a>();
+00241         }
+00242 }
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a6" doxytag="TApplication::InitEngine" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> bool <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::InitEngine           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Inicializa a engine especifica de cada estrutura de dados. 
+<p>
+Inicializa a parte específica do programa que tratará da estrutura de dados em questão
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00246">246</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+<pre class="fragment"><div>00247 {
+00248         <span class="comment">//Instancia a engine adequada</span>
+00249         <span class="keywordflow">switch</span>(<a class="code" href="classTApplication.html#p6">tipo</a>)
+00250         {
+00251                 <span class="comment">//Lista</span>
+00252                 <span class="keywordflow">case</span> <a class="code" href="classTApplication.html#y5y0">L</a>:
+00253                   <a class="code" href="classTApplication.html#p0">engine</a> = <span class="keyword">new</span> <a class="code" href="classTEngineTList.html">TEngineTList&lt;T&gt;</a>(<span class="keyword">new</span> <a class="code" href="classTList.html">TList&lt;T&gt;</a>);
+00254                 <span class="keywordflow">break</span>;
+00255 
+00256                 <span class="comment">//Lista Ordenada</span>
+00257                 <span class="keywordflow">case</span> <a class="code" href="classTApplication.html#y5y1">SL</a>:
+00258                   <a class="code" href="classTApplication.html#p0">engine</a> = <span class="keyword">new</span> <a class="code" href="classTEngineTSortedList.html">TEngineTSortedList&lt;T&gt;</a>(<span class="keyword">new</span> <a class="code" href="classTSortedList.html">TSortedList&lt;T&gt;</a>);
+00259                 <span class="keywordflow">break</span>;
+00260 
+00261                 <span class="comment">//Pilha</span>
+00262                 <span class="keywordflow">case</span> <a class="code" href="classTApplication.html#y5y2">S</a>:
+00263                   <a class="code" href="classTApplication.html#p0">engine</a> = <span class="keyword">new</span> <a class="code" href="classTEngineTStack.html">TEngineTStack&lt;T&gt;</a>(<span class="keyword">new</span> <a class="code" href="classTStack.html">TStack&lt;T&gt;</a>);
+00264                 <span class="keywordflow">break</span>;
+00265 
+00266                 <span class="comment">//Fila</span>
+00267                 <span class="keywordflow">case</span> <a class="code" href="classTApplication.html#y5y3">Q</a>:
+00268                   <a class="code" href="classTApplication.html#p0">engine</a> = <span class="keyword">new</span> <a class="code" href="classTEngineTQueue.html">TEngineTQueue&lt;T&gt;</a>(<span class="keyword">new</span> <a class="code" href="classTQueue.html">TQueue&lt;T&gt;</a>);
+00269                 <span class="keywordflow">break</span>;
+00270 
+00271                 <span class="comment">//Tabela Hash</span>
+00272                 <span class="keywordflow">case</span> <a class="code" href="classTApplication.html#y5y4">H</a>:
+00273                   <span class="comment">//Obtem o numero de elementos que a tabela armazenará</span>
+00274                   <span class="comment">//Gera um tamanho levemente menor que o numero de entradas, para fins demonstrativos do espalhamento</span>
+00275                   <span class="keywordtype">int</span> tamanho;
+00276                   fscanf(input, <span class="stringliteral">"%d"</span>, &amp;tamanho);
+00277                   tamanho -= (<span class="keywordtype">int</span>) floor(log10(tamanho));
+00278 
+00279                   <a class="code" href="classTApplication.html#p0">engine</a> = <span class="keyword">new</span> <a class="code" href="classTEngineTHashTable.html">TEngineTHashTable&lt;T&gt;</a>(<span class="keyword">new</span> <a class="code" href="classTHashTable.html">THashTable&lt;T&gt;</a>(tamanho));
+00280                   
+00281                   <span class="comment">//reaponta o arquivo para o inicio</span>
+00282                   rewind(input);
+00283                 <span class="keywordflow">break</span>;
+00284 
+00285                 <span class="comment">//Nada (impossivel, mas ... )</span>
+00286                 <span class="keywordflow">default</span>:
+00287                   <span class="keywordflow">return</span> <span class="keyword">false</span>;
+00288                 <span class="keywordflow">break</span>;
+00289         }
+00290 }
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a7" doxytag="TApplication::ProcessaInput" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> bool <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::ProcessaInput           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Processa o arquivo de INPUT. 
+<p>
+Processa o arquivo de INPUT e manipula as estruturas.
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00294">294</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+<pre class="fragment"><div>00295 {
+00296         <span class="comment">//Obtem o numero de comandos</span>
+00297         <span class="keywordtype">int</span> numRegistros;
+00298         fscanf(input, <span class="stringliteral">"%d"</span>, &amp;numRegistros);
+00299 
+00300 <span class="preprocessor">#ifdef DEBUG</span>
+00301 <span class="preprocessor"></span>std::cerr &lt;&lt; numRegistros &lt;&lt; <span class="stringliteral">" inputs "</span> &lt;&lt; endl;
+00302 <span class="preprocessor">#endif</span>
+00303 <span class="preprocessor"></span>
+00304         <span class="comment">//Processa o input</span>
+00305         <span class="keywordflow">for</span>(; numRegistros &gt; 0; numRegistros--)
+00306         {
+00307                 <span class="comment">//Cria o elemento</span>
+00308                 T *elemento = <span class="keyword">new</span> T();
+00309                 
+00310                 <span class="comment">//Le a linha</span>
+00311                 <span class="keywordtype">int</span> posicao, codigo;
+00312                 <span class="keywordtype">char</span> nome[255];
+00313                 fscanf(input, <span class="stringliteral">"%d\t%d\t%255[^\n]\n"</span>, &amp;posicao, &amp;codigo, &amp;nome);
+00314         
+00315                 <span class="comment">//Preenche o elemento   </span>
+00316                 elemento-&gt;SetCodigo(codigo);
+00317                 elemento-&gt;SetNome(nome);
+00318 
+00319 <span class="preprocessor">#ifdef DEBUG</span>
+00320 <span class="preprocessor"></span>std::cerr &lt;&lt; <span class="stringliteral">"[pos "</span> &lt;&lt; posicao &lt;&lt; <span class="stringliteral">"]\t["</span> &lt;&lt; elemento &lt;&lt; <span class="stringliteral">"]\t"</span> &lt;&lt; *elemento &lt;&lt; std::endl;
+00321 <span class="preprocessor">#endif</span>
+00322 <span class="preprocessor"></span>                <span class="keywordflow">try</span> {
+00323                         <a class="code" href="classTApplication.html#p0">engine</a>-&gt;InsereElemento(posicao, elemento);
+00324                 }
+00325                 <span class="keywordflow">catch</span>(<a class="code" href="classTEGeneralError.html">TEGeneralError</a> *Error)
+00326                 {
+00327                         Error-&gt;toString();
+00328                 }
+00329         }
+00330 
+00331 
+00332 <span class="preprocessor">#ifdef DEBUG</span>
+00333 <span class="preprocessor"></span>std::cerr &lt;&lt; std::endl &lt;&lt; <span class="stringliteral">"Após as inserções: "</span> &lt;&lt; std::endl;
+00334 <a class="code" href="classTApplication.html#p0">engine</a>-&gt;dump();
+00335 <span class="preprocessor">#endif</span>
+00336 <span class="preprocessor"></span>        
+00337         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+00338 }
+</div></pre>    </td>
+  </tr>
+</table>
+<a class="anchor" name="a8" doxytag="TApplication::ProcessaSearch" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> bool <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::ProcessaSearch           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Processa o arquivo de SEARCH. 
+<p>
+Processa o arquivo de SEARCH e gera a saída do programa.
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00340">340</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+<pre class="fragment"><div>00341 {
+00342         <span class="comment">//Obtem o numero de comandos</span>
+00343         <span class="keywordtype">int</span> numOperacoes;
+00344         fscanf(search, <span class="stringliteral">"%d\n"</span>, &amp;numOperacoes);
+00345 
+00346         <span class="comment">//Numero de intens nao encontrados</span>
+00347         <span class="keywordtype">int</span> naoEncontrados = 0;
+00348 
+00349 <span class="preprocessor">#ifdef DEBUG</span>
+00350 <span class="preprocessor"></span>std::cerr &lt;&lt; endl &lt;&lt; numOperacoes &lt;&lt; <span class="stringliteral">" searchs "</span> &lt;&lt; endl;
+00351 <span class="preprocessor">#endif</span>
+00352 <span class="preprocessor"></span>
+00353         <span class="comment">//Processa o input</span>
+00354         <span class="keywordflow">for</span>(; numOperacoes &gt; 0; numOperacoes--)
+00355         {
+00356                 <span class="comment">//Cria o elemento</span>
+00357                 T *elemento = <span class="keyword">new</span> T();
+00358                 
+00359                 <span class="comment">//Le a linha</span>
+00360                 <span class="keywordtype">int</span> codigo;
+00361                 fscanf(search, <span class="stringliteral">"%d\n"</span>, &amp;codigo);
+00362         
+00363                 <span class="comment">//Preenche o elemento   </span>
+00364                 elemento-&gt;SetCodigo(codigo);
+00365 
+00366 <span class="preprocessor">#ifdef DEBUG</span>
+00367 <span class="preprocessor"></span>std::cerr &lt;&lt; <span class="stringliteral">"["</span> &lt;&lt; elemento &lt;&lt; <span class="stringliteral">"]\t"</span> &lt;&lt; *elemento &lt;&lt; std::endl;
+00368 <span class="preprocessor">#endif</span>
+00369 <span class="preprocessor"></span>
+00370                 <span class="keywordflow">try</span> {
+00371                         <span class="comment">//Procura o elemento</span>
+00372                         <span class="keywordflow">if</span> (NULL != (elemento = <a class="code" href="classTApplication.html#p0">engine</a>-&gt;ProcuraElemento(elemento)) )
+00373                         {
+00374                                 <span class="comment">//Estranho.. Utilizando a otimização (g++ -O3 [...] ) de repente isso havia parado de funcionar :-D</span>
+00375                                 <span class="comment">//Desabilitei a otimização e foi...</span>
+00376                 
+00377                                 <span class="comment">//Encontrou</span>
+00378                                 std::cout &lt;&lt; *elemento &lt;&lt; std::endl;
+00379                         }
+00380                         <span class="keywordflow">else</span>
+00381                         {
+00382                                 <span class="comment">//Nao encontrou</span>
+00383                                 std::cout &lt;&lt; codigo &lt;&lt; <span class="stringliteral">" - [Item not found]"</span> &lt;&lt; std::endl;
+00384                                 naoEncontrados++;
+00385                         }
+00386                 }
+00387                 <span class="keywordflow">catch</span>(<a class="code" href="classTEGeneralError.html">TEGeneralError</a> *Error)
+00388                 {
+00389                         Error-&gt;toString();
+00390                 }
+00391         }
+00392 
+00393         <span class="comment">//Numero de itens nao encotrados</span>
+00394         std::cout &lt;&lt; <span class="stringliteral">"=&gt; "</span> &lt;&lt; naoEncontrados &lt;&lt; <span class="stringliteral">" item(s) not found."</span> &lt;&lt; std::endl;
+00395 
+00396         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+00397 }
+</div></pre>    </td>
+  </tr>
+</table>
+<hr><h2>Campos e Atributos</h2>
+<a class="anchor" name="p0" doxytag="TApplication::engine" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classTEngine.html">TEngine</a>&lt;T&gt;* <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::<a class="el" href="classTApplication.html#p0">engine</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Engine especifica da estrutura de dados selecionada. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00051">51</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+Referenciado por <a class="el" href="TApplication_8h-source.html#l00246">TApplication&lt; T &gt;::InitEngine()</a>, <a class="el" href="TApplication_8h-source.html#l00294">TApplication&lt; T &gt;::ProcessaInput()</a>, <a class="el" href="TApplication_8h-source.html#l00340">TApplication&lt; T &gt;::ProcessaSearch()</a> e <a class="el" href="TApplication_8h-source.html#l00400">TApplication&lt; T &gt;::~TApplication()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p1" doxytag="TApplication::iFile" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> char <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::<a class="el" href="classTApplication.html#p1">iFile</a>[255]<code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Nome do arquivo de INPUT. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00052">52</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p2" doxytag="TApplication::sFile" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> char <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::<a class="el" href="classTApplication.html#p2">sFile</a>[255]<code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Nome do arquivo de SEARCH. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00053">53</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p3" doxytag="TApplication::argumentos" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> char** <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::<a class="el" href="classTApplication.html#p3">argumentos</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Lista de argumentos. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00054">54</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+Referenciado por <a class="el" href="TApplication_8h-source.html#l00127">TApplication&lt; T &gt;::Init()</a>, <a class="el" href="TApplication_8h-source.html#l00142">TApplication&lt; T &gt;::ShowUsage()</a>, <a class="el" href="TApplication_8h-source.html#l00193">TApplication&lt; T &gt;::ValidaArquivoInput()</a>, <a class="el" href="TApplication_8h-source.html#l00220">TApplication&lt; T &gt;::ValidaArquivoSearch()</a> e <a class="el" href="TApplication_8h-source.html#l00156">TApplication&lt; T &gt;::ValidaTipoEstrutura()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p4" doxytag="TApplication::input" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> FILE* <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::<a class="el" href="classTApplication.html#p4">input</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Descritor de Arquivo para iFile. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00055">55</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+Referenciado por <a class="el" href="TApplication_8h-source.html#l00246">TApplication&lt; T &gt;::InitEngine()</a>, <a class="el" href="TApplication_8h-source.html#l00294">TApplication&lt; T &gt;::ProcessaInput()</a>, <a class="el" href="TApplication_8h-source.html#l00193">TApplication&lt; T &gt;::ValidaArquivoInput()</a> e <a class="el" href="TApplication_8h-source.html#l00400">TApplication&lt; T &gt;::~TApplication()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p5" doxytag="TApplication::search" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> FILE* <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::<a class="el" href="classTApplication.html#p5">search</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Descritor de Arquivo para sFile. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00056">56</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+Referenciado por <a class="el" href="TApplication_8h-source.html#l00340">TApplication&lt; T &gt;::ProcessaSearch()</a>, <a class="el" href="TApplication_8h-source.html#l00220">TApplication&lt; T &gt;::ValidaArquivoSearch()</a> e <a class="el" href="TApplication_8h-source.html#l00400">TApplication&lt; T &gt;::~TApplication()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p6" doxytag="TApplication::tipo" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" colspan="4">
+template&lt;class T&gt; </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classTApplication.html#y5">tipo_estrutura</a> <a class="el" href="classTApplication.html">TApplication</a>&lt; T &gt;::<a class="el" href="classTApplication.html#p6">tipo</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Indicador do tipo de estrutura que está sendo utilizada no programa. 
+<p>
+
+<p>
+Definição na linha <a class="el" href="TApplication_8h-source.html#l00057">57</a> do arquivo <a class="el" href="TApplication_8h-source.html">TApplication.h</a>.
+<p>
+Referenciado por <a class="el" href="TApplication_8h-source.html#l00246">TApplication&lt; T &gt;::InitEngine()</a> e <a class="el" href="TApplication_8h-source.html#l00156">TApplication&lt; T &gt;::ValidaTipoEstrutura()</a>.    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>Gerado em Tue Jun 7 22:36:05 2005 para Estrutura de Dados - Trabalho 1 por
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.7 </small></address>
+</body>
+</html>
