@@ -71,7 +71,8 @@ function [ M, S ] = criaMatriz( dim, max )
   h = max / (dim+1);
   M = zeros(dim^2); %T(1,1), T(2,1), ... , T(4,5), T(5,5)
   S = zeros(dim^2, 1);
-%  row = 0;
+
+  %fprintf('dim = %d | max = %d | h = %d\n', dim, max, h);
   
 %   %Vou Usar:
 % 
@@ -116,68 +117,13 @@ function [ M, S ] = criaMatriz( dim, max )
   for y=1:dim
     for x=1:dim
       row = row + 1;
-      row_value = 0;
+%      fprintf('\nEquação em T(%d, %d)\n', x, y);
 
-      % Pega os pontos envolvidos na equação
-      for j=y-1:y+1
-        for i=x-1:x+1
-
-          %Se é o próprio ponto tem peso 1 senão tem peso 1/4
-          if(i == x && j == y)
-            peso = 1;
-          else
-            peso = -1/4;
-          end
-          
-          %O ponto pode ser:
-          %(1) Um ponto não interno (borda ou exterior)
-          if (i <= 0 || j <= 0 || i > dim || j > dim)
-
-            % Se for exterior tem que ser rebatido pra algum ponto dentro ;)
-            % Daí vai sair o 2* T(a,b)
-            if(i == 0)
-              ni = i;
-            elseif(i < 0)
-              ni = abs(i);
-            else
-              ni = 2 * (dim + 1) - i;
-            end
-
-            if(j == 0)
-              nj = j;
-            elseif(j < 0)
-              nj = abs(j);
-            else
-              nj = 2 * (dim + 1) - j;
-            end
-            
-            if(i == 0 || j == 0 || i == dim+1 || j == dim+1)
-              %(A) Um ponto na borda
-              %Entra sempre como valor
-
-              %Se a equação é em relação ao próprio ponto, ele muda o sinal
-              % porque vai passar pro outro lado ao entrar como valor
-              %if(ni == x && nj == y)
-              %  peso = peso * -1.0;
-              %end
-              
-              row_value = row_value + (peso * -1) * T(i, j);
-            else
-              %(B) Um ponto exterior que foi rebatido para um interior
-              %Entra sempre como coeficiente
-              addCoef(row, ni, nj, peso);
-            end
-
-          %1) Um ponto interno
-          else
-            addCoef(row, i, j, peso);
-          end
-
-        end
-      end
-
-      %value
-      S(row,1) = row_value;
+      avaliaPonto(x, y, 1);       %Centro
+      avaliaPonto(x, y+1, -1/4);  %Norte
+      avaliaPonto(x, y-1, -1/4);  %Sul
+      avaliaPonto(x+1, y, -1/4);  %Leste
+      avaliaPonto(x-1, y, -1/4);  %Oeste
 
       %fprintf('row %d\n', row);
     end
@@ -191,23 +137,73 @@ function [ M, S ] = criaMatriz( dim, max )
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   function [ t ] = T(x, y)
     t = NaN;
-
+    
     if x == 0 || y == dim+1
       t = 0;
     elseif y == 0 || x == dim+1      
       t = x * h - y * h;
     end
+
+%    fprintf(' [ T(%d, %d) = %d ] ', x, y, t);
     
   end
 
 
   function [ novo_coef ] = addCoef(row, x, y, coef)
-%    global M dim;
-
     coluna = (y-1) * dim + (x-1) + 1;
     novo_coef = M(row, coluna) + coef;
     M(row, coluna) = novo_coef;
+    
+%    fprintf(' [ T(%d, %d) * %d ] ', x, y, coef);
+    
   end
   
+
+  function avaliaPonto(i, j, peso)
+%    fprintf(' - avalia T(%d, %d)', i, j);
+
+    %O ponto pode ser:
+    %(1) Um ponto não interno (borda ou exterior)
+    if (i <= 0 || j <= 0 || i > dim || j > dim)
+
+      % Se for exterior tem que ser rebatido pra algum ponto dentro ;)
+      % Daí vai sair o 2* T(a,b)
+      if(i == 0)
+        ni = i;
+      elseif(i < 0)
+        ni = abs(i);
+      else
+        ni = 2 * (dim + 1) - i;
+      end
+
+      if(j == 0)
+        nj = j;
+      elseif(j < 0)
+        nj = abs(j);
+      else
+        nj = 2 * (dim + 1) - j;
+      end
+
+      if(i == 0 || j == 0 || i == dim+1 || j == dim+1)
+        %(A) Um ponto na borda
+        %Entra sempre como valor
+
+        point_value = (peso * -1) * T(i, j);
+        S(row,1) = S(row,1) + point_value;
+      else
+        %(B) Um ponto exterior que foi rebatido para um interior
+        %Entra sempre como coeficiente
+        addCoef(row, ni, nj, peso);
+      end
+
+    %1) Um ponto interno
+    else
+      addCoef(row, i, j, peso);
+    end
+    
+%    fprintf('\n');
+
+  end
+
 end
 
