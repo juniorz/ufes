@@ -1,8 +1,20 @@
-% From: https://ece.uwaterloo.ca/~dwharder/NumericalAnalysis/04LinearAlgebra/gauss/
-% Typo fixed
+% Gauss-Seidel Method
+% Solves Mx = b
+
 function x = gauss_seidel( M, b, N, e )
-	% Solve Mx = b
-	% The diagonal entries of M and their inverses
+  %/*****************************************************************************
+  % * P29.7
+  % * Solution using LU decomposition and Gauss-Seidel methods.
+  % * Numerical Methods for Engineers, Chapra, 5th Ed.
+  % *****************************************************************************
+  % * © Copyright 2011 Reinaldo de Souza Junior. Some Rights Reserved.
+  % * This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
+  % * More info: http://creativecommons.org/licenses/by-nc-sa/3.0/
+  % *****************************************************************************/
+  % Original code from: https://ece.uwaterloo.ca/~dwharder/NumericalAnalysis/04LinearAlgebra/gauss/
+  % Typo fixes by Reinaldo de Souza Junior (2011)
+
+  % The diagonal entries of M and their inverses
 	n = length( b );
 	d = diag( M );
 

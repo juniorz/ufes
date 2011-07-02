@@ -1,4 +1,12 @@
-% Chapra, P29.7
+%/*****************************************************************************
+% * P29.7
+% * Solution using LU decomposition and Gauss-Seidel methods.
+% * Numerical Methods for Engineers, Chapra, 5th Ed.
+% *****************************************************************************
+% * © Copyright 2011 Reinaldo de Souza Junior. Some Rights Reserved.
+% * This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
+% * More info: http://creativecommons.org/licenses/by-nc-sa/3.0/
+% *****************************************************************************/
 
 [M, S] = criaMatriz( 5.0, 100.0 );
 
