@@ -1,4 +1,4 @@
-function [ M, S ] = criaMatriz( dim, max )
+function [ M, S ] = criaMatriz( d, max )
 %CRIAMATRIZ Generates the matrices of the problem's linear system
 
 %/*****************************************************************************
@@ -11,8 +11,9 @@ function [ M, S ] = criaMatriz( dim, max )
 % * More info: http://creativecommons.org/licenses/by-nc-sa/3.0/
 % *****************************************************************************/
 
-  global M S h;
+  global M S h dim row;
 
+  dim = d;
   h = max / (dim+1);
   M = zeros(dim^2); %T(1,1), T(2,1), ... , T(4,5), T(5,5)
   S = zeros(dim^2, 1);
@@ -40,9 +41,13 @@ function [ M, S ] = criaMatriz( dim, max )
   
   %size(M)
   %size(S)
+end
+
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   function [ t ] = T(x, y)
+    global M S h dim row;
+  
     t = NaN;
     
     if x == 0 || y == dim+1
@@ -57,6 +62,8 @@ function [ M, S ] = criaMatriz( dim, max )
 
 
   function [ novo_coef ] = addCoef(row, x, y, coef)
+    global M S h dim row;
+  
     coluna = (y-1) * dim + (x-1) + 1;
     novo_coef = M(row, coluna) + coef;
     M(row, coluna) = novo_coef;
@@ -67,6 +74,7 @@ function [ M, S ] = criaMatriz( dim, max )
   
 
   function avaliaPonto(i, j, peso)
+    global M S h dim row;
 %    fprintf(' - avalia T(%d, %d)', i, j);
 
     %O ponto pode ser:
@@ -111,6 +119,4 @@ function [ M, S ] = criaMatriz( dim, max )
 %    fprintf('\n');
 
   end
-
-end
 
